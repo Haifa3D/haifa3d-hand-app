@@ -8,11 +8,12 @@ Existing raw features:
 * Rotate the hand against the arm
 * Every motor can be started and stopped individually
 * When a motor stops can be configured based on the applied torque (via a model based on the current)
+* The thumb can be moved manually
 
 ## Modes
 Enable a motor
-* until the end is reached (finger fully open/closed)
 * until a torque level is reached (i.e. more pressure for a smartphone then for a paper cup)
+  * Specific case: until the end is reached (finger fully open/closed)
 * for a set amount of time
 * while i.e. the user presses a button
 
