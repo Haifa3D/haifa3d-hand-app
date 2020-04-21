@@ -25,11 +25,26 @@ Abstractions to be built:
 * Operations that make sense for the end user, built based on multiple raw operations of the different motors
 * i.e. open all 4 fingers, commonly recognised gestures
 * they can't assume an initial state because we don't know the motor/finger positions
+* everything that's saveable should be testable too. how to implement this? transactions? a testing flag? a real protocol primitive? or can we just achieve this by using the (other) abstractions and commands in a smart way?
 
 ## Triggers
 * can activate a preset
 * can be triggered by other devices i.e. sensors. The sensor is connected to the app, the app triggers the controller.
 * stop all motors if any are activated, then enable a preset (the newest trigger wins)
+
+## Immediate Control
+* do some specific action immediately
+* how to implement this?
+  * as a protocol feature
+  * as a predefined, readonly preset
+  * as a preset thats just hidden from the user
+  * transfer the preset when needed
+  * => I think the hidden preset is the way to go
+
+## Management
+* read log messages
+* read battery %
+* config? what to configure?
 
 <hr>
 
@@ -43,6 +58,7 @@ BTLE protocol features needed:
   * if a preset with this ID exists overwrite, create otherwise
 * Delete preset
 * Read battery %
+* Read log messages
 * something for config
 
 ## Models
