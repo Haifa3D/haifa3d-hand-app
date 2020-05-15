@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "518115134263",
+    "firebase_url": "https://haifa3d-69f0d.firebaseio.com",
+    "project_id": "haifa3d-69f0d",
+    "storage_bucket": "haifa3d-69f0d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518115134263:android:9e929fc53027981c11e8b2",
+        "android_client_info": {
+          "package_name": "com.gjung.haifa3d"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518115134263-a0ftd5fcafa07jktl3rvbd40nmn9da51.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZ1wzGppg-9WAczKUhLxjQZsWbZXpxlcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518115134263-a0ftd5fcafa07jktl3rvbd40nmn9da51.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
