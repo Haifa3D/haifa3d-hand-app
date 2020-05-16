@@ -1,0 +1,153 @@
+#include <Arduino.h>
+#include <BLEDevice.h>
+#include <BLEUtils.h>
+#include <BLEServer.h> //Library to use BLE as server
+#include <BLE2902.h> 
+#include <bitset>
+
+// All BLE characteristic UUIDs are of the form:
+// 0000XXXX-0000-1000-8000-00805f9b34fb
+
+#define HAND_DIRECT_EXECUTE_SERVICE_UUID     "e0198000-7544-42c1-0000-b24344b6aa70"
+#define EXECUTE_ON_WRITE_CHARACTERISTIC_UUID "e0198000-7544-42c1-0001-b24344b6aa70"
+
+bool _BLEClientConnected = false;
+
+#define BatteryService BLEUUID((uint16_t)0x180F) 
+BLECharacteristic BatteryLevelCharacteristic(BLEUUID((uint16_t)0x2A19), BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_NOTIFY);
+BLEDescriptor BatteryLevelDescriptor(BLEUUID((uint16_t)0x2901));
+
+class MyServerCallbacks : public BLEServerCallbacks {
+    void onConnect(BLEServer* pServer) {
+      _BLEClientConnected = true;
+      Serial.println("Connected");
+    };
+
+    void onDisconnect(BLEServer* pServer) {
+      _BLEClientConnected = false;
+      Serial.println("Disconnected");
+    }
+};
+
+void printInterpretation(unsigned char* msg) {
+  std::bitset<8> bs;
+  bs = std::bitset<8>(msg[0]);
+  if (bs.test(7)) {
+    Serial.print("Time Stop Mode; # of time units:");
+    Serial.println(msg[1]);
+  } else {
+    bs = std::bitset<8>(msg[1]);
+    Serial.println("Torque Stop Mode");
+    Serial.printf("Turn Motor: %s\n", bs.test(7 - 0) ? "high" : "low");
+    Serial.printf("Finger 1:   %s\n", bs.test(7 - 1) ? "high" : "low");
+    Serial.printf("Finger 2:   %s\n", bs.test(7 - 2) ? "high" : "low");
+    Serial.printf("Finger 3:   %s\n", bs.test(7 - 3) ? "high" : "low");
+    Serial.printf("Finger 4:   %s\n", bs.test(7 - 4) ? "high" : "low");
+  }
+  Serial.println();
+  Serial.println("Motors activated:");
+  bs = std::bitset<8>(msg[2]);
+  if (bs.test(7 - 0)) Serial.println("Turn Motor");
+  if (bs.test(7 - 1)) Serial.println("Finger 1");
+  if (bs.test(7 - 2)) Serial.println("Finger 2");
+  if (bs.test(7 - 3)) Serial.println("Finger 3");
+  if (bs.test(7 - 4)) Serial.println("Finger 4");
+  
+  Serial.println();
+  Serial.println("Motors direction:");
+  bs = std::bitset<8>(msg[3]);
+  Serial.printf("Turn Motor: %s\n", bs.test(7 - 0) ? "a" : "b");
+  Serial.printf("Finger 1:   %s\n", bs.test(7 - 1) ? "a" : "b");
+  Serial.printf("Finger 2:   %s\n", bs.test(7 - 2) ? "a" : "b");
+  Serial.printf("Finger 3:   %s\n", bs.test(7 - 3) ? "a" : "b");
+  Serial.printf("Finger 4:   %s\n", bs.test(7 - 4) ? "a" : "b");
+  
+}
+
+class DirectExecuteCallbacks : public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      unsigned char* dataPtr;
+      dataPtr = pCharacteristic->getData();
+      short len = dataPtr[0];
+      Serial.println("Got bytes:");
+      Serial.println(len);
+      for (int i = 1; i < len; i++) {
+        Serial.println(dataPtr[i]);
+      }
+      Serial.println("----");
+      printInterpretation(dataPtr+1);
+    };
+};
+
+void InitBLE() {
+  BLEDevice::init("Haifa3D");
+  // Create the BLE Server
+  BLEServer *pServer = BLEDevice::createServer();
+  pServer->setCallbacks(new MyServerCallbacks());
+
+  // Create the Battery Service
+  BLEService *pBattery = pServer->createService(BatteryService);
+
+  pBattery->addCharacteristic(&BatteryLevelCharacteristic);
+  BatteryLevelDescriptor.setValue("Percentage 0 - 100");
+  BatteryLevelCharacteristic.addDescriptor(&BatteryLevelDescriptor);
+  BatteryLevelCharacteristic.addDescriptor(new BLE2902());
+
+  BLEService *pDirectExecService = pServer->createService(HAND_DIRECT_EXECUTE_SERVICE_UUID);
+  BLECharacteristic *pExecOnWriteCharacteristic = pDirectExecService->createCharacteristic(
+                                         EXECUTE_ON_WRITE_CHARACTERISTIC_UUID,
+                                         BLECharacteristic::PROPERTY_WRITE
+                                       );
+  pExecOnWriteCharacteristic->setCallbacks(new DirectExecuteCallbacks());
+
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(BatteryService);
+  pAdvertising->addServiceUUID(HAND_DIRECT_EXECUTE_SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);
+  pAdvertising->setMinPreferred(0x12);
+
+  pBattery->start();
+  pDirectExecService->start();
+  // Start advertising
+  pAdvertising->start();
+}
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("Starting BLE work!");
+  InitBLE();
+  /*BLEDevice::init("Long name works now");
+  BLEServer *pServer = BLEDevice::createServer();
+  BLEService *pService = pServer->createService(SERVICE_UUID);
+  BLECharacteristic *pCharacteristic = pService->createCharacteristic(
+                                         CHARACTERISTIC_UUID,
+                                         BLECharacteristic::PROPERTY_READ |
+                                         BLECharacteristic::PROPERTY_WRITE
+                                       );
+
+  pCharacteristic->setValue("Hello World says Neil");
+  pService->start();
+  // BLEAdvertising *pAdvertising = pServer->getAdvertising();  // this still is working for backward compatibility
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+  pAdvertising->addServiceUUID(SERVICE_UUID);
+  pAdvertising->setScanResponse(true);
+  pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
+  pAdvertising->setMinPreferred(0x12);
+  BLEDevice::startAdvertising();
+  Serial.println("Characteristic defined! Now you can read it in your phone!");*/
+}
+
+uint8_t level = 57;
+
+void loop() {
+  BatteryLevelCharacteristic.setValue(&level, 1);
+  BatteryLevelCharacteristic.notify();
+  delay(5000);
+
+  level++;
+  Serial.println(int(level));
+
+  if (int(level)==100)
+  level=0;
+}
