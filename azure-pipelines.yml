@@ -1,0 +1,33 @@
+# https://docs.microsoft.com/azure/devops/pipelines/ecosystems/android
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  DroidDir: '$(System.DefaultWorkingDirectory)/src/android/Haifa3d'
+
+steps:
+- task: Gradle@2
+  displayName: assembleDebug
+  inputs:
+    workingDirectory: '$(DroidDir)'
+    gradleWrapperFile: '$(DroidDir)/gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleDebug'
+
+- publish: $(DroidDir)/app/build/outputs/apk
+  artifact: apk
+
+- task: Gradle@2
+  displayName: bundleRelease
+  inputs:
+    workingDirectory: '$(DroidDir)'
+    gradleWrapperFile: '$(DroidDir)/gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'bundleRelease'
+
+- publish: $(DroidDir)/app/build/outputs/bundle/
+  artifact: aab
