@@ -19,7 +19,7 @@ abstract class BleFragment : Fragment() {
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val binder = service as BleService.LocalBinder
-            bleService = service.getService()
+            bleService = binder.getService()
             onServiceConnected()
         }
 
