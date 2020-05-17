@@ -13,7 +13,7 @@ steps:
     arguments: install --tool-path . nbgv
   displayName: Install NBGV tool
 
-- script: ./nbgv cloud
+- script: ./nbgv cloud -c -a
   displayName: Set Version
 
 - task: Gradle@2
