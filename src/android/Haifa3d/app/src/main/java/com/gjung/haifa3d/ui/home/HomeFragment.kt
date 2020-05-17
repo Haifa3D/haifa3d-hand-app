@@ -42,7 +42,7 @@ class HomeFragment : BleFragment() {
                         finger3 = false,
                         finger4 = true
                     ),
-                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
+                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1)
                 )
             )
         }
@@ -58,7 +58,7 @@ class HomeFragment : BleFragment() {
                         finger3 = false,
                         finger4 = true
                     ),
-                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
+                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
                 )
             )
         }
