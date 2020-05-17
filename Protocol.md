@@ -71,5 +71,5 @@ This is a custom GATT service that is used to execute actions on the hand immedi
 * Service UUID: `e0198000-7544-42c1-0000-b24344b6aa70`
 * Characteristic UUID: `e0198000-7544-42c1-0000-b24344b6aa70`
 
-[Dummy ESP32 implementation](src/esp32/haifa3d/main.cpp)  
+[Dummy ESP32 implementation](src/esp32/haifa3d/src/main.cpp)  
 [Android implementation](src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/ble/DirectExecuteService.kt)
