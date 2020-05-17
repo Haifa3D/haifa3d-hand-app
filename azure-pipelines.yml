@@ -81,12 +81,12 @@ stages:
         action: 'create' # Options: create, edit, delete
         tagSource: userSpecifiedTag
         #tagPattern: # Optional
-        tag: 'v$(NBGV_CloudBuildNumber)' # Required when action == Edit || Action == Delete || TagSource == Manual
+        tag: 'v$(Build.BuildNumber)' # Required when action == Edit || Action == Delete || TagSource == Manual
         #title: # Optional
         #releaseNotesSource: 'file' # Optional. Options: file, input
         #releaseNotesFile: # Optional
         #releaseNotes: # Optional
-        assets: '$(Pipeline.Workspace)/githubrelease/*' # Optional
+        assets: '$(Pipeline.Workspace)/githubrelease/**/*' # Optional
         #assetUploadMode: 'delete' # Optional. Options: delete, replace
         isDraft: true # Optional
         #isPreRelease: false # Optional
