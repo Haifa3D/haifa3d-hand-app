@@ -21,6 +21,8 @@ stages:
 
   - job: BuildDebugAPK
     displayName: Build Debug APK
+    dependsOn:
+      - NBGV
     steps:
     - task: Gradle@2
       displayName: assembleDebug
@@ -36,6 +38,8 @@ stages:
 
   - job: BuildReleaseAAB
     displayName: Build Release AAB
+    dependsOn:
+      - NBGV
     steps:
     - task: Gradle@2
       displayName: bundleRelease
