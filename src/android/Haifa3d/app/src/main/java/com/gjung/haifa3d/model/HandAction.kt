@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class HandAction() : Parcelable, ByteRepresentable {
-    lateinit var repr: List<Byte>
+    private lateinit var repr: List<Byte>
 
     constructor(
         torqueDetail: TorqueStopModeDetail,
@@ -26,6 +26,6 @@ class HandAction() : Parcelable, ByteRepresentable {
     }
 
     override fun toBytes(): Iterable<Byte> =
-        LengthIndicator(repr.size.toByte()).toBytes() + repr
+        LengthIndicator((repr.size + 1).toByte()).toBytes() + repr
 
 }
