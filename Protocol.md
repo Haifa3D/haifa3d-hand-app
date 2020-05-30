@@ -86,6 +86,8 @@ This is a custom GATT service that is used to read and write configuration varia
 * Low Torque Slope Value Characteristic UUID:  `e0198003-7544-42c1-0012-b24344b6aa70`
 * High Torque Value Characteristic UUID:       `e0198003-7544-42c1-0021-b24344b6aa70`
 * High Torque Slope Value Characteristic UUID: `e0198003-7544-42c1-0022-b24344b6aa70`
+* Torque Measure Start MS Characteristic UUID: `e0198003-7544-42c1-0031-b24344b6aa70`
+  * Start measuring the torque/current of the motors after `x` ms. This is needed because the need more current when the start moving.
 * What more values do we need?
   * Maybe: BLE Device Name Characteristic UUID: `e0198003-7544-42c1-0100-b24344b6aa70`
 
