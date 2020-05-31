@@ -21,4 +21,9 @@
         android:name="com.gjung.haifa3d.ui.livecontrol.LiveControlFragment"
         android:label="@string/menu_livecontrol"
         tools:layout="@layout/fragment_live_control" />
+    <fragment
+        android:id="@+id/nav_presets"
+        android:name="com.gjung.haifa3d.ui.presets.PresetsFragment"
+        android:label="@string/menu_presets"
+        tools:layout="@layout/fragment_presets" />
 </navigation>

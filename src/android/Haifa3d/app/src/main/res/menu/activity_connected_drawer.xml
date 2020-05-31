@@ -16,5 +16,9 @@
             android:id="@+id/nav_livecontrol"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_livecontrol" />
+        <item
+            android:id="@+id/nav_presets"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_presets" />
     </group>
 </menu>

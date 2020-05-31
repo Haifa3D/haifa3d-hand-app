@@ -14,12 +14,16 @@ open class AppBleManager(context: Context) : ObservableBleManager(context) {
     private lateinit var accessor: Accessor
     lateinit var batteryService: BatteryLevelService
     lateinit var directExecuteService: DirectExecuteService
+    lateinit var presetService: PresetService
+    lateinit var triggerService: TriggerService
 
     override fun getGattCallback(): BleManagerGattCallback {
         accessor = Accessor()
         batteryService = BatteryLevelService(accessor)
         directExecuteService = DirectExecuteService(accessor)
-        return CompositeHandler(batteryService, directExecuteService)
+        presetService = PresetService(accessor)
+        triggerService = TriggerService(accessor)
+        return CompositeHandler(batteryService, directExecuteService, presetService, triggerService)
     }
 
     private inner class CompositeHandler(vararg val handlers: GattHandler) : BleManagerGattCallback() {

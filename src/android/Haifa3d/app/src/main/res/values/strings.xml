@@ -46,6 +46,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_status">Status</string>
+    <string name="menu_presets">Presets</string>
 
     <string name="home_second">Home Second</string>
 
@@ -64,4 +65,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="livecontrol_hand_image_description">Hand</string>
     <string name="menu_livecontrol">Live Control</string>
+    <string name="preset_not_set">This preset is not set.</string>
 </resources>
