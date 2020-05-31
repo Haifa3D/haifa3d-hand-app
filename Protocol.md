@@ -63,12 +63,13 @@ This is a custom GATT service that is used to execute actions on the hand immedi
 
 This custom GATT service is used to read and write the presets that are saved on the hand. These presets can be configured by the user in the app and can be triggered by any trigger i.e. the app or an external button or sensor. They can be read by the app on a different mobile phone too.
 
-*ToDo*: How many presets? 12?
+Currently, we support 12 presets, thus, 11 / `B` beeing the highest preset number.
 
 * Service UUID: `e0198001-7544-42c1-0000-b24344b6aa70`
-* Preset Characteristic UUIDs: `e0198001-7544-42c1-<PRESET NUMBER>-b24344b6aa70`
-  * Preset 1: `e0198001-7544-42c1-0001-b24344b6aa70`
-  * Preset 12: `e0198001-7544-42c1-000C-b24344b6aa70`
+* Preset Characteristic UUIDs: `e0198001-7544-42c1-10<PRESET NUMBER BYTE>-b24344b6aa70`
+  * Preset 0: `e0198001-7544-42c1-1000-b24344b6aa70`
+  * Preset 1: `e0198001-7544-42c1-1001-b24344b6aa70`
+  * Preset 11: `e0198001-7544-42c1-100B-b24344b6aa70`
 
 ### Trigger Service
 
