@@ -1,5 +1,6 @@
 package com.gjung.haifa3d.model
 
+import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
 
 class TorqueStopModeDetail(
@@ -23,4 +24,15 @@ class TorqueStopModeDetail(
             .toByte()
         )
 
+}
+
+fun Byte.decodeTorqueStopModeDetail(): TorqueStopModeDetail {
+    val bits = this.toBits()
+    return TorqueStopModeDetail(
+        bits[0].toTorqueStopThreshold(),
+        bits[1].toTorqueStopThreshold(),
+        bits[2].toTorqueStopThreshold(),
+        bits[3].toTorqueStopThreshold(),
+        bits[4].toTorqueStopThreshold()
+    )
 }

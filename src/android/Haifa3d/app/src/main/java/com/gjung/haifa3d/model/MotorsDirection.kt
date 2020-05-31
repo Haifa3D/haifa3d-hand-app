@@ -1,5 +1,6 @@
 package com.gjung.haifa3d.model
 
+import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
 
 class MotorsDirection(val turn: MotorDirection,
@@ -19,4 +20,15 @@ class MotorsDirection(val turn: MotorDirection,
                 finger4.isBitSet)
                 .toByte()
         )
+}
+
+fun Byte.decodeMotorsDirection(): MotorsDirection {
+    val bits = this.toBits()
+    return MotorsDirection(
+        bits[0].toMotorDirection(),
+        bits[1].toMotorDirection(),
+        bits[2].toMotorDirection(),
+        bits[3].toMotorDirection(),
+        bits[4].toMotorDirection()
+    )
 }

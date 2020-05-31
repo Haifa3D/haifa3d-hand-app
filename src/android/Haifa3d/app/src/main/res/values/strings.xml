@@ -59,4 +59,9 @@
 
     <string name="not_a_haifa3d_device">This is not a Haifa 3D device</string>
     <string name="connecting">Connecting…</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="livecontrol_hand_image_description">Hand</string>
+    <string name="menu_livecontrol">Live Control</string>
 </resources>

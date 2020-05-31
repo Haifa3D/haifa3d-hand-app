@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.livecontrol.LiveControlFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/turnLeftButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="32dp"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_arrow_left"
+            app:backgroundTint="#888888"
+            app:layout_constraintEnd_toStartOf="@+id/turnRightButton"
+            app:layout_constraintTop_toBottomOf="@+id/finger1CloseButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/turnRightButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="84dp"
+            android:clickable="true"
+            android:src="@drawable/ic_keyboard_arrow_right"
+            app:backgroundTint="#888888"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toBottomOf="@+id/finger4CloseButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger4CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="112dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger3CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger4CloseButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger4CloseButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger2CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger3CloseButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger3CloseButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger1CloseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger4CloseButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger2CloseButton" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="32dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/livecontrol_hand_image_description"
+            android:src="@drawable/ic_hand_paper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/space"
+            app:layout_constraintTop_toBottomOf="@+id/finger4OpenButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger3OpenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger4OpenButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger4OpenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger2OpenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger3OpenButton" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/finger1OpenButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:src="@drawable/ic_device_bg"
+            app:backgroundTint="#888888"
+            app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger2OpenButton" />
+
+        <Space
+            android:id="@+id/space"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/finger1OpenButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger1OpenButton"
+            app:layout_constraintTop_toTopOf="@+id/finger1OpenButton" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
