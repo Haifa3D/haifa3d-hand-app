@@ -1,16 +1,10 @@
 package com.gjung.haifa3d.model
 
-class HandMovement() : ByteRepresentable {
-    private lateinit var repr: List<Byte>
-
-    constructor(
-        torqueDetail: TorqueStopModeDetail,
-        timeDetail: TimeStopModeDetail,
-        motorsActivated: MotorsActivated,
-        motorsDirection: MotorsDirection
-    ) : this() {
-        repr = listOf(torqueDetail, timeDetail, motorsActivated, motorsDirection).flatMap { it.toBytes() }
-    }
-
-    override fun toBytes(): Iterable<Byte> = repr
+class HandMovement(
+    val torqueDetail: TorqueStopModeDetail,
+    val timeDetail: TimeStopModeDetail,
+    val motorsActivated: MotorsActivated,
+    val motorsDirection: MotorsDirection
+) : ByteRepresentable {
+    override fun toBytes(): Iterable<Byte> = listOf(torqueDetail, timeDetail, motorsActivated, motorsDirection).flatMap { it.toBytes() }
 }

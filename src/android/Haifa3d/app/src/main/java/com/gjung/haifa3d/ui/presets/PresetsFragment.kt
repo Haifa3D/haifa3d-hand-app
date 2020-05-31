@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.BleFragment
@@ -34,6 +35,7 @@ class PresetsFragment : BleFragment() {
     override fun onServiceConnected() {
         presets = bleService!!.manager.presetService
         triggerService  = bleService!!.manager.triggerService
+        adapter.presets.clear()
         for(i in 0..11) {
             adapter.presets.add(Preset(i))
         }
@@ -73,6 +75,14 @@ class PresetsFragment : BleFragment() {
                 }
             }
         }
+
+        adapter.onItemEditClickListener = object : PresetsAdapter.OnItemClickListener {
+            override fun onItemClick(preset: Preset) {
+                val act = PresetsFragmentDirections.editPreset(preset.id)
+                this@PresetsFragment.findNavController().navigate(act)
+            }
+        }
+
         rec.adapter = adapter
         rec.setHasFixedSize(true)
 

@@ -4,11 +4,11 @@ import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
 
 class MotorsActivated(
-    val turn: Boolean,
-    val finger1: Boolean,
-    val finger2: Boolean,
-    val finger3: Boolean,
-    val finger4: Boolean
+    val turn: Boolean = false,
+    val finger1: Boolean = false,
+    val finger2: Boolean = false,
+    val finger3: Boolean = false,
+    val finger4: Boolean = false
 ): ByteRepresentable {
 
     override fun toBytes(): Iterable<Byte> =

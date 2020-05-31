@@ -8,6 +8,7 @@ import com.gjung.haifa3d.Uuids
 import com.gjung.haifa3d.model.HandAction
 import com.gjung.haifa3d.model.decodeHandAction
 import com.gjung.haifa3d.readBytesAsync
+import com.gjung.haifa3d.sendSuspend
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
 import no.nordicsemi.android.ble.data.Data
 import java.lang.IllegalArgumentException
@@ -19,7 +20,7 @@ const val HandSupportedNumberOfPresets = 12
 class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
     private var presetActionByteCharacteristic: Array<BluetoothGattCharacteristic?> = Array(HandSupportedNumberOfPresets) { null }
 
-    fun writePreset(presetNumber: Int, action: HandAction) {
+    suspend fun writePreset(presetNumber: Int, action: HandAction) {
         if (presetNumber < 0 || presetNumber >= HandSupportedNumberOfPresets)
             throw IllegalArgumentException("presetNumber must be in [0..${HandSupportedNumberOfPresets - 1}]")
         if (!manager.isConnected)
@@ -29,7 +30,7 @@ class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
 
         manager.log(Log.VERBOSE, "Writing preset $presetNumber...")
         manager.writeCharacteristic(characteristic, action.toBytes().toList().toByteArray())
-            .enqueue()
+            .sendSuspend()
     }
 
     suspend fun readPreset(presetNumber: Int): HandAction? {

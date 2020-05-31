@@ -3,11 +3,11 @@ package com.gjung.haifa3d.model
 import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
 
-class MotorsDirection(val turn: MotorDirection,
-                      val finger1: MotorDirection,
-                      val finger2: MotorDirection,
-                      val finger3: MotorDirection,
-                      val finger4: MotorDirection
+class MotorsDirection(val turn: MotorDirection = MotorDirection.Dir1,
+                      val finger1: MotorDirection = MotorDirection.Dir1,
+                      val finger2: MotorDirection = MotorDirection.Dir1,
+                      val finger3: MotorDirection = MotorDirection.Dir1,
+                      val finger4: MotorDirection = MotorDirection.Dir1
 ): ByteRepresentable {
 
         override fun toBytes(): Iterable<Byte> =

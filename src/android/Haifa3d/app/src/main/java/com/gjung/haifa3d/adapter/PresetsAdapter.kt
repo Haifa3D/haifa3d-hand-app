@@ -9,6 +9,7 @@ import com.gjung.haifa3d.model.Preset
 class PresetsAdapter: RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
     val presets = mutableListOf<Preset>()
     var onItemClickListener: OnItemClickListener? = null
+    var onItemEditClickListener: OnItemClickListener? = null
 
     @FunctionalInterface
     interface OnItemClickListener {
@@ -31,6 +32,10 @@ class PresetsAdapter: RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
         init {
             binding.presetContainer.setOnClickListener {
                 onItemClickListener?.onItemClick(presets[adapterPosition])
+            }
+
+            binding.editButton.setOnClickListener {
+                onItemEditClickListener?.onItemClick(presets[adapterPosition])
             }
         }
     }

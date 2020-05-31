@@ -3,7 +3,10 @@ package com.gjung.haifa3d
 import android.bluetooth.BluetoothDevice
 import com.gjung.haifa3d.model.HandAction
 import no.nordicsemi.android.ble.ReadRequest
+import no.nordicsemi.android.ble.Request
+import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
+import no.nordicsemi.android.ble.callback.DataSentCallback
 import no.nordicsemi.android.ble.data.Data
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -39,6 +42,14 @@ fun Byte.toBits(): List<Boolean> {
 suspend fun ReadRequest.readBytesAsync(): ByteArray? =
     suspendCoroutine { cont ->
         val callback = DataReceivedCallback { _, data -> cont.resume(data.value) }
+
+        this.with(callback)
+            .enqueue()
+    }
+
+suspend fun WriteRequest.sendSuspend(): Unit =
+    suspendCoroutine { cont ->
+        val callback = DataSentCallback { _, _ -> cont.resume(Unit) }
 
         this.with(callback)
             .enqueue()

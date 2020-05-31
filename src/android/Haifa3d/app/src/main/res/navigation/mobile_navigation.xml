@@ -25,5 +25,18 @@
         android:id="@+id/nav_presets"
         android:name="com.gjung.haifa3d.ui.presets.PresetsFragment"
         android:label="@string/menu_presets"
-        tools:layout="@layout/fragment_presets" />
+        tools:layout="@layout/fragment_presets" >
+        <action
+            android:id="@+id/edit_preset"
+            app:destination="@id/nav_edit_preset" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_edit_preset"
+        android:name="com.gjung.haifa3d.ui.presets.EditPresetFragment"
+        tools:layout="@layout/fragment_edit_preset">
+        <argument
+            android:name="presetId"
+            app:argType="integer">
+        </argument>
+    </fragment>
 </navigation>
