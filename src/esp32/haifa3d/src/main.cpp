@@ -11,6 +11,11 @@
 #define HAND_DIRECT_EXECUTE_SERVICE_UUID     "e0198000-7544-42c1-0000-b24344b6aa70"
 #define EXECUTE_ON_WRITE_CHARACTERISTIC_UUID "e0198000-7544-42c1-0001-b24344b6aa70"
 
+#define HAND_PRESET_SERVICE_UUID             "e0198001-7544-42c1-0000-b24344b6aa70"
+
+#define HAND_TRIGGER_SERVICE_UUID            "e0198002-7544-42c1-0000-b24344b6aa70"
+#define TRIGGER_ON_WRITE_CHARACTERISTIC_UUID "e0198002-7544-42c1-0001-b24344b6aa70"
+
 bool _BLEClientConnected = false;
 
 #define BatteryService BLEUUID((uint16_t)0x180F) 
@@ -28,6 +33,24 @@ class MyServerCallbacks : public BLEServerCallbacks {
       Serial.println("Disconnected");
     }
 };
+
+const char * presetCharacteristicUuid(int presetNumber)
+{
+  const char *uuids[12];
+  uuids[0] = "e0198001-7544-42c1-1000-b24344b6aa70";
+  uuids[1] = "e0198001-7544-42c1-1001-b24344b6aa70";
+  uuids[2] = "e0198001-7544-42c1-1002-b24344b6aa70";
+  uuids[3] = "e0198001-7544-42c1-1003-b24344b6aa70";
+  uuids[4] = "e0198001-7544-42c1-1004-b24344b6aa70";
+  uuids[5] = "e0198001-7544-42c1-1005-b24344b6aa70";
+  uuids[6] = "e0198001-7544-42c1-1006-b24344b6aa70";
+  uuids[7] = "e0198001-7544-42c1-1007-b24344b6aa70";
+  uuids[8] = "e0198001-7544-42c1-1008-b24344b6aa70";
+  uuids[9] = "e0198001-7544-42c1-1009-b24344b6aa70";
+  uuids[10] = "e0198001-7544-42c1-100a-b24344b6aa70";
+  uuids[11] = "e0198001-7544-42c1-100b-b24344b6aa70";
+  return uuids[presetNumber];
+}
 
 void printInterpretation(unsigned char* msg) {
   std::bitset<8> bs;
@@ -84,6 +107,49 @@ class DirectExecuteCallbacks : public BLECharacteristicCallbacks {
     };
 };
 
+class PresetCallbacks : public BLECharacteristicCallbacks {
+    int presetId = 0;
+
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      unsigned char* dataPtr;
+      dataPtr = pCharacteristic->getData();
+      short len = dataPtr[0];
+      Serial.println();
+      Serial.printf("--==++ Preset %i written ++==--\n", presetId);
+      short movements = (len - 1) / 4;
+      for (int i = 0; i < movements; i++) {
+        Serial.println();
+        Serial.printf("--== Movement %i ==--\n", i);
+        printInterpretation(dataPtr + (i * 4) + 1);
+      }
+    };
+
+    void onRead(BLECharacteristic *pCharacteristic) {
+      unsigned char val[5];
+      val[0] = 5;
+      val[1] = 0;   // torque stop mode
+      val[2] = 12;  // time stop mode
+      val[3] = 255; // motors activated
+      val[4] = 0;   // motors direction
+      pCharacteristic->setValue(val, 5);
+    }
+
+  public:
+    PresetCallbacks(int id) {
+      presetId = id;
+    }
+};
+
+class TriggerCallbacks : public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      unsigned char* dataPtr;
+      dataPtr = pCharacteristic->getData();
+      short preset = dataPtr[0];
+      Serial.println();
+      Serial.printf("--==++ Triggered Preset %i ++==--\n", preset);
+    };
+};
+
 void InitBLE() {
   BLEDevice::init("Haifa3D");
   // Create the BLE Server
@@ -105,6 +171,24 @@ void InitBLE() {
                                        );
   pExecOnWriteCharacteristic->setCallbacks(new DirectExecuteCallbacks());
 
+  BLEService *pTriggerService = pServer->createService(HAND_TRIGGER_SERVICE_UUID);
+  BLECharacteristic *pTriggerOnWriteCharacteristic = pTriggerService->createCharacteristic(
+                                         TRIGGER_ON_WRITE_CHARACTERISTIC_UUID,
+                                         BLECharacteristic::PROPERTY_WRITE
+                                       );
+  pTriggerOnWriteCharacteristic->setCallbacks(new TriggerCallbacks());
+
+  // the 32 is important because otherwise we dont have enough handles and just the first 6 characteristics will be visible
+  BLEService *pPresetService = pServer->createService(BLEUUID(HAND_PRESET_SERVICE_UUID), 32);
+  for (int i = 0; i < 12; i++) {
+    BLECharacteristic *pPresetCharacteristic = pPresetService->createCharacteristic(
+                                         presetCharacteristicUuid(i),
+                                         BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
+                                       );
+    pPresetCharacteristic->setCallbacks(new PresetCallbacks(i));
+    Serial.printf("Added Preset Characteristic %i", i);
+  }
+
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   pAdvertising->addServiceUUID(BatteryService);
   pAdvertising->addServiceUUID(HAND_DIRECT_EXECUTE_SERVICE_UUID);
@@ -114,6 +198,8 @@ void InitBLE() {
 
   pBattery->start();
   pDirectExecService->start();
+  pTriggerService->start();
+  pPresetService->start();
   // Start advertising
   pAdvertising->start();
 }
