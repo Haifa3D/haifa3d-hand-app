@@ -83,7 +83,7 @@ This is a custom GATT service that is used to trigger presets saved using the pr
 This is a custom GATT service that is used to read and write configuration variables on the controller.
 
 * Service UUID: `e0198003-7544-42c1-0000-b24344b6aa70`
-* Motor Specific, `<MOTOR #>` is a number, i.e. for the first motor `1`:
+* Motor Specific, `<MOTOR #>` is a number, i.e. for the first motor `0`, for the fifth motor `4`:
   * Low Torque Value Characteristic UUID:        `e0198003-7544-42c1-00<MOTOR #>1-b24344b6aa70`
     * i.e. `e0198003-7544-42c1-0011-b24344b6aa70` for motor `1`
   * Low Torque Slope Value Characteristic UUID:  `e0198003-7544-42c1-00<MOTOR #>2-b24344b6aa70`
