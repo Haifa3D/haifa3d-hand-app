@@ -82,14 +82,18 @@ This is a custom GATT service that is used to trigger presets saved using the pr
 This is a custom GATT service that is used to read and write configuration variables on the controller.
 
 * Service UUID: `e0198003-7544-42c1-0000-b24344b6aa70`
-* Low Torque Value Characteristic UUID:        `e0198003-7544-42c1-0011-b24344b6aa70`
-* Low Torque Slope Value Characteristic UUID:  `e0198003-7544-42c1-0012-b24344b6aa70`
-* High Torque Value Characteristic UUID:       `e0198003-7544-42c1-0021-b24344b6aa70`
-* High Torque Slope Value Characteristic UUID: `e0198003-7544-42c1-0022-b24344b6aa70`
-* Torque Measure Start MS Characteristic UUID: `e0198003-7544-42c1-0031-b24344b6aa70`
+* Motor Specific, `<MOTOR #>` is a number, i.e. for the first motor `1`:
+  * Low Torque Value Characteristic UUID:        `e0198003-7544-42c1-00<MOTOR #>1-b24344b6aa70`
+    * i.e. `e0198003-7544-42c1-0011-b24344b6aa70` for motor `1`
+  * Low Torque Slope Value Characteristic UUID:  `e0198003-7544-42c1-00<MOTOR #>2-b24344b6aa70`
+  * High Torque Value Characteristic UUID:       `e0198003-7544-42c1-00<MOTOR #>3-b24344b6aa70`
+  * High Torque Slope Value Characteristic UUID: `e0198003-7544-42c1-00<MOTOR #>4-b24344b6aa70`
+* Torque Measure Start MS Characteristic UUID: `e0198003-7544-42c1-0101-b24344b6aa70`
   * Start measuring the torque/current of the motors after `x` ms. This is needed because the need more current when the start moving.
+* Windows Width Filter Characteristic UUID:    `e0198003-7544-42c1-0102-b24344b6aa70`
+  * `int`, valid range: [1, 16]
 * What more values do we need?
-  * Maybe: BLE Device Name Characteristic UUID: `e0198003-7544-42c1-0100-b24344b6aa70`
+  * Maybe: BLE Device Name Characteristic UUID: `e0198003-7544-42c1-0103-b24344b6aa70`
 
 [Dummy ESP32 implementation](src/esp32/haifa3d/src/main.cpp)  
 [Android implementation](src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/ble/DirectExecuteService.kt)
