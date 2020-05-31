@@ -34,15 +34,18 @@ class HomeFragment : BleFragment() {
         binding.executeDirectlyTorque.setOnClickListener {
             bleService!!.manager.directExecuteService.executeAction(
                 HandAction(
-                    TorqueStopModeDetail(TorqueStopThreshold.High),
-                    MotorsActivated(
-                        turn = true,
-                        finger1 = true,
-                        finger2 = false,
-                        finger3 = false,
-                        finger4 = true
-                    ),
-                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1)
+                    HandMovement(
+                        TorqueStopModeDetail(TorqueStopThreshold.High),
+                        TimeStopModeDetail(139.toByte()),
+                        MotorsActivated(
+                            turn = true,
+                            finger1 = true,
+                            finger2 = false,
+                            finger3 = false,
+                            finger4 = true
+                        ),
+                        MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1)
+                    )
                 )
             )
         }
@@ -50,15 +53,30 @@ class HomeFragment : BleFragment() {
         binding.executeDirectlyTime.setOnClickListener {
             bleService!!.manager.directExecuteService.executeAction(
                 HandAction(
-                    TimeStopModeDetail(139.toByte()),
-                    MotorsActivated(
-                        turn = true,
-                        finger1 = true,
-                        finger2 = false,
-                        finger3 = false,
-                        finger4 = true
+                    HandMovement(
+                        TorqueStopModeDetail(TorqueStopThreshold.Low),
+                        TimeStopModeDetail(255.toByte()),
+                        MotorsActivated(
+                            turn = false,
+                            finger1 = true,
+                            finger2 = false,
+                            finger3 = false,
+                            finger4 = false
+                        ),
+                        MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
                     ),
-                    MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
+                    HandMovement(
+                        TorqueStopModeDetail(TorqueStopThreshold.Low),
+                        TimeStopModeDetail(255.toByte()),
+                        MotorsActivated(
+                            turn = false,
+                            finger1 = true,
+                            finger2 = false,
+                            finger3 = false,
+                            finger4 = false
+                        ),
+                        MotorsDirection(MotorDirection.Dir1, MotorDirection.Dir2, MotorDirection.Dir1, MotorDirection.Dir1, MotorDirection.Dir1)
+                    )
                 )
             )
         }

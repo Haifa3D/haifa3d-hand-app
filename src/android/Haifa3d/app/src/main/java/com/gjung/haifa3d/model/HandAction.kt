@@ -13,6 +13,12 @@ class HandAction() : Parcelable, ByteRepresentable {
         repr = movements.flatMap { it.toBytes() }
     }
 
+    constructor(
+        vararg movements: HandMovement
+    ) : this() {
+        repr = movements.flatMap { it.toBytes() }
+    }
+
     override fun toBytes(): Iterable<Byte> =
         LengthIndicator((repr.size + 1).toByte()).toBytes() + repr
 
