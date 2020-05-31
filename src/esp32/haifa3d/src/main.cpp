@@ -32,18 +32,18 @@ class MyServerCallbacks : public BLEServerCallbacks {
 void printInterpretation(unsigned char* msg) {
   std::bitset<8> bs;
   bs = std::bitset<8>(msg[0]);
-  if (bs.test(7)) {
-    Serial.print("Time Stop Mode; # of time units:");
-    Serial.println(msg[1]);
-  } else {
-    bs = std::bitset<8>(msg[1]);
-    Serial.println("Torque Stop Mode");
-    Serial.printf("Turn Motor: %s\n", bs.test(7 - 0) ? "high" : "low");
-    Serial.printf("Finger 1:   %s\n", bs.test(7 - 1) ? "high" : "low");
-    Serial.printf("Finger 2:   %s\n", bs.test(7 - 2) ? "high" : "low");
-    Serial.printf("Finger 3:   %s\n", bs.test(7 - 3) ? "high" : "low");
-    Serial.printf("Finger 4:   %s\n", bs.test(7 - 4) ? "high" : "low");
-  }
+
+  Serial.println("Torque Stop Modes");
+  Serial.printf("Turn Motor: %s\n", bs.test(7 - 0) ? "high" : "low");
+  Serial.printf("Finger 1:   %s\n", bs.test(7 - 1) ? "high" : "low");
+  Serial.printf("Finger 2:   %s\n", bs.test(7 - 2) ? "high" : "low");
+  Serial.printf("Finger 3:   %s\n", bs.test(7 - 3) ? "high" : "low");
+  Serial.printf("Finger 4:   %s\n", bs.test(7 - 4) ? "high" : "low");
+
+  Serial.println();
+  Serial.print("Timeout; # of time units:");
+  Serial.println(msg[1]);
+  
   Serial.println();
   Serial.println("Motors activated:");
   bs = std::bitset<8>(msg[2]);
@@ -75,7 +75,12 @@ class DirectExecuteCallbacks : public BLECharacteristicCallbacks {
         Serial.println(dataPtr[i]);
       }
       Serial.println("----");
-      printInterpretation(dataPtr+1);
+      short movements = (len - 1) / 4;
+      for (int i = 0; i < movements; i++) {
+        Serial.println();
+        Serial.printf("--== Movement %i ==--\n", i);
+        printInterpretation(dataPtr + (i * 4) + 1);
+      }
     };
 };
 
