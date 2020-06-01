@@ -3,7 +3,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  DroidDir: '$(System.DefaultWorkingDirectory)/src/android/Haifa3d'
+- group: Haifa3dKeystoreSecrets
+- name: DroidDir
+  value: '$(System.DefaultWorkingDirectory)/src/android/Haifa3d'
+- name: releaseFileName
+  value: 'aab/release/app-release.aab'
 
 stages:
 - stage: Build
@@ -57,8 +61,26 @@ stages:
 - stage: Deploy
   condition: and(succeeded(), startsWith(variables['build.sourceBranch'], 'refs/heads/release/'))
   jobs:
-  - job: GithubReleases
+  - job: Sign
+    displayName: Sign AAB
     steps:
+    - checkout: none
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        source: 'current'
+        patterns: '**/*.aab'
+        path: '$(Pipeline.Workspace)/sign'
+    - task: DownloadSecureFile@1
+      name: haifa3dkeystore
+      inputs:
+        secureFile: 'haifa3d.jks'
+    - script: 'jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -storepass "$(keystorepsw)" -keypass "$(keypsw)"  -keystore $(haifa3dkeystore.secureFilePath) "$(Pipeline.Workspace)/sign/$(releaseFileName)" key0'
+    - publish: $(Pipeline.Workspace)/sign/
+      artifact: signed
+  - job: GithubReleases
+    dependsOn: Sign
+    steps:
+    - checkout: none
     - task: DownloadPipelineArtifact@2
       inputs:
         source: 'current' # Options: current, specific
@@ -72,7 +94,7 @@ stages:
         #artifact: # Optional
         patterns: |
           **/*.apk
-          **/*.aab
+          **/signed/**/*.aab
         path: '$(Pipeline.Workspace)/githubrelease'
     - task: GitHubRelease@1
       inputs:
