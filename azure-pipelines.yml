@@ -28,6 +28,7 @@ stages:
     dependsOn:
       - NBGV
     steps:
+    - template: build/steps/setAndroidVersionCode.yml
     - task: Gradle@2
       displayName: assembleDebug
       inputs:
@@ -45,6 +46,7 @@ stages:
     dependsOn:
       - NBGV
     steps:
+    - template: build/steps/setAndroidVersionCode.yml
     - task: Gradle@2
       displayName: bundleRelease
       inputs:
