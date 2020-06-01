@@ -1,3 +1,13 @@
+<p align="center">
+  <a href="#">
+    <img
+      alt="Haifa 3D app logo"
+      src="doc/logo.svg"
+      width="100"
+    />
+  </a>
+</p>
+
 # Haifa 3D
 
 [![Build Status](https://dev.azure.com/georg-jung/Haifa3d/_apis/build/status/georg-jung.technion-robotic-arm?branchName=master)](https://dev.azure.com/georg-jung/Haifa3d/_build/latest?definitionId=12&branchName=master)
