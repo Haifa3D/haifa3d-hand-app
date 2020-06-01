@@ -28,6 +28,10 @@ stages:
     dependsOn:
       - NBGV
     steps:
+    - script: |
+        export BUILD_ANDROIDVERSIONCODE=`git rev-list --count HEAD`
+        echo "##vso[task.setvariable variable=BUILD_ANDROIDVERSIONCODE]$BUILD_ANDROIDVERSIONCODE"
+        echo "Android VersionCode will be $BUILD_ANDROIDVERSIONCODE"
     - task: Gradle@2
       displayName: assembleDebug
       inputs:
@@ -45,6 +49,10 @@ stages:
     dependsOn:
       - NBGV
     steps:
+    - script: |
+        export BUILD_ANDROIDVERSIONCODE=`git rev-list --count HEAD`
+        echo "##vso[task.setvariable variable=BUILD_ANDROIDVERSIONCODE]$BUILD_ANDROIDVERSIONCODE"
+        echo "Android VersionCode will be $BUILD_ANDROIDVERSIONCODE"
     - task: Gradle@2
       displayName: bundleRelease
       inputs:

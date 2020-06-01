@@ -13,7 +13,7 @@ android {
         applicationId "com.gjung.haifa3d"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 1
+        versionCode (System.getenv('BUILD_ANDROIDVERSIONCODE') as Integer) ?: 1
         versionName System.getenv('BUILD_BUILDNUMBER') ?: "0.1-noversioninfo"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
