@@ -28,7 +28,7 @@ To model all the protocol features and make them easily usable and abstract the 
 
 #### UI
 
-The UI is built using fragments and is utilizing Android's databinding, which is the most recent approach to bind inflated android XML views to code. Most of this directly UI related code is packaged under `ui`. The `adapter` package contains code needed for recycler view binding. To avoid duplicating BLE related code while still almost every view needs to interact via BLE, I created [`BleFragment`](/src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/BleFragment.kt) as well as [`BleActivity`](/src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/BleActivity.kt) that are inherited by the specific UI components. Some parts if the UI code are inspired by NordicSemi's nRF Blinky example app and are in java for that reason.
+The UI is built using fragments and is utilizing Android's databinding, which is the most recent approach to bind inflated android XML views to code. Most of this directly UI related code is packaged under `ui`. The `adapter` package contains code needed for recycler view binding. To avoid duplicating BLE related code while still almost every view needs to interact via BLE, I created [`BleFragment`](/src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/BleFragment.kt) as well as [`BleActivity`](/src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/BleActivity.kt) that are inherited by the specific UI components. Some parts of the UI code are inspired by NordicSemi's nRF Blinky example app and are in java for that reason.
 
 ## Flow
 
@@ -56,4 +56,4 @@ Before the connection is established there is essentially a device discovery scr
 
 ## Further information
 
-Currently, the app does not need any database to store information. Everything the user set's up is directly stored on the hand controller or does not need to be stored in the first place. This app uses Firebase to collect telemetry and information about crashes using crashlytics. The app is minified using proguard as part of the release/deploy process. Deployment is done via AAB instead of APK to benefit from the new packaging format's advantages.
+Currently, the app does not need any database to store information. Everything the user sets up is directly stored on the hand controller or does not need to be stored in the first place. This app uses Firebase to collect telemetry and information about crashes using crashlytics. The app is minified using proguard as part of the release/deploy process. Deployment is done via AAB instead of APK to benefit from the new packaging format's advantages.
