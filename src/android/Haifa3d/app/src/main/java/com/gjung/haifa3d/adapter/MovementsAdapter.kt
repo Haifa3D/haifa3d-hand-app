@@ -48,7 +48,7 @@ class MovementsAdapter(private val viewModel: PresetsViewModel, private val pres
 
             binding.deleteButton.setOnClickListener {
                 movements.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
+                notifyDataSetChanged()
             }
         }
     }
