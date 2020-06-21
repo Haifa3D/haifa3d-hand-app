@@ -11,4 +11,6 @@
     <color name="colorOnBackground">#303f9f</color>
     <color name="colorOnPrimary">@color/primaryTextColor</color>
     <color name="colorAccentOnPrimary">#ffffff</color>
+    <color name="movementControlButtonReady">#888888</color>
+    <color name="movementControlButtonToggled">@color/primaryColor</color>
 </resources>

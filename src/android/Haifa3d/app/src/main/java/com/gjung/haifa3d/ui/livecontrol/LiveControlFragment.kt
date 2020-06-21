@@ -55,11 +55,13 @@ class LiveControlFragment : BleFragment() {
     private fun View.setDirectionWhilePressed( setter: (MotorDirection?) -> Unit, setWhilePressed: MotorDirection) {
         this.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
+                this.isPressed = true
                 setter(setWhilePressed)
                 liveControl?.ensureStarted()
             }
             else if (event.action == MotionEvent.ACTION_UP) {
                 setter(null)
+                this.isPressed = false
             }
             true
         }

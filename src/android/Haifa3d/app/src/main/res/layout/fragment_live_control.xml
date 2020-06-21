@@ -22,7 +22,7 @@
             android:layout_marginEnd="32dp"
             android:clickable="true"
             android:src="@drawable/ic_keyboard_arrow_left"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintEnd_toStartOf="@+id/turnRightButton"
             app:layout_constraintTop_toBottomOf="@+id/finger1CloseButton" />
 
@@ -34,7 +34,7 @@
             android:layout_marginEnd="84dp"
             android:clickable="true"
             android:src="@drawable/ic_keyboard_arrow_right"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/finger4CloseButton" />
 
@@ -45,7 +45,7 @@
             android:layout_marginTop="112dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
@@ -56,7 +56,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger4CloseButton"
             app:layout_constraintEnd_toStartOf="@+id/finger4CloseButton" />
 
@@ -67,7 +67,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger3CloseButton"
             app:layout_constraintEnd_toStartOf="@+id/finger3CloseButton" />
 
@@ -78,7 +78,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger4CloseButton"
             app:layout_constraintEnd_toStartOf="@+id/finger2CloseButton" />
 
@@ -102,7 +102,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
             app:layout_constraintEnd_toStartOf="@+id/finger4OpenButton" />
 
@@ -113,7 +113,7 @@
             android:layout_marginTop="32dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,7 +124,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
             app:layout_constraintEnd_toStartOf="@+id/finger3OpenButton" />
 
@@ -135,7 +135,7 @@
             android:layout_marginEnd="12dp"
             android:clickable="true"
             android:src="@drawable/ic_device_bg"
-            app:backgroundTint="#888888"
+            app:backgroundTint="@color/movement_control_fab_background"
             app:layout_constraintBottom_toBottomOf="@+id/finger4OpenButton"
             app:layout_constraintEnd_toStartOf="@+id/finger2OpenButton" />
 
