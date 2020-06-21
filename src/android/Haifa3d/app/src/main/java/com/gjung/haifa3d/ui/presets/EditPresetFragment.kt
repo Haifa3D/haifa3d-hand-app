@@ -12,6 +12,7 @@ import com.gjung.haifa3d.BleFragment
 
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.MovementsAdapter
+import com.gjung.haifa3d.ble.DirectExecuteService
 import com.gjung.haifa3d.ble.PresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
 import com.gjung.haifa3d.model.*
@@ -25,11 +26,13 @@ import kotlinx.coroutines.launch
 class EditPresetFragment : BleFragment() {
     private lateinit var binding: FragmentEditPresetBinding
     private var presetService: PresetService? = null
+    private var directExecuteService: DirectExecuteService? = null
     private val args: EditPresetFragmentArgs by navArgs()
     private val adapter = MovementsAdapter()
 
     override fun onServiceConnected() {
         presetService = bleService!!.manager.presetService
+        directExecuteService = bleService!!.manager.directExecuteService
         adapter.movements.clear()
         adapter.notifyDataSetChanged()
         GlobalScope.launch(Dispatchers.Main) {
@@ -45,6 +48,7 @@ class EditPresetFragment : BleFragment() {
 
     override fun onServiceDisconnected() {
         presetService = null
+        directExecuteService = null
         adapter.movements.clear()
         adapter.notifyDataSetChanged()
     }
@@ -60,6 +64,10 @@ class EditPresetFragment : BleFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_try_preset -> {
+                tryPreset()
+                true
+            }
             R.id.action_save_hand_action -> {
                 saveHandAction()
                 true
@@ -70,6 +78,10 @@ class EditPresetFragment : BleFragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun tryPreset() {
+        directExecuteService?.executeAction(HandAction(adapter.movements))
     }
 
     private fun addHandMovement() {

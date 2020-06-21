@@ -66,6 +66,7 @@
     <string name="menu_livecontrol">Live Control</string>
     <string name="preset_not_set">This preset is not set.</string>
     <string name="action_add_hand_movement">Add hand movement</string>
+    <string name="action_try_preset">Try preset: Execute now</string>
     <string name="edit_preset_torque_label">Torque:</string>
     <string name="edit_preset_time_label">Time:</string>
     <string name="edit_preset_motors_label">Motors:</string>
