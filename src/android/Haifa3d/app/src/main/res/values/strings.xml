@@ -73,4 +73,8 @@
     <string name="edit_preset_motors_label">Motors:</string>
     <string name="action_save_hand_action">Save hand action</string>
     <string name="action_save_hand_movement">Save hand movement</string>
+
+    <string name="edit_movement_torque_label">Torque:</string>
+    <string name="edit_movement_torque_high">High</string>
+    <string name="edit_movement_torque_low">Low</string>
 </resources>

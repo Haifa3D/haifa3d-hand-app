@@ -60,36 +60,17 @@ class EditMovementFragment : BleFragment() {
                 tryMovement()
                 true
             }
-            R.id.action_save_hand_movement -> {
-                saveMovement()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun tryMovement() {
-        directExecuteService?.executeAction(HandAction(movement))
-    }
-
-    private fun saveMovement() {
-        GlobalScope.launch(Dispatchers.Main) {
-            val oldMovement = movement
-            try {
-                movement = editMovementValue
-                presetService!!.writePreset(args.presetId, preset.handAction!!)
-                val navController = this@EditMovementFragment.findNavController();
-                navController.navigateUp()
-            } catch(ex: Throwable) {
-                movement = oldMovement
-                presetsViewModel.presets.notifyObserver()
-            }
-        }
+        directExecuteService?.executeAction(HandAction(editMovementValue))
     }
 
     private var editMovementValue
         get() = HandMovement(
-                    TorqueStopModeDetail(TorqueStopThreshold.Low),
+                    TorqueStopModeDetail(if (binding.torqueSwitch.isChecked) TorqueStopThreshold.High else  TorqueStopThreshold.Low),
                     TimeStopModeDetail(10),
                     MotorsActivated(
                         binding.turnLeftButton.isChecked || binding.turnRightButton.isChecked,
@@ -107,6 +88,7 @@ class EditMovementFragment : BleFragment() {
                     )
                 )
         set(value) {
+            binding.torqueSwitch.isChecked = value.torqueDetail.turn == TorqueStopThreshold.High
             binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
             binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
             binding.finger1OpenButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir1
@@ -126,16 +108,21 @@ class EditMovementFragment : BleFragment() {
         binding = FragmentEditMovementBinding.inflate(layoutInflater, container, false)
         setHasOptionsMenu(true)
 
-        binding.turnLeftButton.setOnClickListener { binding.turnRightButton.isChecked = false }
-        binding.turnRightButton.setOnClickListener { binding.turnLeftButton.isChecked = false }
-        binding.finger1OpenButton.setOnClickListener { binding.finger1CloseButton.isChecked = false }
-        binding.finger1CloseButton.setOnClickListener { binding.finger1OpenButton.isChecked = false }
-        binding.finger2OpenButton.setOnClickListener { binding.finger2CloseButton.isChecked = false }
-        binding.finger2CloseButton.setOnClickListener { binding.finger2OpenButton.isChecked = false }
-        binding.finger3OpenButton.setOnClickListener { binding.finger3CloseButton.isChecked = false }
-        binding.finger3CloseButton.setOnClickListener { binding.finger3OpenButton.isChecked = false }
-        binding.finger4OpenButton.setOnClickListener { binding.finger4CloseButton.isChecked = false }
-        binding.finger4CloseButton.setOnClickListener { binding.finger4OpenButton.isChecked = false }
+        binding.turnLeftButton.setOnClickListener { binding.turnRightButton.isChecked = false; movement = editMovementValue }
+        binding.turnRightButton.setOnClickListener { binding.turnLeftButton.isChecked = false; movement = editMovementValue }
+        binding.finger1OpenButton.setOnClickListener { binding.finger1CloseButton.isChecked = false; movement = editMovementValue }
+        binding.finger1CloseButton.setOnClickListener { binding.finger1OpenButton.isChecked = false; movement = editMovementValue }
+        binding.finger2OpenButton.setOnClickListener { binding.finger2CloseButton.isChecked = false; movement = editMovementValue }
+        binding.finger2CloseButton.setOnClickListener { binding.finger2OpenButton.isChecked = false; movement = editMovementValue }
+        binding.finger3OpenButton.setOnClickListener { binding.finger3CloseButton.isChecked = false; movement = editMovementValue }
+        binding.finger3CloseButton.setOnClickListener { binding.finger3OpenButton.isChecked = false; movement = editMovementValue }
+        binding.finger4OpenButton.setOnClickListener { binding.finger4CloseButton.isChecked = false; movement = editMovementValue }
+        binding.finger4CloseButton.setOnClickListener { binding.finger4OpenButton.isChecked = false; movement = editMovementValue }
+
+        binding.torqueSwitch.setOnCheckedChangeListener { _, checked ->
+            binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_high)
+            movement = editMovementValue
+        }
 
         editMovementValue = movement
 
