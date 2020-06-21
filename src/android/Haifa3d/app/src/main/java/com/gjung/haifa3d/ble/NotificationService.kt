@@ -5,9 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.os.Binder
 import android.os.Build
-import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.gjung.haifa3d.ConnectedActivity
 import com.gjung.haifa3d.R
@@ -16,6 +14,10 @@ import com.gjung.haifa3d.notification.createBleNotificationChannel
 
 abstract class NotificationService : Service() {
     private lateinit var notifMgr: NotificationManager
+
+    companion object {
+        @JvmStatic private val StopServiceAction: String = "STOP_SERVICE"
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -31,7 +33,16 @@ abstract class NotificationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == StopServiceAction) {
+            stopService()
+            return START_NOT_STICKY
+        }
         return START_STICKY
+    }
+
+    open fun stopService() {
+        stopForeground(true)
+        stopSelf()
     }
 
     /**
@@ -53,6 +64,10 @@ abstract class NotificationService : Service() {
             NotificationCompat.Builder(this)
         }
 
+        val serviceIntent = Intent(this, BleService::class.java)
+        serviceIntent.action = StopServiceAction
+        val closeIntent = PendingIntent.getService(applicationContext, 0, serviceIntent, 0)
+
         // Set the info for the views that show in the notification panel.
         val notification: Notification = builder
             .setSmallIcon(R.drawable.ic_device_blinky) // the status icon
@@ -61,6 +76,7 @@ abstract class NotificationService : Service() {
             .setContentTitle(text) // the label of the entry
             .setContentText(text) // the contents of the entry
             .setContentIntent(contentIntent) // The intent to send when the entry is clicked
+            .addAction(R.drawable.ic_bluetooth_disabled, "Close", closeIntent)
             .build()
 
         // Send the notification.

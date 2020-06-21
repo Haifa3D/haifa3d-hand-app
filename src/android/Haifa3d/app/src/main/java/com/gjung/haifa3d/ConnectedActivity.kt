@@ -56,6 +56,8 @@ class ConnectedActivity : BleActivity() {
     }
 
     override fun onServiceDisconnected() {
+        // if our service was killed it's pointless to stay alive
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
