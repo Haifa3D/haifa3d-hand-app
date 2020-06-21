@@ -71,7 +71,7 @@ class EditMovementFragment : BleFragment() {
     private var editMovementValue
         get() = HandMovement(
                     TorqueStopModeDetail(if (binding.torqueSwitch.isChecked) TorqueStopThreshold.High else  TorqueStopThreshold.Low),
-                    TimeStopModeDetail(10),
+                    TimeStopModeDetail(255u),
                     MotorsActivated(
                         binding.turnLeftButton.isChecked || binding.turnRightButton.isChecked,
                         binding.finger1OpenButton.isChecked || binding.finger1CloseButton.isChecked,

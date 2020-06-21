@@ -14,7 +14,7 @@ import no.nordicsemi.android.ble.data.Data
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-fun Iterable<Boolean>.toByte(): Byte {
+fun Iterable<Boolean>.toUByte(): UByte {
     val lst = this.toList()
     if (lst.size > 8)
         throw IllegalArgumentException("Cant convert more than 8 Booleans to a byte.")
@@ -25,10 +25,10 @@ fun Iterable<Boolean>.toByte(): Byte {
     }
     val offset = 8 - lst.size
     res = res shl offset
-    return res.toByte()
+    return res.toUByte()
 }
 
-fun Byte.toBits(): List<Boolean> {
+fun UByte.toBits(): List<Boolean> {
     val int = this.toInt()
     return listOf(
         int and 128 == 128, // msb

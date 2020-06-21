@@ -3,7 +3,7 @@ package com.gjung.haifa3d.model
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.gjung.haifa3d.toBits
-import com.gjung.haifa3d.toByte
+import com.gjung.haifa3d.toUByte
 import kotlinx.android.parcel.Parcelize
 
 @Keep
@@ -16,7 +16,7 @@ data class MotorsActivated(
     val finger4: Boolean = false
 ): ByteRepresentable, Parcelable {
 
-    override fun toBytes(): Iterable<Byte> =
+    override fun toBytes(): Iterable<UByte> =
         listOf(
             listOf(
                 turn,
@@ -24,11 +24,11 @@ data class MotorsActivated(
                 finger2,
                 finger3,
                 finger4)
-            .toByte()
+            .toUByte()
         )
 }
 
-fun Byte.decodeMotorsActivated(): MotorsActivated {
+fun UByte.decodeMotorsActivated(): MotorsActivated {
     val bits = this.toBits()
     return MotorsActivated(
         bits[0],

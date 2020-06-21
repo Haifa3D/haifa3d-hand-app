@@ -12,5 +12,5 @@ data class HandMovement(
     val motorsActivated: MotorsActivated,
     val motorsDirection: MotorsDirection
 ) : ByteRepresentable, Parcelable {
-    override fun toBytes(): Iterable<Byte> = listOf<ByteRepresentable>(torqueDetail, timeDetail, motorsActivated, motorsDirection).flatMap { it.toBytes() }
+    override fun toBytes(): Iterable<UByte> = listOf<ByteRepresentable>(torqueDetail, timeDetail, motorsActivated, motorsDirection).flatMap { it.toBytes() }
 }

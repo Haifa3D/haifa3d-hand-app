@@ -29,7 +29,7 @@ class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
             ?: throw IllegalStateException("No supported device connected")
 
         manager.log(Log.VERBOSE, "Writing preset $presetNumber...")
-        manager.writeCharacteristic(characteristic, action.toBytes().toList().toByteArray())
+        manager.writeCharacteristic(characteristic, action.toBytes().toList().toUByteArray().toByteArray())
             .sendSuspend()
     }
 
@@ -44,6 +44,7 @@ class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
         manager.log(Log.VERBOSE, "Readig preset $presetNumber...")
         val bytes = manager.readCharacteristic(characteristic)
                            .readBytesAsync()
+                           ?.toUByteArray()
 
         return bytes?.decodeHandAction()
     }

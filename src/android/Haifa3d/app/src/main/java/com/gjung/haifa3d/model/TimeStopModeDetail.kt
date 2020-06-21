@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Keep
 @Parcelize
-data class TimeStopModeDetail(val durationTimeUnitCount: Byte): ByteRepresentable, Parcelable {
-    override fun toBytes(): Iterable<Byte> =
+data class TimeStopModeDetail(val durationTimeUnitCount: UByte): ByteRepresentable, Parcelable {
+    override fun toBytes(): Iterable<UByte> =
         listOf(durationTimeUnitCount)
 }

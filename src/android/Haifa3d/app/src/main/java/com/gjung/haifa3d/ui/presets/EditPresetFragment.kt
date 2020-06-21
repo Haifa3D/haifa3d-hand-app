@@ -82,7 +82,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     private fun addHandMovement() {
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),
-            TimeStopModeDetail(50),
+            TimeStopModeDetail(50u),
             MotorsActivated(
                 turn = true,
                 finger1 = true

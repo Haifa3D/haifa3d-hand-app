@@ -16,7 +16,7 @@ class DirectExecuteService(manager: BleManagerAccessor) : GattHandler(manager) {
             throw IllegalStateException("No supported device connected")
 
         manager.log(Log.VERBOSE, "Executing action...")
-        manager.writeCharacteristic(directExecuteCharacteristic!!, action.toBytes().toList().toByteArray())
+        manager.writeCharacteristic(directExecuteCharacteristic!!, action.toBytes().toList().toUByteArray().toByteArray())
             .enqueue()
     }
 

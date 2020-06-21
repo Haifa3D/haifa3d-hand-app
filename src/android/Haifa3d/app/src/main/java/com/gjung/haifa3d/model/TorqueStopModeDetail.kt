@@ -3,7 +3,7 @@ package com.gjung.haifa3d.model
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.gjung.haifa3d.toBits
-import com.gjung.haifa3d.toByte
+import com.gjung.haifa3d.toUByte
 import kotlinx.android.parcel.Parcelize
 
 @Keep
@@ -18,7 +18,7 @@ data class TorqueStopModeDetail(
 
     constructor(all: TorqueStopThreshold) : this(all, all, all, all, all)
 
-    override fun toBytes(): Iterable<Byte> =
+    override fun toBytes(): Iterable<UByte> =
         listOf(
             listOf(
                 turn.isBitSet,
@@ -26,12 +26,12 @@ data class TorqueStopModeDetail(
                 finger2.isBitSet,
                 finger3.isBitSet,
                 finger4.isBitSet)
-            .toByte()
+            .toUByte()
         )
 
 }
 
-fun Byte.decodeTorqueStopModeDetail(): TorqueStopModeDetail {
+fun UByte.decodeTorqueStopModeDetail(): TorqueStopModeDetail {
     val bits = this.toBits()
     return TorqueStopModeDetail(
         bits[0].toTorqueStopThreshold(),
