@@ -113,8 +113,11 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
     }
 
     override fun onStop() {
-        super.onStop()
+        if (bleService?.manager?.isConnected != true) {
+            bleService?.stopService()
+        }
         stopScan()
+        super.onStop()
     }
 
     override fun onResume() {
