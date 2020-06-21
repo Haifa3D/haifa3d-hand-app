@@ -38,5 +38,20 @@
             android:name="presetId"
             app:argType="integer">
         </argument>
+        <action
+            android:id="@+id/edit_movement"
+            app:destination="@id/nav_edit_movement" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_edit_movement"
+        android:name="com.gjung.haifa3d.ui.presets.EditMovementFragment"
+        tools:layout="@layout/fragment_edit_movement">
+        <argument
+            android:name="presetId"
+            app:argType="integer" />
+        <argument
+            android:name="movementId"
+            app:argType="integer">
+        </argument>
     </fragment>
 </navigation>

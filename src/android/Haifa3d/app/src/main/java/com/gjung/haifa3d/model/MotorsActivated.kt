@@ -1,15 +1,20 @@
 package com.gjung.haifa3d.model
 
+import android.os.Parcelable
+import androidx.annotation.Keep
 import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
+import kotlinx.android.parcel.Parcelize
 
-class MotorsActivated(
+@Keep
+@Parcelize
+data class MotorsActivated(
     val turn: Boolean = false,
     val finger1: Boolean = false,
     val finger2: Boolean = false,
     val finger3: Boolean = false,
     val finger4: Boolean = false
-): ByteRepresentable {
+): ByteRepresentable, Parcelable {
 
     override fun toBytes(): Iterable<Byte> =
         listOf(

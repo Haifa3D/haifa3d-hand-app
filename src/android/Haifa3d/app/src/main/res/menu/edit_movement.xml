@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_try_movement"
+        android:icon="@drawable/ic_play_arrow"
+        android:orderInCategory="0"
+        android:title="@string/action_try_movement"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_save_hand_movement"
+        android:icon="@drawable/ic_save"
+        android:orderInCategory="2"
+        android:title="@string/action_save_hand_movement"
+        app:showAsAction="always" />
+</menu>

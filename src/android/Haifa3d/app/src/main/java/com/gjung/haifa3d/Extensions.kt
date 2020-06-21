@@ -1,6 +1,9 @@
 package com.gjung.haifa3d
 
 import android.bluetooth.BluetoothDevice
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.gjung.haifa3d.model.HandAction
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.Request
@@ -54,3 +57,17 @@ suspend fun WriteRequest.sendSuspend(): Unit =
         this.with(callback)
             .enqueue()
     }
+
+fun <T> Fragment.getNavigationResult(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.get<T>(key)
+
+fun <T> Fragment.getNavigationResultLiveData(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+
+fun <T> MutableLiveData<T>.notifyObserver() {
+    this.value = this.value
+}

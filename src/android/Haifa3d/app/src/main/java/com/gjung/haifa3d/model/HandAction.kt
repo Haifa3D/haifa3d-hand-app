@@ -3,14 +3,18 @@ package com.gjung.haifa3d.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-class HandAction(val Movements: Collection<HandMovement>) : ByteRepresentable {
+class HandAction(val Movements: MutableList<HandMovement>) : ByteRepresentable {
     constructor(
         vararg movements: HandMovement
-    ) : this(movements.toList())
+    ) : this(movements.toMutableList())
 
     override fun toBytes(): Iterable<Byte> {
         val repr = Movements.flatMap { it.toBytes() }
         return LengthIndicator((repr.size + 1).toByte()).toBytes() + repr
+    }
+
+    companion object {
+        val Empty = HandAction()
     }
 }
 

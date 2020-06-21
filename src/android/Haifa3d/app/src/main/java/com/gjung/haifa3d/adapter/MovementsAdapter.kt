@@ -7,14 +7,17 @@ import com.gjung.haifa3d.databinding.MovementItemBinding
 import com.gjung.haifa3d.model.HandMovement
 import com.gjung.haifa3d.model.MotorDirection
 import com.gjung.haifa3d.model.TorqueStopThreshold
+import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
-class MovementsAdapter: RecyclerView.Adapter<MovementsAdapter.ViewHolder>() {
-    val movements = mutableListOf<HandMovement>()
+class MovementsAdapter(private val viewModel: PresetsViewModel, private val presetId: Int): RecyclerView.Adapter<MovementsAdapter.ViewHolder>() {
+    private val movements
+        get() = viewModel.presets.value!![presetId].handAction!!.Movements
+
     var onItemClickListener: OnItemClickListener? = null
 
     @FunctionalInterface
     interface OnItemClickListener {
-        fun onItemClick(movement: HandMovement)
+        fun onItemClick(movementIndex: Int, movement: HandMovement)
     }
 
     init {
@@ -40,7 +43,7 @@ class MovementsAdapter: RecyclerView.Adapter<MovementsAdapter.ViewHolder>() {
 
         init {
             binding.presetContainer.setOnClickListener {
-                onItemClickListener?.onItemClick(movements[adapterPosition])
+                onItemClickListener?.onItemClick(adapterPosition, movements[adapterPosition])
             }
 
             binding.deleteButton.setOnClickListener {

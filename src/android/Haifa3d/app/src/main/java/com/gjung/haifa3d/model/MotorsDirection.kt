@@ -1,14 +1,19 @@
 package com.gjung.haifa3d.model
 
+import android.os.Parcelable
+import androidx.annotation.Keep
 import com.gjung.haifa3d.toBits
 import com.gjung.haifa3d.toByte
+import kotlinx.android.parcel.Parcelize
 
-class MotorsDirection(val turn: MotorDirection = MotorDirection.Dir1,
+@Keep
+@Parcelize
+data class MotorsDirection(val turn: MotorDirection = MotorDirection.Dir1,
                       val finger1: MotorDirection = MotorDirection.Dir1,
                       val finger2: MotorDirection = MotorDirection.Dir1,
                       val finger3: MotorDirection = MotorDirection.Dir1,
                       val finger4: MotorDirection = MotorDirection.Dir1
-): ByteRepresentable {
+): ByteRepresentable, Parcelable {
 
         override fun toBytes(): Iterable<Byte> =
         listOf(

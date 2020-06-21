@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +21,7 @@ import com.gjung.haifa3d.ble.TriggerService
 import com.gjung.haifa3d.databinding.FragmentPresetsBinding
 import com.gjung.haifa3d.model.HandAction
 import com.gjung.haifa3d.model.Preset
+import com.gjung.haifa3d.notifyObserver
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,26 +32,29 @@ import kotlinx.coroutines.launch
  */
 class PresetsFragment : BleFragment() {
     private lateinit var binding: FragmentPresetsBinding
-    private var presets: PresetService? = null
+    private var presetService: PresetService? = null
     private var triggerService: TriggerService? = null
     private lateinit var adapter: PresetsAdapter
+    private val presetsViewModel: PresetsViewModel by activityViewModels()
 
     override fun onServiceConnected() {
-        presets = bleService!!.manager.presetService
+        presetService = bleService!!.manager.presetService
         triggerService  = bleService!!.manager.triggerService
-        adapter.presets.clear()
+
+        val presets = presetsViewModel.presets.value!!
+        presets.clear()
         for(i in 0..11) {
-            adapter.presets.add(Preset(i))
+            presets.add(Preset(i))
         }
-        adapter.notifyDataSetChanged()
+        presetsViewModel.presets.value = presets
     }
 
     override fun onServiceDisconnected() {
-        presets = null
+        presetService = null
         triggerService = null
 
-        adapter.presets.clear()
-        adapter.notifyDataSetChanged()
+        presetsViewModel.presets.value!!.clear()
+        presetsViewModel.presets.notifyObserver()
     }
 
     override fun onCreateView(
@@ -58,13 +65,13 @@ class PresetsFragment : BleFragment() {
 
         val rec = binding.recyclerViewPresets
 
-        adapter = PresetsAdapter()
+        adapter = PresetsAdapter(presetsViewModel)
         adapter.onItemClickListener = object : PresetsAdapter.OnItemClickListener {
             override fun onItemClick(preset: Preset) {
                 if (preset.handAction == null) {
                     GlobalScope.launch(Dispatchers.Main) {
                         try {
-                            preset.handAction = presets?.readPreset(preset.id)
+                            preset.handAction = presetService?.readPreset(preset.id)
                             triggerService?.trigger(preset.id)
                         } catch(ex: Throwable) {
                             showSnackbar(R.string.preset_not_set)
@@ -78,10 +85,22 @@ class PresetsFragment : BleFragment() {
 
         adapter.onItemEditClickListener = object : PresetsAdapter.OnItemClickListener {
             override fun onItemClick(preset: Preset) {
-                val act = PresetsFragmentDirections.editPreset(preset.id)
-                this@PresetsFragment.findNavController().navigate(act)
+                GlobalScope.launch(Dispatchers.Main) {
+                    // ensure preset is loaded or use empty if not set
+                    try {
+                        preset.handAction = presetService?.readPreset(preset.id)
+                    } catch(ex: Throwable) {
+                        preset.handAction = HandAction.Empty
+                    }
+                    val act = PresetsFragmentDirections.editPreset(preset.id)
+                    this@PresetsFragment.findNavController().navigate(act)
+                }
             }
         }
+
+        presetsViewModel.presets.observe(viewLifecycleOwner, Observer {
+            adapter.notifyDataSetChanged()
+        })
 
         rec.adapter = adapter
         rec.setHasFixedSize(true)

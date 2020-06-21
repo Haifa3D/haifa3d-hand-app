@@ -1,6 +1,12 @@
 package com.gjung.haifa3d.model
 
-class TimeStopModeDetail(val durationTimeUnitCount: Byte): ByteRepresentable {
+import android.os.Parcelable
+import androidx.annotation.Keep
+import kotlinx.android.parcel.Parcelize
+
+@Keep
+@Parcelize
+data class TimeStopModeDetail(val durationTimeUnitCount: Byte): ByteRepresentable, Parcelable {
     override fun toBytes(): Iterable<Byte> =
         listOf(durationTimeUnitCount)
 }
