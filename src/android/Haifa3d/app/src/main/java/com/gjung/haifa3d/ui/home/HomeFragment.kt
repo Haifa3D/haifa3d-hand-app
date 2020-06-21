@@ -36,7 +36,7 @@ class HomeFragment : BleFragment() {
                 HandAction(
                     HandMovement(
                         TorqueStopModeDetail(TorqueStopThreshold.High),
-                        TimeStopModeDetail(139.toByte()),
+                        TimeStopModeDetail(139u),
                         MotorsActivated(
                             turn = true,
                             finger1 = true,
@@ -55,7 +55,7 @@ class HomeFragment : BleFragment() {
                 HandAction(
                     HandMovement(
                         TorqueStopModeDetail(TorqueStopThreshold.Low),
-                        TimeStopModeDetail(255.toByte()),
+                        TimeStopModeDetail(255u),
                         MotorsActivated(
                             turn = false,
                             finger1 = true,
@@ -67,7 +67,7 @@ class HomeFragment : BleFragment() {
                     ),
                     HandMovement(
                         TorqueStopModeDetail(TorqueStopThreshold.Low),
-                        TimeStopModeDetail(255.toByte()),
+                        TimeStopModeDetail(255u),
                         MotorsActivated(
                             turn = false,
                             finger1 = true,

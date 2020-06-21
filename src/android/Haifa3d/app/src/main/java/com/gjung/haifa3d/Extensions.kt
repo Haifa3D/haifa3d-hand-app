@@ -1,6 +1,9 @@
 package com.gjung.haifa3d
 
 import android.bluetooth.BluetoothDevice
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.gjung.haifa3d.model.HandAction
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.Request
@@ -11,7 +14,7 @@ import no.nordicsemi.android.ble.data.Data
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-fun Iterable<Boolean>.toByte(): Byte {
+fun Iterable<Boolean>.toUByte(): UByte {
     val lst = this.toList()
     if (lst.size > 8)
         throw IllegalArgumentException("Cant convert more than 8 Booleans to a byte.")
@@ -22,10 +25,10 @@ fun Iterable<Boolean>.toByte(): Byte {
     }
     val offset = 8 - lst.size
     res = res shl offset
-    return res.toByte()
+    return res.toUByte()
 }
 
-fun Byte.toBits(): List<Boolean> {
+fun UByte.toBits(): List<Boolean> {
     val int = this.toInt()
     return listOf(
         int and 128 == 128, // msb
@@ -54,3 +57,17 @@ suspend fun WriteRequest.sendSuspend(): Unit =
         this.with(callback)
             .enqueue()
     }
+
+fun <T> Fragment.getNavigationResult(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.get<T>(key)
+
+fun <T> Fragment.getNavigationResultLiveData(key: String = "result") =
+    findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<T>(key)
+
+fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
+    findNavController().previousBackStackEntry?.savedStateHandle?.set(key, result)
+}
+
+fun <T> MutableLiveData<T>.notifyObserver() {
+    this.value = this.value
+}

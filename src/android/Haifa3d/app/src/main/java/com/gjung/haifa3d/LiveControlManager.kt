@@ -39,7 +39,7 @@ class LiveControlManager(private val service: DirectExecuteService, private val 
         val act = HandAction(
             HandMovement(
                 TorqueStopModeDetail(TorqueStopThreshold.Low),
-                TimeStopModeDetail(1),
+                TimeStopModeDetail(1u),
                 MotorsActivated(
                     turnDirection != null,
                     finger1Direction != null,

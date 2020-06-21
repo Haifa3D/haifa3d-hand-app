@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.databinding.PresetItemBinding
 import com.gjung.haifa3d.model.Preset
+import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
-class PresetsAdapter: RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
-    val presets = mutableListOf<Preset>()
+class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
     var onItemClickListener: OnItemClickListener? = null
     var onItemEditClickListener: OnItemClickListener? = null
+    private val presets
+        get() = viewModel.presets.value!!
 
     @FunctionalInterface
     interface OnItemClickListener {

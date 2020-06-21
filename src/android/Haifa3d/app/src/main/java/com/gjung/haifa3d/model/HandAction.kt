@@ -3,18 +3,22 @@ package com.gjung.haifa3d.model
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-class HandAction(val Movements: Collection<HandMovement>) : ByteRepresentable {
+class HandAction(val Movements: MutableList<HandMovement>) : ByteRepresentable {
     constructor(
         vararg movements: HandMovement
-    ) : this(movements.toList())
+    ) : this(movements.toMutableList())
 
-    override fun toBytes(): Iterable<Byte> {
+    override fun toBytes(): Iterable<UByte> {
         val repr = Movements.flatMap { it.toBytes() }
-        return LengthIndicator((repr.size + 1).toByte()).toBytes() + repr
+        return LengthIndicator((repr.size + 1).toUByte()).toBytes() + repr
+    }
+
+    companion object {
+        val Empty = HandAction()
     }
 }
 
-fun ByteArray.decodeHandAction(): HandAction {
+fun UByteArray.decodeHandAction(): HandAction {
     if ((this.size - 1).rem(4) != 0)
         java.lang.IllegalArgumentException("Size of the array needs to be 4n+1.")
     val movementCount = (this.size - 1) / 4
