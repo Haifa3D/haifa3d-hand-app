@@ -45,13 +45,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center_horizontal"
-		android:text="@string/blinky_guide_title"/>
+		android:text="@string/connect_guide_title"/>
 
 	<com.google.android.material.textview.MaterialTextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_marginTop="@dimen/activity_vertical_margin"
-		android:text="@string/blinky_guide_info"/>
+		android:text="@string/connect_guide_info"/>
 
 	<LinearLayout
 		android:id="@+id/no_location"
@@ -65,7 +65,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginTop="@dimen/activity_vertical_margin"
-			android:text="@string/blinky_guide_location_info"/>
+			android:text="@string/connect_guide_location_info"/>
 
 		<com.google.android.material.button.MaterialButton
 			android:id="@+id/action_enable_location"
@@ -73,6 +73,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			android:text="@string/blinky_guide_location_action"/>
+			android:layout_marginTop="@dimen/activity_vertical_margin"
+			android:text="@string/connect_guide_location_action"/>
 	</LinearLayout>
 </LinearLayout>

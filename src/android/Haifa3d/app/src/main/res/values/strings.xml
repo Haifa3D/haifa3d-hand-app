@@ -13,7 +13,8 @@
 
     <string name="location_permission_title">LOCATION PERMISSION REQUIRED</string>
     <string name="location_permission_info">From Android 6.0 Marshmallow onwards the application requires Location permission in order to scan for Bluetooth Low Energy devices.
-      \n\nThis is because Bluetooth LE beacons may be used to determine the phone\'s and user\'s location. This app will not use this information in any way.</string>
+      \n\nThis is because Bluetooth LE beacons may be used to determine the phone\'s and user\'s location. This app will not use this information in any way.
+      \n\nThis is a requirement by the Android operating system and we can not change anything about this.</string>
     <string name="location_permission_action">Grant permission</string>
     <string name="location_permission_settings">Settings</string>
 
@@ -21,17 +22,15 @@
     <string name="bluetooth_disabled_info">The Bluetooth adapter is turned off. Click the button below to enable it.</string>
     <string name="bluetooth_disabled_action">Enable</string>
 
-    <string name="blinky_guide_title">CAN\'T SEE YOUR DEVICE?</string>
-    <string name="blinky_guide_info">1. Make sure the DK is <b>turned on</b> and is connected to a power source using a micro USB cable or a coin cell is plugged in.
-        \n\n2. Make sure the <b>ble_app_blinky</b> firmware and SoftDevice are flashed.</string>
-    <string name="blinky_guide_location_info">3. Location is turned off. Some Android phones require it enabled in order to scan for Bluetooth LE devices.
-		If you are sure your Blinky is advertising and it doesn\'t show up here, click the button below to enable Location.</string>
-    <string name="blinky_guide_location_action">Enable</string>
+    <string name="connect_guide_title">CAN\'T SEE YOUR DEVICE?</string>
+    <string name="connect_guide_info">1. Make sure the hand is <b>turned on</b> and the battery is not empty.
+        \n\n2. Place your smartphone as close to the hand as possible.</string>
+    <string name="connect_guide_location_info">3. Location is turned off. Some Android phones require it enabled in order to scan for Bluetooth LE devices.
+		If you are sure your hand is online and in range and it doesn\'t show up here, click the button below to enable Location.</string>
+    <string name="connect_guide_location_action">Enable</string>
 
     <string name="not_supported_title">DEVICE NOT SUPPORTED</string>
-    <string name="not_supported_info">1. The Blinky service hasn\'t been found on the device\'s attribute table.
-		\n\n2. Make sure the DK is flashed with the correct firmware.
-		\n\n3. If you used the DK with another firmware before, the old services might have been cached by the system.</string>
+    <string name="not_supported_info">The device you selected does not seem to be a hand device by Haifa3d.</string>
     <string name="not_supported_action">Fix and try again</string>
 
     <string name="state_connecting">Connecting…</string>
