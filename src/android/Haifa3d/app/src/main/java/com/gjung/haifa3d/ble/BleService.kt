@@ -8,6 +8,8 @@ import androidx.lifecycle.observe
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.notification.createBatteryLevelNotificationChannel
 
+const val BATTERY_LOW_NOTIFICATION_ID = 1000
+
 class BleService : NotificationService() {
     lateinit var manager: AppBleManager
 
@@ -47,7 +49,7 @@ class BleService : NotificationService() {
             batteryLowNotificationId = null
             notificationManager.cancel(id)
         } else if (notification.percentage <= 20 && batteryLowNotificationId == null) {
-            id = notificationId + 1
+            id = BATTERY_LOW_NOTIFICATION_ID
             batteryLowNotificationId = id
             val b = prepareNotificationBuilder(notificationManager.createBatteryLevelNotificationChannel(this))
             val msg = getString(R.string.notification_battery_low_content, notification.percentage)
