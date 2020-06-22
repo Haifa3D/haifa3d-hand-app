@@ -6,10 +6,10 @@
     <color name="secondaryColor">#d32f2f</color>
     <color name="secondaryLightColor">#ff6659</color>
     <color name="secondaryDarkColor">#9a0007</color>
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="primaryTextColor">#000000</color>
     <color name="secondaryTextColor">#ffffff</color>
     <color name="colorOnBackground">#303f9f</color>
-    <color name="colorOnPrimary">@color/primaryTextColor</color>
+    <color name="colorOnPrimary">#ffffff</color>
     <color name="colorAccentOnPrimary">#ffffff</color>
     <color name="movementControlButtonReady">#888888</color>
     <color name="movementControlButtonToggled">@color/primaryColor</color>
