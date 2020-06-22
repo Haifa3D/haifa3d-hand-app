@@ -9,9 +9,17 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item
+		android:id="@+id/menu_about"
+		android:title="@string/menu_about"
+		android:icon="@drawable/ic_question_circle_regular"
+		android:orderInCategory="0"
+		app:showAsAction="ifRoom">
+	</item>
+	<item
         android:title="@string/menu_filter"
 		android:icon="@drawable/ic_filter"
-		app:showAsAction="ifRoom">
+		android:orderInCategory="1"
+		app:showAsAction="always">
 
 		<menu>
 			<item android:id="@+id/filter_uuid"

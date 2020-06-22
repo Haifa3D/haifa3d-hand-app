@@ -23,10 +23,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AboutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
         <activity
             android:name=".ConnectedActivity"
             android:label="@string/title_activity_connected"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".ScannerActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -35,10 +40,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:enabled="true"
-            android:name=".ble.BleService">
-        </service>
+            android:name=".ble.BleService"
+            android:enabled="true"></service>
     </application>
 
 </manifest>

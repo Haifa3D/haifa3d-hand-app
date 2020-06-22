@@ -70,7 +70,7 @@ abstract class NotificationService : Service() {
 
         // Set the info for the views that show in the notification panel.
         val notification: Notification = builder
-            .setSmallIcon(R.drawable.ic_device_blinky) // the status icon
+            .setSmallIcon(R.drawable.ic_hand_paper_regular) // the status icon
             .setTicker(text) // the status text
             .setWhen(System.currentTimeMillis()) // the time stamp
             .setContentTitle(text) // the label of the entry
