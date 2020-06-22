@@ -22,7 +22,7 @@
             android:title="@string/menu_status" />
         <item
             android:id="@+id/nav_about"
-            android:icon="@drawable/ic_hand_paper"
+            android:icon="@drawable/ic_hand_paper_regular"
             android:title="@string/menu_about" />
     </group>
 </menu>

@@ -39,12 +39,15 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
         android:background="@drawable/ic_device_bg"
-        android:scaleType="center"
-        app:srcCompat="@drawable/ic_device_blinky"/>
+        android:tint="@color/colorOnPrimary"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_hand_paper_regular" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/device_name"
