@@ -1,15 +1,17 @@
 package com.gjung.haifa3d.ui.about
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gjung.haifa3d.BuildConfig
-
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.databinding.FragmentAboutBinding
+
 
 /**
  * A simple [Fragment] subclass.
@@ -29,6 +31,11 @@ class AboutFragment : Fragment() {
         binding.viewOssLicensesButton.setOnClickListener {
             val act = AboutFragmentDirections.showLicenseInfo()
             this@AboutFragment.findNavController().navigate(act)
+        }
+        binding.viewGithub.setOnClickListener {
+            val browserIntent =
+                Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url)))
+            startActivity(browserIntent)
         }
 
         return binding.root
