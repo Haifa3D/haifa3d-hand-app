@@ -1,19 +1,26 @@
 package com.gjung.haifa3d.ble
 
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import com.gjung.haifa3d.ConnectedActivity
+import androidx.lifecycle.LifecycleService
+import com.gjung.haifa3d.MainActivity
 import com.gjung.haifa3d.R
-import com.gjung.haifa3d.notification.createBleNotificationChannel
+import com.gjung.haifa3d.notification.createForegroundServiceNotificationChannel
 
 
-abstract class NotificationService : Service() {
-    private lateinit var notifMgr: NotificationManager
+abstract class NotificationService : LifecycleService() {
+    protected lateinit var notificationManager: NotificationManager
+    val notificationId: Int by lazy {
+        hashCode()
+    }
+    val notificationBuilder: NotificationCompat.Builder by lazy {
+        preparePersistentNotificationBuilder()
+    }
 
     companion object {
         @JvmStatic private val StopServiceAction: String = "STOP_SERVICE"
@@ -21,7 +28,7 @@ abstract class NotificationService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        notifMgr = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         showNotification()
     }
 
@@ -33,6 +40,7 @@ abstract class NotificationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         if (intent?.action == StopServiceAction) {
             stopService()
             return START_NOT_STICKY
@@ -45,44 +53,57 @@ abstract class NotificationService : Service() {
         stopSelf()
     }
 
-    /**
-     * Show a notification while this service is running.
-     */
-    private fun showNotification() { // In this sample, we'll use the same text for the ticker and the expanded notification
-        val text = getText(R.string.notification_ble_title)
-
-        // The PendingIntent to launch our activity if the user selects this notification
-        val contentIntent = PendingIntent.getActivity(
-            this, 0,
-            Intent(this, ConnectedActivity::class.java), 0
-        )
-
-        val builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = notifMgr.createBleNotificationChannel(this)
+    private fun newNotificationBuilder(channel: NotificationChannel? = null) =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = channel ?: notificationManager.createForegroundServiceNotificationChannel(this)
             NotificationCompat.Builder(this, channel.id)
         } else {
             NotificationCompat.Builder(this)
         }
 
+    fun prepareNotificationBuilder(channel: NotificationChannel): NotificationCompat.Builder =
+        prepareNotificationBuilder(newNotificationBuilder(channel))
+
+    fun prepareNotificationBuilder(builder: NotificationCompat.Builder = newNotificationBuilder()): NotificationCompat.Builder {
+        val contentIntent = PendingIntent.getActivity(
+            this, 0,
+            Intent(this, MainActivity::class.java), 0
+        )
+
+        // Set the info for the views that show in the notification panel.
+        return builder
+            .setOnlyAlertOnce(true)
+            .setSmallIcon(R.drawable.ic_hand_paper_regular) // the status icon
+            .setWhen(System.currentTimeMillis()) // the time stamp
+            .setContentIntent(contentIntent) // The intent to send when the entry is clicked
+    }
+
+    private fun preparePersistentNotificationBuilder(builder: NotificationCompat.Builder = newNotificationBuilder()): NotificationCompat.Builder {
+        val b = prepareNotificationBuilder(builder)
+
         val serviceIntent = Intent(this, BleService::class.java)
         serviceIntent.action = StopServiceAction
         val closeIntent = PendingIntent.getService(applicationContext, 0, serviceIntent, 0)
 
-        // Set the info for the views that show in the notification panel.
-        val notification: Notification = builder
-            .setSmallIcon(R.drawable.ic_hand_paper_regular) // the status icon
+        val text = getText(R.string.notification_ble_title)
+        return b
             .setTicker(text) // the status text
-            .setWhen(System.currentTimeMillis()) // the time stamp
             .setContentTitle(text) // the label of the entry
             .setContentText(text) // the contents of the entry
-            .setContentIntent(contentIntent) // The intent to send when the entry is clicked
             .addAction(R.drawable.ic_bluetooth_disabled, "Close", closeIntent)
-            .build()
+    }
+
+    fun updateNotification(notification: Notification) {
+        notificationManager.notify(notificationId, notification)
+    }
+
+    private fun showNotification() {
+        val notification = notificationBuilder.build()
 
         // Send the notification.
         // We use a string id because it is a unique number.  We use it later to cancel.
         // notifMgr.notify(R.string.notification_ble_title, notification)
 
-        startForeground(hashCode(), notification)
+        startForeground(notificationId, notification)
     }
 }

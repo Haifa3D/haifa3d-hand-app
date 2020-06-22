@@ -11,8 +11,9 @@
 	<item
 		android:id="@+id/menu_about"
 		android:title="@string/menu_about"
-		android:icon="@drawable/ic_question_circle_regular"
+		android:icon="@drawable/ic_question_circle_regular_padded"
 		android:orderInCategory="0"
+		android:padding="5dp"
 		app:showAsAction="ifRoom">
 	</item>
 	<item

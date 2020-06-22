@@ -234,11 +234,11 @@ uint8_t level = 57;
 void loop() {
   BatteryLevelCharacteristic.setValue(&level, 1);
   BatteryLevelCharacteristic.notify();
-  delay(5000);
+  delay(350);
 
-  level++;
+  level--;
   Serial.println(int(level));
 
-  if (int(level)==100)
-  level=0;
+  if (int(level)==0)
+  level=100;
 }

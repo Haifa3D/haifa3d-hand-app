@@ -60,6 +60,11 @@
     <string name="notification_ble_channel_name">BLE Service</string>
     <string name="notification_ble_channel_description">Handle bluetooth connection in background</string>
 
+    <string name="notification_battery_low_title">Low battery</string>
+    <string name="notification_battery_low_content">Less than %1$d %% remaining</string>
+    <string name="notification_battery_low_channel_name">Low Battery</string>
+    <string name="notification_battery_low_channel_description">Notify about low battery levels</string>
+
     <string name="not_a_haifa3d_device">This is not a Haifa 3D device</string>
     <string name="connecting">Connecting…</string>
 
@@ -134,4 +139,5 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
 ]]>
     </string>
+    <string name="menu_disconnect">Disconnect</string>
 </resources>
