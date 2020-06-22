@@ -12,17 +12,17 @@ import no.nordicsemi.android.ble.livedata.ObservableBleManager
 
 open class AppBleManager(context: Context) : ObservableBleManager(context) {
     private lateinit var accessor: Accessor
-    lateinit var batteryService: BatteryLevelService
-    lateinit var directExecuteService: DirectExecuteService
-    lateinit var presetService: PresetService
-    lateinit var triggerService: TriggerService
+    lateinit var batteryService: IBatteryLevelService
+    lateinit var directExecuteService: IDirectExecuteService
+    lateinit var presetService: IPresetService
+    lateinit var triggerService: ITriggerService
 
     override fun getGattCallback(): BleManagerGattCallback {
         accessor = Accessor()
-        batteryService = BatteryLevelService(accessor)
-        directExecuteService = DirectExecuteService(accessor)
-        presetService = PresetService(accessor)
-        triggerService = TriggerService(accessor)
+        val batteryService = BatteryLevelService(accessor); this.batteryService = batteryService;
+        val directExecuteService = DirectExecuteService(accessor); this.directExecuteService = directExecuteService
+        val presetService = PresetService(accessor); this.presetService = presetService;
+        val triggerService = TriggerService(accessor); this.triggerService = triggerService;
         return CompositeHandler(batteryService, directExecuteService, presetService, triggerService)
     }
 

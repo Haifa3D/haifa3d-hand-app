@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import com.gjung.haifa3d.BleFragment
 
 import com.gjung.haifa3d.R
-import com.gjung.haifa3d.ble.DirectExecuteService
-import com.gjung.haifa3d.ble.PresetService
+import com.gjung.haifa3d.ble.IDirectExecuteService
+import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditMovementBinding
 import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.notifyObserver
@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 
 class EditMovementFragment : BleFragment() {
     private lateinit var binding: FragmentEditMovementBinding
-    private var directExecuteService: DirectExecuteService? = null
-    private var presetService: PresetService? = null
+    private var directExecuteService: IDirectExecuteService? = null
+    private var presetService: IPresetService? = null
     private val args: EditMovementFragmentArgs by navArgs()
     private val presetsViewModel: PresetsViewModel by activityViewModels()
 

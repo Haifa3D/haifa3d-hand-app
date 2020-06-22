@@ -16,8 +16,8 @@ import com.gjung.haifa3d.BleFragment
 
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.PresetService
-import com.gjung.haifa3d.ble.TriggerService
+import com.gjung.haifa3d.ble.IPresetService
+import com.gjung.haifa3d.ble.ITriggerService
 import com.gjung.haifa3d.databinding.FragmentPresetsBinding
 import com.gjung.haifa3d.model.HandAction
 import com.gjung.haifa3d.model.Preset
@@ -32,8 +32,8 @@ import kotlinx.coroutines.launch
  */
 class PresetsFragment : BleFragment() {
     private lateinit var binding: FragmentPresetsBinding
-    private var presetService: PresetService? = null
-    private var triggerService: TriggerService? = null
+    private var presetService: IPresetService? = null
+    private var triggerService: ITriggerService? = null
     private lateinit var adapter: PresetsAdapter
     private val presetsViewModel: PresetsViewModel by activityViewModels()
 

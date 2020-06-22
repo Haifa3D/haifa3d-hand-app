@@ -15,8 +15,8 @@ import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.MovementsAdapter
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.DirectExecuteService
-import com.gjung.haifa3d.ble.PresetService
+import com.gjung.haifa3d.ble.IDirectExecuteService
+import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
 import com.gjung.haifa3d.getNavigationResultLiveData
 import com.gjung.haifa3d.model.*
@@ -30,8 +30,8 @@ import kotlinx.coroutines.launch
  */
 class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     private lateinit var binding: FragmentEditPresetBinding
-    private var presetService: PresetService? = null
-    private var directExecuteService: DirectExecuteService? = null
+    private var presetService: IPresetService? = null
+    private var directExecuteService: IDirectExecuteService? = null
     private val args: EditPresetFragmentArgs by navArgs()
     private val presetsViewModel: PresetsViewModel by activityViewModels()
     private lateinit var adapter: MovementsAdapter
