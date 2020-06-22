@@ -8,14 +8,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.gjung.haifa3d.adapter.DiscoveredBluetoothDevice
-import com.google.android.material.navigation.NavigationView
 
 class AboutActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var device: DiscoveredBluetoothDevice
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,21 +17,12 @@ class AboutActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navController = findNavController(R.id.nav_host_fragment)
-
-        navController.setGraph(R.navigation.about_navigation)
-
-        // we don't have top level destinations
-        appBarConfiguration = AppBarConfiguration(
-            setOf(), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
-        if (!navController.navigateUp(appBarConfiguration))
+        if (!navController.navigateUp())
             onBackPressed()
         return true
     }
