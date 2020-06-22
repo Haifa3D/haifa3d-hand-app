@@ -87,6 +87,20 @@
         <![CDATA[
 The attached notices are provided for information only.\n
 \n
+-------------\n
+\n
+License notice for FontAwesome\n
+\n
+Font Awesome Free by @fontawesome - https://fontawesome.com\n
+License - https://fontawesome.com/license/free\n
+Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License\n
+\n
+I used the FontAwesome hand-paper icon as part of the logo for this project.
+I use the icons hand-paper and question-circle in their regular and/or solid form in different parts of the app too.
+I modified hand-paper, including changing its color. For the app\'s icon I added a graphical element in the middle.\n
+\n
+-------------\n
+\n
 License notice for NordicSemiconductor\'s Android-BLE-Library\n
 \n
 Copyright (c) 2015, Nordic Semiconductor\n

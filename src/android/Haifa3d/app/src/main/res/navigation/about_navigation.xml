@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_navigation"
+    app:startDestination="@+id/nav_about">
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.gjung.haifa3d.ui.about.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" >
+        <action
+            android:id="@+id/show_license_info"
+            app:destination="@id/nav_license_info" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_license_info"
+        android:name="com.gjung.haifa3d.ui.about.LicenseInfoFragment"
+        android:label="@string/menu_license_info"
+        tools:layout="@layout/fragment_license_info" />
+</navigation>

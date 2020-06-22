@@ -149,6 +149,11 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
                 scannerViewModel!!.filterByDistance(item.isChecked)
                 return true
             }
+            R.id.menu_about -> {
+                intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
