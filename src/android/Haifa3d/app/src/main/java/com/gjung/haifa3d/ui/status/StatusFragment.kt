@@ -8,12 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.gjung.haifa3d.BleFragment
-import com.gjung.haifa3d.ble.BatteryObserver
 import com.gjung.haifa3d.databinding.FragmentStatusBinding
 
 class StatusFragment : BleFragment() {
 
-    private val statusViewModel: StatusViewModel by viewModels()
     private lateinit var binding: FragmentStatusBinding
 
     override fun onCreateView(
@@ -23,20 +21,13 @@ class StatusFragment : BleFragment() {
     ): View? {
         binding = FragmentStatusBinding.inflate(layoutInflater, container, false)
 
-        statusViewModel.batteryPercentage.observe(viewLifecycleOwner, Observer {
-            binding.batteryPercentage.text = "Battery Percentage: $it %"
-        })
-
         return binding.root
     }
 
     override fun onServiceConnected() {
-        statusViewModel.batteryPercentage.value = bleService!!.manager.batteryService.batteryLevel
-        bleService!!.manager.batteryService.observer = object : BatteryObserver {
-            override fun onBatteryValueReceived(device: BluetoothDevice, percentage: Int) {
-                statusViewModel.batteryPercentage.value = percentage
-            }
-        }
+        bleService!!.manager.batteryService.currentPercentage.observe(viewLifecycleOwner, Observer {
+            binding.batteryPercentage.text = "Battery Percentage: ${it?.percentage ?: "?"} %"
+        })
     }
 
     override fun onServiceDisconnected() {

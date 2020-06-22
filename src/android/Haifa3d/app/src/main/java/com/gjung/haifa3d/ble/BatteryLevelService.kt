@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import no.nordicsemi.android.ble.callback.DataReceivedCallback
 import no.nordicsemi.android.ble.common.callback.battery.BatteryLevelDataCallback
 import no.nordicsemi.android.ble.data.Data
@@ -19,8 +21,9 @@ class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager) {
 
     private lateinit var batteryLevelCharacteristic: BluetoothGattCharacteristic
 
-    var batteryLevel: Int? = null
-    var observer: BatteryObserver? = null
+    val currentPercentage: LiveData<BatteryNotification?>
+        get() = mutableNotification
+    private val mutableNotification = MutableLiveData<BatteryNotification?>()
 
     private val batteryLevelDataCallback: DataReceivedCallback =
         object : BatteryLevelDataCallback() {
@@ -29,8 +32,7 @@ class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager) {
                     LogContract.Log.Level.APPLICATION,
                     "Battery Level received: $batteryLevel%"
                 )
-                this@BatteryLevelService.batteryLevel = batteryLevel
-                observer?.onBatteryValueReceived(device, batteryLevel)
+                mutableNotification.postValue(BatteryNotification(device, batteryLevel))
             }
 
             override fun onInvalidDataReceived(device: BluetoothDevice, data: Data) {
@@ -95,6 +97,6 @@ class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager) {
     }
 
     override fun onDeviceDisconnected() {
-        batteryLevel = null
+        mutableNotification.postValue(null)
     }
 }
