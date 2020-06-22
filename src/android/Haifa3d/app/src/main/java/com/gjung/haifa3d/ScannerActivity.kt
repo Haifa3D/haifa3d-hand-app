@@ -131,7 +131,7 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.filter, menu)
+        menuInflater.inflate(R.menu.scanner, menu)
         menu.findItem(R.id.filter_uuid).isChecked = scannerViewModel!!.isUuidFilterEnabled
         menu.findItem(R.id.filter_nearby).isChecked = scannerViewModel!!.isNearbyFilterEnabled
         return true
