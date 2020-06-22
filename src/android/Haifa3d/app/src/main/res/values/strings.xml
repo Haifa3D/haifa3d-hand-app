@@ -1,4 +1,8 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY nbsp "&#160;"><!-- non-breaking space, U+00A0 -->
+]>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Haifa 3D</string>
 
     <string name="menu_filter">Filter</string>
@@ -86,11 +90,11 @@
     <string name="edit_movement_torque_low">Low</string>
     <string name="about_title">Haifa 3D</string>
     <string name="version_label">Version %1$s</string>
-    <string name="developed_by_label">Developed by Georg Jung, Shunit Polinsky and Miki Mendelson-Mints</string>
+    <string name="developed_by_label">Developed by Georg&nbsp;Jung, Shunit&nbsp;Polinsky and Miki&nbsp;Mendelson-Mints</string>
     <string name="view_oss_licenses_button_text">View License Information</string>
     <string name="view_github_project_button_text">GitHub Project</string>
     <string name="github_url">https://github.com/georg-jung/technion-robotic-arm</string>
-    <string name="license_info">
+    <string name="license_info" tools:ignore="TypographyOther">
         <![CDATA[
 The attached notices are provided for information only.\n
 \n
