@@ -1,14 +1,17 @@
 package com.gjung.haifa3d.ble
 
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.content.Context
+import androidx.lifecycle.LiveData
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.ValueChangedCallback
 import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.livedata.ObservableBleManager
+import no.nordicsemi.android.ble.livedata.state.ConnectionState
 
 open class AppBleManager(context: Context) : ObservableBleManager(context) {
     private lateinit var accessor: Accessor

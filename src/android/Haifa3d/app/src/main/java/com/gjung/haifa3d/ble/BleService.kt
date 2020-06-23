@@ -11,12 +11,14 @@ import com.gjung.haifa3d.notification.createBatteryLevelNotificationChannel
 const val BATTERY_LOW_NOTIFICATION_ID = 1000
 
 class BleService : NotificationService() {
-    lateinit var manager: AppBleManager
+    lateinit var manager: IHandService
 
     // Binder given to clients
     private val binder = LocalBinder()
     private var isObserving = false
     private var batteryLowNotificationId: Int? = null
+    private lateinit var bleManager: AppBleManager
+    private lateinit var realHandService: RealHandService
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -30,6 +32,16 @@ class BleService : NotificationService() {
     override fun onBind(intent: Intent): IBinder? {
         super.onBind(intent!!)
         return binder
+    }
+
+    fun mockConnect() {
+        val manager = MockHandService(); this.manager = manager
+        manager.connect()
+        manager.state.observe(this, Observer {
+            if (!it.isConnected) {
+                this.manager = realHandService
+            }
+        })
     }
 
     private fun setNotificationText(text: CharSequence) {
@@ -63,8 +75,9 @@ class BleService : NotificationService() {
 
     override fun onCreate() {
         super.onCreate()
-        manager = AppBleManager(this)
-        manager.state.observe(this, Observer {
+        bleManager = AppBleManager(this)
+        realHandService = RealHandService(bleManager)
+        realHandService.state.observe(this, Observer {
             if (!isObserving && it.isConnected) {
                 manager.batteryService.currentPercentage.observe(this@BleService, Observer {
                     it?.let { onBatteryNotification(it) }
@@ -74,10 +87,11 @@ class BleService : NotificationService() {
                 setNotificationText("Not connected")
             }
         })
+        manager = realHandService
     }
 
     override fun onDestroy() {
-        manager.close()
+        bleManager.close()
         super.onDestroy()
     }
 }

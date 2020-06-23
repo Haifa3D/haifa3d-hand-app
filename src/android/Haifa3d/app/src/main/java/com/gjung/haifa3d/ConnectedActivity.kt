@@ -3,6 +3,7 @@ package com.gjung.haifa3d
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -37,15 +38,7 @@ class ConnectedActivity : BleActivity() {
     }
 
     private fun disconnect() {
-        bleService?.manager?.disconnect()!!
-            .done {
-                if (isInFront) {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                }
-                finish()
-            }
-            .enqueue()
+        bleService?.manager?.disconnect()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,6 +53,15 @@ class ConnectedActivity : BleActivity() {
             startActivity(intent)
             finish()
         }
+        bleService?.manager?.state?.observe(this, Observer {
+            if (it.isConnected)
+                return@Observer
+            if (isInFront) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            finish()
+        })
     }
 
     override fun onServiceDisconnected() {
