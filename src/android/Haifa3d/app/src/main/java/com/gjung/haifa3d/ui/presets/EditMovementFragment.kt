@@ -120,7 +120,7 @@ class EditMovementFragment : BleFragment() {
         binding.finger4CloseButton.setOnClickListener { binding.finger4OpenButton.isChecked = false; movement = editMovementValue }
 
         binding.torqueSwitch.setOnCheckedChangeListener { _, checked ->
-            binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_high)
+            binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_low)
             movement = editMovementValue
         }
 
