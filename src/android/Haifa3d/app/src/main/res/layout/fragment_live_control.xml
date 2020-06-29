@@ -150,5 +150,25 @@
             app:layout_constraintEnd_toStartOf="@+id/finger1OpenButton"
             app:layout_constraintTop_toTopOf="@+id/finger1OpenButton" />
 
+        <TextView
+            android:id="@+id/open_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hand_illustration_label_open"
+            app:layout_constraintBottom_toBottomOf="@+id/finger1OpenButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger1OpenButton"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/finger1OpenButton" />
+
+        <TextView
+            android:id="@+id/close_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hand_illustration_label_close"
+            app:layout_constraintBottom_toBottomOf="@+id/finger1CloseButton"
+            app:layout_constraintEnd_toStartOf="@+id/finger1CloseButton"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/finger1CloseButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
