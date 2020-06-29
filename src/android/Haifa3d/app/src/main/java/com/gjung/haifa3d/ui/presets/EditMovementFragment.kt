@@ -80,7 +80,7 @@ class EditMovementFragment : BleFragment() {
                         binding.finger4OpenButton.isChecked || binding.finger4CloseButton.isChecked
                     ),
                     MotorsDirection(
-                        if (binding.turnRightButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
+                        if (binding.turnLeftButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger1CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger2CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger3CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
@@ -89,8 +89,8 @@ class EditMovementFragment : BleFragment() {
                 )
         set(value) {
             binding.torqueSwitch.isChecked = value.torqueDetail.turn == TorqueStopThreshold.High
-            binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
+            binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
+            binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
             binding.finger1OpenButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir1
             binding.finger1CloseButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir2
             binding.finger2OpenButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.turn == MotorDirection.Dir1
