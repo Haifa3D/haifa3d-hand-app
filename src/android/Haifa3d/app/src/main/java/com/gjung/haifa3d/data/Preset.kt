@@ -16,7 +16,8 @@ data class Preset(
     @ColumnInfo(name = "hand_device_id") val handDeviceId: Long,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "ble_preset_id") val blePresetId: Int,
-    @ColumnInfo(name = "preset_content", typeAffinity = ColumnInfo.BLOB) val content: HandAction
+    @ColumnInfo(name = "preset_content", typeAffinity = ColumnInfo.BLOB) val content: HandAction,
+    @ColumnInfo(name = "starred") val starred: Boolean
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "preset_id")

@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 /**
  * The Room database for this app
  */
-@Database(entities = [HandDevice::class, Preset::class], version = 1, exportSchema = false)
+@Database(entities = [HandDevice::class, Preset::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun presetDao(): PresetDao
@@ -31,6 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
         // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
         private fun buildDatabase(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "haifa3ddb")
+                .fallbackToDestructiveMigrationFrom(1)
                 .build()
         }
     }

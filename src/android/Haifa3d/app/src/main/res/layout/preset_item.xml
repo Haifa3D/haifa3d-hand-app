@@ -37,6 +37,18 @@
         app:layout_constraintTop_toBottomOf="@+id/preset_name"
         tools:text="Tap here to start this action right now" />
 
+    <ImageView
+        android:id="@+id/starred_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="2dp"
+        android:src="@drawable/ic_star"
+        android:tint="@color/secondaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/edit_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageButton
         android:id="@+id/edit_button"
         android:layout_width="wrap_content"

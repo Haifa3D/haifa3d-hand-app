@@ -37,12 +37,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
         android:ems="10"
         android:hint="@string/preset_name_edit_hint"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/starred_check"
         app:layout_constraintStart_toEndOf="@+id/preset_name_label"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/starred_check"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="5dp"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:drawableStart="@drawable/ic_star_check"
+        android:button="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/preset_name_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/preset_name_edit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

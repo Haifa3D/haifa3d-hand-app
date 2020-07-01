@@ -16,21 +16,30 @@ class PresetsViewModel internal constructor(
 
     val connectedHandDeviceAddress = MutableLiveData<String>()
 
-    // see https://stackoverflow.com/a/57819928/1200847
-    val presetNames = Transformations.switchMap(presets) { newPresets ->
+    private val dbPresets = Transformations.switchMap(presets) { _ ->
         Transformations.switchMap(connectedHandDeviceAddress) { newAddress ->
-            Transformations.map(presetRepository.getHandDevicePresets(newAddress)) { dbPresets ->
-                newPresets.mapNotNull {
-                    key ->
-                        val value = (dbPresets.firstOrNull { it.blePresetId == key.id })?.name
-                        if(value == null) null else key to value
-                }.toMap()
-            }
+            presetRepository.getHandDevicePresets(newAddress)
         }
     }
 
-    suspend fun setPresetName(presetId: Int, content: HandAction, name: String?) {
+    // see https://stackoverflow.com/a/57819928/1200847
+    val presetNames = Transformations.map(dbPresets) { dbPresets ->
+        presets.value!!.mapNotNull {
+            key ->
+                val value = (dbPresets.firstOrNull { it.blePresetId == key.id })?.name
+                if(value == null) null else key to value
+        }.toMap()
+    }
+
+    val starredPresets = Transformations.map(dbPresets) { dbPresets ->
+        presets.value!!.filter {
+            preset ->
+                (dbPresets.firstOrNull { it.blePresetId == preset.id }?.starred ?: false)
+        }
+    }
+
+    suspend fun setPresetInfo(presetId: Int, content: HandAction, name: String?, isStarred: Boolean) {
         presetRepository.saveHandDevicePreset(
-            connectedHandDeviceAddress.value!!, name, presetId, content)
+            connectedHandDeviceAddress.value!!, name, presetId, content, isStarred)
     }
 }

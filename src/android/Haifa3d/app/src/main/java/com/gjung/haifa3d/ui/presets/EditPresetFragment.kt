@@ -38,8 +38,15 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         InjectorUtils.providePresetsViewModelFactory(requireContext())
     }
     private lateinit var adapter: MovementsAdapter
+
+    private val preset by lazy {
+        Transformations.map(presetsViewModel.presets) { presets ->
+            presets[args.presetId]
+        }
+    }
+
     private val movements
-        get() = presetsViewModel.presets.value!![args.presetId].handAction!!.Movements
+        get() = preset.value!!.handAction!!.Movements
 
     override fun onServiceConnected() {
         presetService = bleService!!.manager.presetService
@@ -105,7 +112,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
             var name: String? = binding.presetNameEdit.text.toString()
             if (name.isNullOrBlank())
                 name = null
-            presetsViewModel.setPresetName(args.presetId, HandAction(movements), name)
+            presetsViewModel.setPresetInfo(args.presetId, HandAction(movements), name, binding.starredCheck.isChecked)
             withContext(Dispatchers.Main) {
                 val navController = this@EditPresetFragment.findNavController();
                 navController.navigateUp()
@@ -136,11 +143,19 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         adapter.onItemClickListener = this
 
         Transformations.switchMap(presetsViewModel.presetNames) { names ->
-            Transformations.map(presetsViewModel.presets) { presets ->
-                names[presets[args.presetId]]
+            Transformations.map(preset) { preset ->
+                names[preset]
             }
         }.observe(viewLifecycleOwner, Observer {
             binding.presetNameEdit.setText(it)
+        })
+
+        Transformations.switchMap(presetsViewModel.starredPresets) { starred ->
+            Transformations.map(preset) { preset ->
+                starred.contains(preset)
+            }
+        }.observe(viewLifecycleOwner, Observer {
+            binding.starredCheck.isChecked = it
         })
 
         return binding.root

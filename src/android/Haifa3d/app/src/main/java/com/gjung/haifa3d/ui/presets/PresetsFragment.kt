@@ -69,7 +69,7 @@ class PresetsFragment : BleFragment() {
 
         val rec = binding.recyclerViewPresets
 
-        adapter = PresetsAdapter(presetsViewModel.presets.value!!, mapOf())
+        adapter = PresetsAdapter(presetsViewModel.presets.value!!, mapOf(), setOf())
         adapter.onItemClickListener = object : PresetsAdapter.OnItemClickListener {
             override fun onItemClick(preset: Preset) {
                 if (preset.handAction == null) {
@@ -111,6 +111,11 @@ class PresetsFragment : BleFragment() {
 
         presetsViewModel.presetNames.observe(viewLifecycleOwner, Observer {
             adapter.presetNames = presetsViewModel.presetNames.value!!
+            adapter.notifyDataSetChanged()
+        })
+
+        presetsViewModel.starredPresets.observe(viewLifecycleOwner, Observer {
+            adapter.starredPresets = presetsViewModel.starredPresets.value!!
             adapter.notifyDataSetChanged()
         })
 

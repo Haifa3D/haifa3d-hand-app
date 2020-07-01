@@ -4,10 +4,10 @@ import com.gjung.haifa3d.model.HandAction
 
 class PresetRepository private constructor(private val presetDao: PresetDao, private val deviceDao: HandDeviceDao) {
     fun getHandDevicePresets(handDeviceAddress: String) = presetDao.getHandDevicePresets(handDeviceAddress)
-    suspend fun saveHandDevicePreset(handDeviceAddress: String, name: String?, blePresetId: Int, content: HandAction) {
+    suspend fun saveHandDevicePreset(handDeviceAddress: String, name: String?, blePresetId: Int, content: HandAction, isStarred: Boolean) {
         var devId = deviceDao.getByAddress(handDeviceAddress)?.handDeviceId
             ?: deviceDao.insertHandDevice(HandDevice(handDeviceAddress))
-        presetDao.insertPreset(Preset(devId, name, blePresetId, content))
+        presetDao.insertPreset(Preset(devId, name, blePresetId, content, isStarred))
     }
 
     companion object {
