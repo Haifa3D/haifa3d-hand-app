@@ -12,11 +12,6 @@
         tools:layout="@layout/fragment_home">
     </fragment>
     <fragment
-        android:id="@+id/nav_status"
-        android:name="com.gjung.haifa3d.ui.status.StatusFragment"
-        android:label="@string/menu_status"
-        tools:layout="@layout/fragment_status" />
-    <fragment
         android:id="@+id/nav_livecontrol"
         android:name="com.gjung.haifa3d.ui.livecontrol.LiveControlFragment"
         android:label="@string/menu_livecontrol"
