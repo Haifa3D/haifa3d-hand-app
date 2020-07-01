@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <!-- Customize your theme here. -->
         <item name="materialButtonStyle">@style/MyButtonTheme</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Alert.Button</item>
     </style>
 
     <style name="AppTheme.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -27,6 +29,9 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Alert.Button" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
     </style>
 
 </resources>

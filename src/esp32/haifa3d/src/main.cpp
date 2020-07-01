@@ -16,6 +16,34 @@
 #define HAND_TRIGGER_SERVICE_UUID            "e0198002-7544-42c1-0000-b24344b6aa70"
 #define TRIGGER_ON_WRITE_CHARACTERISTIC_UUID "e0198002-7544-42c1-0001-b24344b6aa70"
 
+#define HAND_CONFIG_SERVICE_UUID             "e0198003-7544-42c1-0000-b24344b6aa70"
+#define CONFIG_LTV_0_UUID                    "e0198003-7544-42c1-1001-b24344b6aa70"
+#define CONFIG_LTV_1_UUID                    "e0198003-7544-42c1-1011-b24344b6aa70"
+#define CONFIG_LTV_2_UUID                    "e0198003-7544-42c1-1021-b24344b6aa70"
+#define CONFIG_LTV_3_UUID                    "e0198003-7544-42c1-1031-b24344b6aa70"
+#define CONFIG_LTV_4_UUID                    "e0198003-7544-42c1-1041-b24344b6aa70"
+
+#define CONFIG_LTS_0_UUID                    "e0198003-7544-42c1-1002-b24344b6aa70"
+#define CONFIG_LTS_1_UUID                    "e0198003-7544-42c1-1012-b24344b6aa70"
+#define CONFIG_LTS_2_UUID                    "e0198003-7544-42c1-1022-b24344b6aa70"
+#define CONFIG_LTS_3_UUID                    "e0198003-7544-42c1-1032-b24344b6aa70"
+#define CONFIG_LTS_4_UUID                    "e0198003-7544-42c1-1042-b24344b6aa70"
+
+#define CONFIG_HTV_0_UUID                    "e0198003-7544-42c1-1003-b24344b6aa70"
+#define CONFIG_HTV_1_UUID                    "e0198003-7544-42c1-1013-b24344b6aa70"
+#define CONFIG_HTV_2_UUID                    "e0198003-7544-42c1-1023-b24344b6aa70"
+#define CONFIG_HTV_3_UUID                    "e0198003-7544-42c1-1033-b24344b6aa70"
+#define CONFIG_HTV_4_UUID                    "e0198003-7544-42c1-1043-b24344b6aa70"
+
+#define CONFIG_HTS_0_UUID                    "e0198003-7544-42c1-1004-b24344b6aa70"
+#define CONFIG_HTS_1_UUID                    "e0198003-7544-42c1-1014-b24344b6aa70"
+#define CONFIG_HTS_2_UUID                    "e0198003-7544-42c1-1024-b24344b6aa70"
+#define CONFIG_HTS_3_UUID                    "e0198003-7544-42c1-1034-b24344b6aa70"
+#define CONFIG_HTS_4_UUID                    "e0198003-7544-42c1-1044-b24344b6aa70"
+
+#define CONFIG_TORQUE_MEASURE_START_UUID     "e0198003-7544-42c1-0101-b24344b6aa70"
+#define CONFIG_WINDOW_WIDTH_FILTER_UUID      "e0198003-7544-42c1-0102-b24344b6aa70"
+
 bool _BLEClientConnected = false;
 
 #define BatteryService BLEUUID((uint16_t)0x180F) 
@@ -50,6 +78,34 @@ const char * presetCharacteristicUuid(int presetNumber)
   uuids[10] = "e0198001-7544-42c1-100a-b24344b6aa70";
   uuids[11] = "e0198001-7544-42c1-100b-b24344b6aa70";
   return uuids[presetNumber];
+}
+
+const char * configCharacteristicUuid(int idx)
+{
+  const char *uuids[22];
+  uuids[0] = CONFIG_LTV_0_UUID;
+  uuids[1] = CONFIG_LTV_1_UUID;
+  uuids[2] = CONFIG_LTV_2_UUID;
+  uuids[3] = CONFIG_LTV_3_UUID;
+  uuids[4] = CONFIG_LTV_4_UUID;
+  uuids[5] = CONFIG_LTS_0_UUID;
+  uuids[6] = CONFIG_LTS_1_UUID;
+  uuids[7] = CONFIG_LTS_2_UUID;
+  uuids[8] = CONFIG_LTS_3_UUID;
+  uuids[9] = CONFIG_LTS_4_UUID;
+  uuids[10] = CONFIG_HTV_0_UUID;
+  uuids[11] = CONFIG_HTV_1_UUID;
+  uuids[12] = CONFIG_HTV_2_UUID;
+  uuids[13] = CONFIG_HTV_3_UUID;
+  uuids[14] = CONFIG_HTV_4_UUID;
+  uuids[15] = CONFIG_HTS_0_UUID;
+  uuids[16] = CONFIG_HTS_1_UUID;
+  uuids[17] = CONFIG_HTS_2_UUID;
+  uuids[18] = CONFIG_HTS_3_UUID;
+  uuids[19] = CONFIG_HTS_4_UUID;
+  uuids[20] = CONFIG_TORQUE_MEASURE_START_UUID;
+  uuids[21] = CONFIG_WINDOW_WIDTH_FILTER_UUID;
+  return uuids[idx];
 }
 
 void printInterpretation(unsigned char* msg) {
@@ -150,6 +206,30 @@ class TriggerCallbacks : public BLECharacteristicCallbacks {
     };
 };
 
+class ConfigCallbacks : public BLECharacteristicCallbacks {
+    int idx = 0;
+    short value = 123;
+
+    void onWrite(BLECharacteristic *pCharacteristic) {
+      unsigned char* dataPtr;
+      dataPtr = pCharacteristic->getData();
+      value = dataPtr[0];
+      Serial.println();
+      Serial.printf("--- Config %i written. Set to: %i ---\n", idx, value);
+    };
+
+    void onRead(BLECharacteristic *pCharacteristic) {
+      unsigned char val[1];
+      val[0] = value;
+      pCharacteristic->setValue(val, 5);
+    }
+
+  public:
+    ConfigCallbacks(int id) {
+      idx = id;
+    }
+};
+
 void InitBLE() {
   BLEDevice::init("Haifa3D");
   // Create the BLE Server
@@ -189,6 +269,16 @@ void InitBLE() {
     Serial.printf("Added Preset Characteristic %i", i);
   }
 
+  // the 32 is important because otherwise we dont have enough handles and just the first 6 characteristics will be visible
+  BLEService *pConfigService = pServer->createService(BLEUUID(HAND_CONFIG_SERVICE_UUID), 96);
+  for (int i = 0; i < 22; i++) {
+    BLECharacteristic *pConfigCharacteristic = pConfigService->createCharacteristic(
+                                         configCharacteristicUuid(i),
+                                         BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
+                                       );
+    pConfigCharacteristic->setCallbacks(new ConfigCallbacks(i));
+  }
+
   BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
   pAdvertising->addServiceUUID(BatteryService);
   pAdvertising->addServiceUUID(HAND_DIRECT_EXECUTE_SERVICE_UUID);
@@ -200,6 +290,7 @@ void InitBLE() {
   pDirectExecService->start();
   pTriggerService->start();
   pPresetService->start();
+  pConfigService->start();
   // Start advertising
   pAdvertising->start();
 }

@@ -6,12 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.gjung.haifa3d.model.HandAction
 import no.nordicsemi.android.ble.livedata.state.ConnectionState
 import no.nordicsemi.android.ble.observer.ConnectionObserver
+import java.util.*
 
 interface IHandService {
     val batteryService: IBatteryLevelService
     val directExecuteService: IDirectExecuteService
     val presetService: IPresetService
     val triggerService: ITriggerService
+    val configurationService: IConfigurationService
 
     val state: LiveData<ConnectionState>
     fun connect(device: BluetoothDevice)
@@ -32,6 +34,8 @@ class RealHandService(private val bleManager: AppBleManager) : IHandService {
         get() = bleManager.presetService
     override val triggerService: ITriggerService
         get() = bleManager.triggerService
+    override val configurationService: IConfigurationService
+        get() = bleManager.configurationService
     override val state: LiveData<ConnectionState>
         get() = bleManager.state
 
@@ -85,6 +89,29 @@ class MockHandService : IHandService {
     override val triggerService: ITriggerService =
         object : ITriggerService {
             override fun trigger(presetNumber: Int) {
+            }
+        }
+
+    @ExperimentalUnsignedTypes
+    override val configurationService: IConfigurationService =
+        object : IConfigurationService {
+            override val fields: List<IConfigField>
+                get() = listOf(
+                    object : IConfigField {
+                        override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444444")
+                        override val caption: String = "Demo can't be configured"
+                        override val value = MutableLiveData<UByte>()
+
+                        override suspend fun setValue(value: UByte) {
+                            this.value.postValue(value)
+                        }
+
+                        override fun read() {
+                        }
+                    }
+                )
+
+            override fun readAllValues() {
             }
         }
 
