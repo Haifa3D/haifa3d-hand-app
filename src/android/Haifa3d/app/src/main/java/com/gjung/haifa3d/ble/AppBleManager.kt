@@ -19,6 +19,7 @@ open class AppBleManager(context: Context) : ObservableBleManager(context) {
     lateinit var directExecuteService: IDirectExecuteService
     lateinit var presetService: IPresetService
     lateinit var triggerService: ITriggerService
+    lateinit var configurationService: IConfigurationService
 
     override fun getGattCallback(): BleManagerGattCallback {
         accessor = Accessor()
@@ -26,7 +27,8 @@ open class AppBleManager(context: Context) : ObservableBleManager(context) {
         val directExecuteService = DirectExecuteService(accessor); this.directExecuteService = directExecuteService
         val presetService = PresetService(accessor); this.presetService = presetService;
         val triggerService = TriggerService(accessor); this.triggerService = triggerService;
-        return CompositeHandler(batteryService, directExecuteService, presetService, triggerService)
+        val configurationService = ConfigurationService(accessor); this.configurationService = configurationService;
+        return CompositeHandler(batteryService, directExecuteService, presetService, triggerService, configurationService)
     }
 
     private inner class CompositeHandler(vararg val handlers: GattHandler) : BleManagerGattCallback() {
