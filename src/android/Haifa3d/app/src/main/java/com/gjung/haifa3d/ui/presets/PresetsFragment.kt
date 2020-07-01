@@ -22,6 +22,7 @@ import com.gjung.haifa3d.databinding.FragmentPresetsBinding
 import com.gjung.haifa3d.model.HandAction
 import com.gjung.haifa3d.model.Preset
 import com.gjung.haifa3d.notifyObserver
+import com.gjung.haifa3d.util.InjectorUtils
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,7 +36,9 @@ class PresetsFragment : BleFragment() {
     private var presetService: IPresetService? = null
     private var triggerService: ITriggerService? = null
     private lateinit var adapter: PresetsAdapter
-    private val presetsViewModel: PresetsViewModel by activityViewModels()
+    private val presetsViewModel: PresetsViewModel by activityViewModels {
+        InjectorUtils.providePresetsViewModelFactory(requireContext())
+    }
 
     override fun onServiceConnected() {
         presetService = bleService!!.manager.presetService
@@ -47,6 +50,7 @@ class PresetsFragment : BleFragment() {
             presets.add(Preset(i))
         }
         presetsViewModel.presets.value = presets
+        presetsViewModel.connectedHandDeviceAddress.value = bleService!!.manager.connectedAddress!!
     }
 
     override fun onServiceDisconnected() {
@@ -65,13 +69,14 @@ class PresetsFragment : BleFragment() {
 
         val rec = binding.recyclerViewPresets
 
-        adapter = PresetsAdapter(presetsViewModel)
+        adapter = PresetsAdapter(presetsViewModel.presets.value!!, mapOf())
         adapter.onItemClickListener = object : PresetsAdapter.OnItemClickListener {
             override fun onItemClick(preset: Preset) {
                 if (preset.handAction == null) {
                     GlobalScope.launch(Dispatchers.Main) {
                         try {
                             preset.handAction = presetService?.readPreset(preset.id)
+                            presetsViewModel.presets.notifyObserver()
                             triggerService?.trigger(preset.id)
                         } catch(ex: Throwable) {
                             showSnackbar(R.string.preset_not_set)
@@ -92,6 +97,7 @@ class PresetsFragment : BleFragment() {
                     } catch(ex: Throwable) {
                         preset.handAction = HandAction.Empty
                     }
+                    presetsViewModel.presets.notifyObserver()
                     val act = PresetsFragmentDirections.editPreset(preset.id)
                     this@PresetsFragment.findNavController().navigate(act)
                 }
@@ -99,6 +105,12 @@ class PresetsFragment : BleFragment() {
         }
 
         presetsViewModel.presets.observe(viewLifecycleOwner, Observer {
+            adapter.presets = presetsViewModel.presets.value!!
+            adapter.notifyDataSetChanged()
+        })
+
+        presetsViewModel.presetNames.observe(viewLifecycleOwner, Observer {
+            adapter.presetNames = presetsViewModel.presetNames.value!!
             adapter.notifyDataSetChanged()
         })
 

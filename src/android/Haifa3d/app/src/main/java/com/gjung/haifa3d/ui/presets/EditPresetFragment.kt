@@ -6,6 +6,8 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -21,9 +23,8 @@ import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
 import com.gjung.haifa3d.getNavigationResultLiveData
 import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.notifyObserver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.gjung.haifa3d.util.InjectorUtils
+import kotlinx.coroutines.*
 
 /**
  * A simple [Fragment] subclass.
@@ -33,7 +34,9 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     private var presetService: IPresetService? = null
     private var directExecuteService: IDirectExecuteService? = null
     private val args: EditPresetFragmentArgs by navArgs()
-    private val presetsViewModel: PresetsViewModel by activityViewModels()
+    private val presetsViewModel: PresetsViewModel by activityViewModels {
+        InjectorUtils.providePresetsViewModelFactory(requireContext())
+    }
     private lateinit var adapter: MovementsAdapter
     private val movements
         get() = presetsViewModel.presets.value!![args.presetId].handAction!!.Movements
@@ -97,12 +100,15 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     private fun saveHandAction() {
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                presetService!!.writePreset(args.presetId, HandAction(movements))
+        GlobalScope.launch(Dispatchers.IO) {
+            presetService!!.writePreset(args.presetId, HandAction(movements))
+            var name: String? = binding.presetNameEdit.text.toString()
+            if (name.isNullOrBlank())
+                name = null
+            presetsViewModel.setPresetName(args.presetId, HandAction(movements), name)
+            withContext(Dispatchers.Main) {
                 val navController = this@EditPresetFragment.findNavController();
                 navController.navigateUp()
-            } catch(ex: Throwable) {
             }
         }
     }
@@ -128,6 +134,14 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         rec.addItemDecoration(DividerItemDecoration(this.requireContext(), DividerItemDecoration.VERTICAL))
 
         adapter.onItemClickListener = this
+
+        Transformations.switchMap(presetsViewModel.presetNames) { names ->
+            Transformations.map(presetsViewModel.presets) { presets ->
+                names[presets[args.presetId]]
+            }
+        }.observe(viewLifecycleOwner, Observer {
+            binding.presetNameEdit.setText(it)
+        })
 
         return binding.root
     }

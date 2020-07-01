@@ -148,4 +148,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
     </string>
     <string name="hand_illustration_label_open">Open</string>
     <string name="hand_illustration_label_close">Close</string>
+    <string name="preset_name_label">Name:</string>
+    <string name="preset_name_edit_hint">Preset name</string>
 </resources>

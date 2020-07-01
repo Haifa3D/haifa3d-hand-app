@@ -19,6 +19,8 @@ interface IHandService {
 
     val isConnected
         get() = state.value == ConnectionState.Ready
+
+    val connectedAddress: String?
 }
 
 class RealHandService(private val bleManager: AppBleManager) : IHandService {
@@ -35,6 +37,9 @@ class RealHandService(private val bleManager: AppBleManager) : IHandService {
 
     override val isConnected: Boolean
         get() = bleManager.isConnected
+
+    override val connectedAddress: String?
+        get() = bleManager.bluetoothDevice?.address
 
     override fun connect(device: BluetoothDevice) {
         bleManager.connect(device)
@@ -85,6 +90,9 @@ class MockHandService : IHandService {
 
     override val state: LiveData<ConnectionState>
         get() = conState
+
+    override val connectedAddress: String?
+        get() = if(isConnected) "MOCK-DEVICE" else null
 
     private val conState = MutableLiveData<ConnectionState>()
 

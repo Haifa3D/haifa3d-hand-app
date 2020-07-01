@@ -2,16 +2,16 @@ package com.gjung.haifa3d.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.databinding.PresetItemBinding
 import com.gjung.haifa3d.model.Preset
 import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
-class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
+class PresetsAdapter(var presets: List<Preset>, var presetNames: Map<Preset, String>): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
     var onItemClickListener: OnItemClickListener? = null
     var onItemEditClickListener: OnItemClickListener? = null
-    private val presets
-        get() = viewModel.presets.value!!
 
     @FunctionalInterface
     interface OnItemClickListener {
@@ -50,7 +50,7 @@ class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adap
     override fun getItemCount(): Int = presets.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.presetName = "Preset #${position + 1}"
+        holder.presetName = presetNames[presets[position]]?.let { "#${position + 1} $it" } ?: "Preset #${position + 1}"
         holder.subtitle = "Tap here to start this action right now"
     }
 }
