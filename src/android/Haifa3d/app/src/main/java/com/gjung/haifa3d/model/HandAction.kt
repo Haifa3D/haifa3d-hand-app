@@ -31,7 +31,7 @@ fun UByteArray.decodeHandAction(): HandAction {
                 this[base + 0].decodeTorqueStopModeDetail(),
                 TimeStopModeDetail(this[base + 1]),
                 this[base + 2].decodeMotorsActivated(),
-                this[base + 2].decodeMotorsDirection()
+                this[base + 3].decodeMotorsDirection()
             )
         )
     }
