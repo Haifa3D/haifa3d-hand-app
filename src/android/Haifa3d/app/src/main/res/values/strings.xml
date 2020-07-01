@@ -33,6 +33,9 @@
 		If you are sure your hand is online and in range and it doesn\'t show up here, click the button below to enable Location.</string>
     <string name="connect_guide_location_action">Enable</string>
 
+    <string name="home_empty_title">NO STARRED PRESETS</string>
+    <string name="home_empty_info">You can see your favorite presets here. To define which ones you like most, star them in the Presets section.</string>
+
     <string name="not_supported_title">DEVICE NOT SUPPORTED</string>
     <string name="not_supported_info">The device you selected does not seem to be a hand device by Haifa3d.</string>
     <string name="not_supported_action">Fix and try again</string>
