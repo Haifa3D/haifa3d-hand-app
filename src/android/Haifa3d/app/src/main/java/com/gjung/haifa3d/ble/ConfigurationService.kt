@@ -39,11 +39,12 @@ class ConfigurationService(manager: BleManagerAccessor
     }
 
     override fun isRequiredServiceSupported(gatt: BluetoothGatt): Boolean {
-        val service = gatt.getService(Uuids.HandConfigurationService) ?: return false
+        val service = gatt.getService(Uuids.HandConfigurationService)
+            ?: return true // we support hands that can not be configured too
         for (field in fields) {
-            val char = service.getCharacteristic(field.uuid)
-                ?: return false
-            field.characteristic = char
+            service.getCharacteristic(field.uuid)?.let {
+                field.characteristic = it
+            }
         }
         return true
     }
@@ -91,12 +92,14 @@ class ConfigurationService(manager: BleManagerAccessor
         }
 
         override fun read() {
-            this@ConfigurationService.manager
-                .readCharacteristic(characteristic!!)
-                .with { _, data ->
-                    value.postValue(data.getByte(0)!!.toUByte())
-                }
-                .enqueue()
+            characteristic?.let {
+                this@ConfigurationService.manager
+                    .readCharacteristic(it)
+                    .with { _, data ->
+                        value.postValue(data.getByte(0)!!.toUByte())
+                    }
+                    .enqueue()
+            }
         }
     }
 }
