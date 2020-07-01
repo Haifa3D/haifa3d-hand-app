@@ -1,29 +1,34 @@
 package com.gjung.haifa3d.ble
 
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
 import android.content.Context
+import androidx.lifecycle.LiveData
 import no.nordicsemi.android.ble.BleManager
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.ValueChangedCallback
 import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.data.Data
 import no.nordicsemi.android.ble.livedata.ObservableBleManager
+import no.nordicsemi.android.ble.livedata.state.ConnectionState
 
 open class AppBleManager(context: Context) : ObservableBleManager(context) {
     private lateinit var accessor: Accessor
-    lateinit var batteryService: BatteryLevelService
-    lateinit var directExecuteService: DirectExecuteService
-    lateinit var presetService: PresetService
-    lateinit var triggerService: TriggerService
+    lateinit var batteryService: IBatteryLevelService
+    lateinit var directExecuteService: IDirectExecuteService
+    lateinit var presetService: IPresetService
+    lateinit var triggerService: ITriggerService
+    lateinit var configurationService: IConfigurationService
 
     override fun getGattCallback(): BleManagerGattCallback {
         accessor = Accessor()
-        batteryService = BatteryLevelService(accessor)
-        directExecuteService = DirectExecuteService(accessor)
-        presetService = PresetService(accessor)
-        triggerService = TriggerService(accessor)
-        return CompositeHandler(batteryService, directExecuteService, presetService, triggerService)
+        val batteryService = BatteryLevelService(accessor); this.batteryService = batteryService;
+        val directExecuteService = DirectExecuteService(accessor); this.directExecuteService = directExecuteService
+        val presetService = PresetService(accessor); this.presetService = presetService;
+        val triggerService = TriggerService(accessor); this.triggerService = triggerService;
+        val configurationService = ConfigurationService(accessor); this.configurationService = configurationService;
+        return CompositeHandler(batteryService, directExecuteService, presetService, triggerService, configurationService)
     }
 
     private inner class CompositeHandler(vararg val handlers: GattHandler) : BleManagerGattCallback() {

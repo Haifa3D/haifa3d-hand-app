@@ -14,7 +14,8 @@ class HandAction(val Movements: MutableList<HandMovement>) : ByteRepresentable {
     }
 
     companion object {
-        val Empty = HandAction()
+        val Empty
+            get() = HandAction()
     }
 }
 

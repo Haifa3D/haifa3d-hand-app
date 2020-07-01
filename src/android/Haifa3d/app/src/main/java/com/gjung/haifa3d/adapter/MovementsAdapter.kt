@@ -7,6 +7,7 @@ import com.gjung.haifa3d.databinding.MovementItemBinding
 import com.gjung.haifa3d.model.HandMovement
 import com.gjung.haifa3d.model.MotorDirection
 import com.gjung.haifa3d.model.TorqueStopThreshold
+import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
 class MovementsAdapter(private val viewModel: PresetsViewModel, private val presetId: Int): RecyclerView.Adapter<MovementsAdapter.ViewHolder>() {
@@ -48,6 +49,7 @@ class MovementsAdapter(private val viewModel: PresetsViewModel, private val pres
 
             binding.deleteButton.setOnClickListener {
                 movements.removeAt(adapterPosition)
+                viewModel.presets.notifyObserver()
                 notifyDataSetChanged()
             }
         }
@@ -67,7 +69,7 @@ class MovementsAdapter(private val viewModel: PresetsViewModel, private val pres
         holder.torqueDetail = if (mvmt.torqueDetail.finger1 == TorqueStopThreshold.Low) "Low" else "High"
         var motorDetail = ""
         if (mvmt.motorsActivated.turn)
-            motorDetail += "Turn: " + if (mvmt.motorsDirection.turn == MotorDirection.Dir1) "left" else "right"
+            motorDetail += "Turn: " + if (mvmt.motorsDirection.turn == MotorDirection.Dir1) "right" else "left"
         if (mvmt.motorsActivated.finger1)
             motorDetail += "\nFinger 1: " + if (mvmt.motorsDirection.finger1 == MotorDirection.Dir1) "open" else "close"
         if (mvmt.motorsActivated.finger2)

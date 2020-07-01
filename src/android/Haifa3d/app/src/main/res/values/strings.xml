@@ -1,4 +1,8 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE resources [
+    <!ENTITY nbsp "&#160;"><!-- non-breaking space, U+00A0 -->
+]>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Haifa 3D</string>
 
     <string name="menu_filter">Filter</string>
@@ -29,6 +33,9 @@
 		If you are sure your hand is online and in range and it doesn\'t show up here, click the button below to enable Location.</string>
     <string name="connect_guide_location_action">Enable</string>
 
+    <string name="home_empty_title">NO STARRED PRESETS</string>
+    <string name="home_empty_info">You can see your favorite presets here. To define which ones you like most, star them in the Presets section.</string>
+
     <string name="not_supported_title">DEVICE NOT SUPPORTED</string>
     <string name="not_supported_info">The device you selected does not seem to be a hand device by Haifa3d.</string>
     <string name="not_supported_action">Fix and try again</string>
@@ -48,7 +55,11 @@
     <string name="menu_status">Status</string>
     <string name="menu_presets">Presets</string>
     <string name="menu_about">About</string>
+    <string name="menu_configuration">Configuration</string>
     <string name="menu_license_info">License Info</string>
+    <string name="menu_disconnect">Disconnect</string>
+
+    <string name="demo_button">Demo</string>
 
     <string name="home_second">Home Second</string>
 
@@ -69,7 +80,7 @@
     <string name="connecting">Connecting…</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">More to come!</string>
     <string name="livecontrol_hand_image_description">Hand</string>
     <string name="preset_not_set">This preset is not set.</string>
     <string name="action_add_hand_movement">Add hand movement</string>
@@ -86,11 +97,11 @@
     <string name="edit_movement_torque_low">Low</string>
     <string name="about_title">Haifa 3D</string>
     <string name="version_label">Version %1$s</string>
-    <string name="developed_by_label">Developed by Georg Jung, Shunit Polinsky and Miki Mendelson-Mints</string>
+    <string name="developed_by_label">Developed by Georg&nbsp;Jung, Shunit&nbsp;Polinsky and Miki&nbsp;Mendelson-Mints</string>
     <string name="view_oss_licenses_button_text">View License Information</string>
     <string name="view_github_project_button_text">GitHub Project</string>
     <string name="github_url">https://github.com/georg-jung/technion-robotic-arm</string>
-    <string name="license_info">
+    <string name="license_info" tools:ignore="TypographyOther">
         <![CDATA[
 The attached notices are provided for information only.\n
 \n
@@ -139,5 +150,10 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
 ]]>
     </string>
-    <string name="menu_disconnect">Disconnect</string>
+    <string name="hand_illustration_label_open">Open</string>
+    <string name="hand_illustration_label_close">Close</string>
+    <string name="preset_name_label">Name:</string>
+    <string name="preset_name_edit_hint">Preset name</string>
+    <string name="config_value_invalid">Invalid input</string>
+    <string name="config_value_changed">Config changed successful</string>
 </resources>

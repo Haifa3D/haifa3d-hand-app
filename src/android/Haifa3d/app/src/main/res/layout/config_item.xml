@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/preset_container"
+    android:id="@+id/config_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/activity_horizontal_margin"
@@ -16,7 +16,7 @@
     tools:ignore="ContentDescription">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/preset_name"
+        android:id="@+id/config_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -25,29 +25,17 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Preset" />
+        tools:text="Configuration field" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/preset_subtitle"
+        android:id="@+id/config_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preset_name"
-        tools:text="Tap here to start this action right now" />
-
-    <ImageView
-        android:id="@+id/starred_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:padding="2dp"
-        android:src="@drawable/ic_star"
-        android:tint="@color/secondaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/edit_button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/config_name"
+        tools:text="-- \? --" />
 
     <ImageButton
         android:id="@+id/edit_button"

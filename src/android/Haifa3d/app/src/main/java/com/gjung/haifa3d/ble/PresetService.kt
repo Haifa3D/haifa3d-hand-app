@@ -17,10 +17,16 @@ import kotlin.coroutines.suspendCoroutine
 
 const val HandSupportedNumberOfPresets = 12
 
-class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
+interface IPresetService {
+    suspend fun writePreset(presetNumber: Int, action: HandAction)
+
+    suspend fun readPreset(presetNumber: Int): HandAction?
+}
+
+class PresetService(manager: BleManagerAccessor) : GattHandler(manager), IPresetService {
     private var presetActionByteCharacteristic: Array<BluetoothGattCharacteristic?> = Array(HandSupportedNumberOfPresets) { null }
 
-    suspend fun writePreset(presetNumber: Int, action: HandAction) {
+    override suspend fun writePreset(presetNumber: Int, action: HandAction) {
         if (presetNumber < 0 || presetNumber >= HandSupportedNumberOfPresets)
             throw IllegalArgumentException("presetNumber must be in [0..${HandSupportedNumberOfPresets - 1}]")
         if (!manager.isConnected)
@@ -33,7 +39,7 @@ class PresetService(manager: BleManagerAccessor) : GattHandler(manager) {
             .sendSuspend()
     }
 
-    suspend fun readPreset(presetNumber: Int): HandAction? {
+    override suspend fun readPreset(presetNumber: Int): HandAction? {
         if (presetNumber < 0 || presetNumber >= HandSupportedNumberOfPresets)
             throw IllegalArgumentException("presetNumber must be in [0..${HandSupportedNumberOfPresets - 1}]")
         if (!manager.isConnected)

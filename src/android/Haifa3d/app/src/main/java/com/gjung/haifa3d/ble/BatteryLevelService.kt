@@ -13,7 +13,11 @@ import no.nordicsemi.android.log.LogContract
 import java.lang.IllegalStateException
 import java.util.*
 
-class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager) {
+interface IBatteryLevelService {
+    val currentPercentage: LiveData<BatteryNotification?>
+}
+
+class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager), IBatteryLevelService {
     /** Battery Service UUID.  */
     private val BATTERY_SERVICE_UUID: UUID = UUID.fromString("0000180F-0000-1000-8000-00805f9b34fb")
     /** Battery Level characteristic UUID.  */
@@ -21,7 +25,7 @@ class BatteryLevelService(manager: BleManagerAccessor) : GattHandler(manager) {
 
     private lateinit var batteryLevelCharacteristic: BluetoothGattCharacteristic
 
-    val currentPercentage: LiveData<BatteryNotification?>
+    override val currentPercentage: LiveData<BatteryNotification?>
         get() = mutableNotification
     private val mutableNotification = MutableLiveData<BatteryNotification?>()
 

@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.gjung.haifa3d.ble.BleService
-import com.gjung.haifa3d.databinding.FragmentStatusBinding
 
 abstract class BleFragment : Fragment() {
     protected var bleService: BleService? = null

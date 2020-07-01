@@ -1,17 +1,18 @@
 package com.gjung.haifa3d.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.databinding.PresetItemBinding
 import com.gjung.haifa3d.model.Preset
 import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
-class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
+class PresetsAdapter(var presets: List<Preset>, var presetNames: Map<Preset, String>, var starredPresets: Collection<Preset>): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
     var onItemClickListener: OnItemClickListener? = null
     var onItemEditClickListener: OnItemClickListener? = null
-    private val presets
-        get() = viewModel.presets.value!!
 
     @FunctionalInterface
     interface OnItemClickListener {
@@ -30,6 +31,10 @@ class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adap
         var subtitle: String
             get() = binding.presetName.text.toString()
             set(value) { binding.presetSubtitle.text = value }
+
+        var isStarred: Boolean
+            get() = binding.starredImage.visibility == View.VISIBLE
+            set(value) { binding.starredImage.visibility = if(value) View.VISIBLE else View.GONE }
 
         init {
             binding.presetContainer.setOnClickListener {
@@ -50,7 +55,9 @@ class PresetsAdapter(private val viewModel: PresetsViewModel): RecyclerView.Adap
     override fun getItemCount(): Int = presets.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.presetName = "Preset #${position + 1}"
+        val preset = presets[position]
+        holder.presetName = presetNames[preset]?.let { "#${position + 1} $it" } ?: "Preset #${position + 1}"
+        holder.isStarred = starredPresets.contains(preset)
         holder.subtitle = "Tap here to start this action right now"
     }
 }

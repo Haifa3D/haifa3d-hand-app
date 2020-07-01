@@ -9,10 +9,14 @@ import com.gjung.haifa3d.model.decodeHandAction
 import com.gjung.haifa3d.readBytesAsync
 import java.lang.IllegalArgumentException
 
-class TriggerService(manager: BleManagerAccessor) : GattHandler(manager) {
+interface ITriggerService {
+    fun trigger(presetNumber: Int)
+}
+
+class TriggerService(manager: BleManagerAccessor) : GattHandler(manager), ITriggerService {
     private var triggerCharacteristic: BluetoothGattCharacteristic? = null
 
-    fun trigger(presetNumber: Int) {
+    override fun trigger(presetNumber: Int) {
         if (presetNumber < 0 || presetNumber >= HandSupportedNumberOfPresets)
             throw IllegalArgumentException("presetNumber must be in [0..${HandSupportedNumberOfPresets - 1}]")
         if (!manager.isConnected)

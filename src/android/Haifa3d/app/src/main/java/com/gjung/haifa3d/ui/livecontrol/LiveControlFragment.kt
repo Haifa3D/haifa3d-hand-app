@@ -44,8 +44,8 @@ class LiveControlFragment : BleFragment() {
         binding.finger2CloseButton.setDirectionWhilePressed({ liveControl?.finger2Direction = it; }, MotorDirection.Dir2)
         binding.finger3CloseButton.setDirectionWhilePressed({ liveControl?.finger3Direction = it; }, MotorDirection.Dir2)
         binding.finger4CloseButton.setDirectionWhilePressed({ liveControl?.finger4Direction = it; }, MotorDirection.Dir2)
-        binding.turnLeftButton.setDirectionWhilePressed({ liveControl?.turnDirection = it; }, MotorDirection.Dir1)
-        binding.turnRightButton.setDirectionWhilePressed({ liveControl?.turnDirection = it; }, MotorDirection.Dir2)
+        binding.turnRightButton.setDirectionWhilePressed({ liveControl?.turnDirection = it; }, MotorDirection.Dir1)
+        binding.turnLeftButton.setDirectionWhilePressed({ liveControl?.turnDirection = it; }, MotorDirection.Dir2)
 
         liveControlHandler = Handler(Looper.getMainLooper())
 

@@ -6,10 +6,14 @@ import android.util.Log
 import com.gjung.haifa3d.Uuids
 import com.gjung.haifa3d.model.HandAction
 
-class DirectExecuteService(manager: BleManagerAccessor) : GattHandler(manager) {
+interface IDirectExecuteService {
+    fun executeAction(action: HandAction)
+}
+
+class DirectExecuteService(manager: BleManagerAccessor) : GattHandler(manager), IDirectExecuteService {
     private var directExecuteCharacteristic: BluetoothGattCharacteristic? = null
 
-    fun executeAction(action: HandAction) {
+    override fun executeAction(action: HandAction) {
         if (!manager.isConnected)
             throw IllegalStateException("No device connected")
         if (directExecuteCharacteristic == null)

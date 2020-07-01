@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import com.gjung.haifa3d.BleFragment
 
 import com.gjung.haifa3d.R
-import com.gjung.haifa3d.ble.DirectExecuteService
-import com.gjung.haifa3d.ble.PresetService
+import com.gjung.haifa3d.ble.IDirectExecuteService
+import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditMovementBinding
 import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.notifyObserver
@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 
 class EditMovementFragment : BleFragment() {
     private lateinit var binding: FragmentEditMovementBinding
-    private var directExecuteService: DirectExecuteService? = null
-    private var presetService: PresetService? = null
+    private var directExecuteService: IDirectExecuteService? = null
+    private var presetService: IPresetService? = null
     private val args: EditMovementFragmentArgs by navArgs()
     private val presetsViewModel: PresetsViewModel by activityViewModels()
 
@@ -80,7 +80,7 @@ class EditMovementFragment : BleFragment() {
                         binding.finger4OpenButton.isChecked || binding.finger4CloseButton.isChecked
                     ),
                     MotorsDirection(
-                        if (binding.turnRightButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
+                        if (binding.turnLeftButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger1CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger2CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
                         if (binding.finger3CloseButton.isChecked) MotorDirection.Dir2 else MotorDirection.Dir1,
@@ -89,8 +89,8 @@ class EditMovementFragment : BleFragment() {
                 )
         set(value) {
             binding.torqueSwitch.isChecked = value.torqueDetail.turn == TorqueStopThreshold.High
-            binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
+            binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
+            binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
             binding.finger1OpenButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir1
             binding.finger1CloseButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir2
             binding.finger2OpenButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.turn == MotorDirection.Dir1
@@ -120,7 +120,7 @@ class EditMovementFragment : BleFragment() {
         binding.finger4CloseButton.setOnClickListener { binding.finger4OpenButton.isChecked = false; movement = editMovementValue }
 
         binding.torqueSwitch.setOnCheckedChangeListener { _, checked ->
-            binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_high)
+            binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_low)
             movement = editMovementValue
         }
 

@@ -88,6 +88,12 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
         binding.noLocationPermission.actionPermissionSettings.setOnClickListener { onPermissionSettingsClicked() }
         binding.bluetoothOff.actionEnableBluetooth.setOnClickListener{ onEnableBluetoothClicked() }
         binding.noDevices.actionEnableLocation.setOnClickListener{ onEnableLocationClicked() }
+        binding.demoButton.setOnClickListener {
+            bleService?.mockConnect()
+            val intent = Intent(this, ConnectedActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onRestart() {
@@ -169,9 +175,6 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
         if (bleService!!.manager.state.value?.state != ConnectionState.State.DISCONNECTED)
             return
         bleService!!.manager.connect(device.device)
-            .retry(3, 100)
-            .useAutoConnect(false)
-            .enqueue()
     }
 
     override fun onRequestPermissionsResult(

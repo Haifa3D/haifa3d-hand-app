@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_livecontrol">
+    app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
@@ -11,11 +11,6 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
     </fragment>
-    <fragment
-        android:id="@+id/nav_status"
-        android:name="com.gjung.haifa3d.ui.status.StatusFragment"
-        android:label="@string/menu_status"
-        tools:layout="@layout/fragment_status" />
     <fragment
         android:id="@+id/nav_livecontrol"
         android:name="com.gjung.haifa3d.ui.livecontrol.LiveControlFragment"
@@ -68,4 +63,9 @@
         android:name="com.gjung.haifa3d.ui.about.LicenseInfoFragment"
         android:label="@string/menu_license_info"
         tools:layout="@layout/fragment_license_info" />
+    <fragment
+        android:id="@+id/nav_configuration"
+        android:name="com.gjung.haifa3d.ui.config.ConfigurationFragment"
+        android:label="@string/menu_configuration"
+        tools:layout="@layout/fragment_configuration" />
 </navigation>
