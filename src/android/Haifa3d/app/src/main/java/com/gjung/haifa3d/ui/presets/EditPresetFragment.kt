@@ -12,17 +12,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gjung.haifa3d.BleFragment
+import com.gjung.haifa3d.*
 
-import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.MovementsAdapter
 import com.gjung.haifa3d.adapter.PresetsAdapter
 import com.gjung.haifa3d.ble.IDirectExecuteService
 import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
-import com.gjung.haifa3d.getNavigationResultLiveData
 import com.gjung.haifa3d.model.*
-import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.util.InjectorUtils
 import kotlinx.coroutines.*
 
@@ -90,6 +87,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     private fun addHandMovement() {
+        hideKeyboard(requireActivity())
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),
             TimeStopModeDetail(50u),
@@ -107,6 +105,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     private fun saveHandAction() {
+        hideKeyboard(requireActivity())
         GlobalScope.launch(Dispatchers.IO) {
             presetService!!.writePreset(args.presetId, HandAction(movements))
             var name: String? = binding.presetNameEdit.text.toString()
@@ -121,8 +120,14 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(movementIndex: Int, movement: HandMovement) {
+        hideKeyboard(requireActivity())
         val act = EditPresetFragmentDirections.editMovement(args.presetId, movementIndex)
         this.findNavController().navigate(act)
+    }
+
+    override fun onPause() {
+        hideKeyboard(requireActivity())
+        super.onPause()
     }
 
     override fun onCreateView(

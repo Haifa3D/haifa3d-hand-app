@@ -1,6 +1,9 @@
 package com.gjung.haifa3d
 
+import android.app.Activity
 import android.bluetooth.BluetoothDevice
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
@@ -70,4 +73,17 @@ fun <T> Fragment.setNavigationResult(result: T, key: String = "result") {
 
 fun <T> MutableLiveData<T>.notifyObserver() {
     this.value = this.value
+}
+
+// see https://stackoverflow.com/a/57279734/1200847
+fun hideKeyboard(activity: Activity) {
+    val inputMethodManager =
+        activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    // Check if no view has focus
+    val currentFocusedView = activity.currentFocus
+    currentFocusedView?.let {
+        inputMethodManager.hideSoftInputFromWindow(
+            currentFocusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
 }
