@@ -91,14 +91,14 @@ class EditMovementFragment : BleFragment() {
             binding.torqueSwitch.isChecked = value.torqueDetail.turn == TorqueStopThreshold.High
             binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
             binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
-            binding.finger1OpenButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.finger1CloseButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.turn == MotorDirection.Dir2
-            binding.finger2OpenButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.finger2CloseButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.turn == MotorDirection.Dir2
-            binding.finger3OpenButton.isChecked = value.motorsActivated.finger3 && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.finger3CloseButton.isChecked = value.motorsActivated.finger3 && value.motorsDirection.turn == MotorDirection.Dir2
-            binding.finger4OpenButton.isChecked = value.motorsActivated.finger4 && value.motorsDirection.turn == MotorDirection.Dir1
-            binding.finger4CloseButton.isChecked = value.motorsActivated.finger4 && value.motorsDirection.turn == MotorDirection.Dir2
+            binding.finger1OpenButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.finger1 == MotorDirection.Dir1
+            binding.finger1CloseButton.isChecked = value.motorsActivated.finger1 && value.motorsDirection.finger1 == MotorDirection.Dir2
+            binding.finger2OpenButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.finger2 == MotorDirection.Dir1
+            binding.finger2CloseButton.isChecked = value.motorsActivated.finger2 && value.motorsDirection.finger2 == MotorDirection.Dir2
+            binding.finger3OpenButton.isChecked = value.motorsActivated.finger3 && value.motorsDirection.finger3 == MotorDirection.Dir1
+            binding.finger3CloseButton.isChecked = value.motorsActivated.finger3 && value.motorsDirection.finger3 == MotorDirection.Dir2
+            binding.finger4OpenButton.isChecked = value.motorsActivated.finger4 && value.motorsDirection.finger4 == MotorDirection.Dir1
+            binding.finger4CloseButton.isChecked = value.motorsActivated.finger4 && value.motorsDirection.finger4 == MotorDirection.Dir2
         }
 
     override fun onCreateView(

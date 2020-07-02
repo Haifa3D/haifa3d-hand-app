@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothDevice
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.gjung.haifa3d.model.HandAction
+import com.gjung.haifa3d.model.decodeHandAction
 import no.nordicsemi.android.ble.livedata.state.ConnectionState
 import no.nordicsemi.android.ble.observer.ConnectionObserver
 import java.util.*
@@ -83,7 +84,9 @@ class MockHandService : IHandService {
                 presets[presetNumber] = action
             }
 
-            override suspend fun readPreset(presetNumber: Int): HandAction? = presets[presetNumber]
+            override suspend fun readPreset(presetNumber: Int): HandAction? =
+                // easy way to deep clone
+                presets[presetNumber]?.toBytes()?.toList()?.toUByteArray()?.decodeHandAction()
         }
 
     override val triggerService: ITriggerService =

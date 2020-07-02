@@ -3,6 +3,7 @@ package com.gjung.haifa3d.ui.presets
 import android.os.Bundle
 import android.os.UserManager
 import android.view.*
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -12,17 +13,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.gjung.haifa3d.BleFragment
+import com.gjung.haifa3d.*
 
-import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.MovementsAdapter
 import com.gjung.haifa3d.adapter.PresetsAdapter
 import com.gjung.haifa3d.ble.IDirectExecuteService
 import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
-import com.gjung.haifa3d.getNavigationResultLiveData
 import com.gjung.haifa3d.model.*
-import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.util.InjectorUtils
 import kotlinx.coroutines.*
 
@@ -90,6 +88,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     private fun addHandMovement() {
+        hideKeyboard(requireActivity())
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),
             TimeStopModeDetail(50u),
@@ -107,12 +106,19 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     private fun saveHandAction() {
+        hideKeyboard(requireActivity())
         GlobalScope.launch(Dispatchers.IO) {
             presetService!!.writePreset(args.presetId, HandAction(movements))
-            var name: String? = binding.presetNameEdit.text.toString()
+            var name: String? = presetsViewModel.currentEditPresetName.value
             if (name.isNullOrBlank())
                 name = null
-            presetsViewModel.setPresetInfo(args.presetId, HandAction(movements), name, binding.starredCheck.isChecked)
+            var starred = presetsViewModel.currentEditPresetStarred.value ?: false
+            presetsViewModel.setPresetInfo(
+                args.presetId,
+                HandAction(movements),
+                name,
+                starred
+            )
             withContext(Dispatchers.Main) {
                 val navController = this@EditPresetFragment.findNavController();
                 navController.navigateUp()
@@ -121,8 +127,14 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(movementIndex: Int, movement: HandMovement) {
+        hideKeyboard(requireActivity())
         val act = EditPresetFragmentDirections.editMovement(args.presetId, movementIndex)
         this.findNavController().navigate(act)
+    }
+
+    override fun onPause() {
+        hideKeyboard(requireActivity())
+        super.onPause()
     }
 
     override fun onCreateView(
@@ -147,15 +159,30 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
                 names[preset]
             }
         }.observe(viewLifecycleOwner, Observer {
-            binding.presetNameEdit.setText(it)
+            if (presetsViewModel.currentEditPresetName.value.isNullOrBlank()) {
+                presetsViewModel.currentEditPresetName.postValue(it)
+            }
         })
 
-        Transformations.switchMap(presetsViewModel.starredPresets) { starred ->
-            Transformations.map(preset) { preset ->
-                starred.contains(preset)
-            }
-        }.observe(viewLifecycleOwner, Observer {
-            binding.starredCheck.isChecked = it
+        binding.presetNameEdit.doOnTextChanged { text, _, _, _ ->
+            val tx: String = text.toString()
+            if (presetsViewModel.currentEditPresetName.value != tx)
+                presetsViewModel.currentEditPresetName.postValue(tx)
+        }
+
+        presetsViewModel.currentEditPresetName.observe(viewLifecycleOwner, Observer {
+            if (binding.presetNameEdit.text?.toString() != it)
+                binding.presetNameEdit.setText(it)
+        })
+
+        binding.starredCheck.setOnCheckedChangeListener { _, isChecked ->
+            if (presetsViewModel.currentEditPresetStarred.value != isChecked)
+                presetsViewModel.currentEditPresetStarred.postValue(isChecked)
+        }
+
+        presetsViewModel.currentEditPresetStarred.observe(viewLifecycleOwner, Observer {
+            if (binding.starredCheck.isChecked != it)
+                binding.starredCheck.isChecked = it
         })
 
         return binding.root

@@ -97,6 +97,10 @@ class PresetsFragment : BleFragment() {
                     } catch(ex: Throwable) {
                         preset.handAction = HandAction.Empty
                     }
+                    presetsViewModel.currentEditPresetName.value =
+                        presetsViewModel.presetNames.value!![preset]
+                    presetsViewModel.currentEditPresetStarred.value =
+                        presetsViewModel.starredPresets.value!!.contains(preset)
                     presetsViewModel.presets.notifyObserver()
                     val act = PresetsFragmentDirections.editPreset(preset.id)
                     this@PresetsFragment.findNavController().navigate(act)
