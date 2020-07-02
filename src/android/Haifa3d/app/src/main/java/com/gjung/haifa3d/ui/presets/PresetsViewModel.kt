@@ -38,6 +38,9 @@ class PresetsViewModel internal constructor(
         }
     }
 
+    val currentEditPresetStarred = MutableLiveData<Boolean>()
+    val currentEditPresetName = MutableLiveData<String>()
+
     suspend fun setPresetInfo(presetId: Int, content: HandAction, name: String?, isStarred: Boolean) {
         presetRepository.saveHandDevicePreset(
             connectedHandDeviceAddress.value!!, name, presetId, content, isStarred)
