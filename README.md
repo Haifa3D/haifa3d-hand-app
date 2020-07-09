@@ -12,6 +12,8 @@
 
 [![Build Status](https://dev.azure.com/georg-jung/Haifa3d/_apis/build/status/georg-jung.technion-robotic-arm?branchName=master)](https://dev.azure.com/georg-jung/Haifa3d/_build/latest?definitionId=12&branchName=master)
 
+<a href='https://play.google.com/store/apps/details?id=com.gjung.haifa3d'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height="60"/></a>
+
 This repository tracks the development of an Android app that enables users of Haifa 3D's artificial hands to control and configure their prosthesis. To achieve that the application connects to the hand's controller via Bluetooth Low Energy.
 
 The scope of this project begins with the defintion of the BTLE based protocol and includes the deployment of a fully functional Android application to the Play Store that is usable by the end users.
@@ -39,3 +41,7 @@ Builds from `release/*` branches are signed using the Play Store upload certific
 ![Live Control](/doc/screenshot_livecontrol.png)
 
 ![Connect](/doc/screenshot_connect.png)
+
+## Legal
+
+Google Play and the Google Play logo are trademarks of Google LLC.
