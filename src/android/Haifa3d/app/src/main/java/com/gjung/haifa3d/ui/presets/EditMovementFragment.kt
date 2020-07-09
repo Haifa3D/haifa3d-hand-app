@@ -2,6 +2,7 @@ package com.gjung.haifa3d.ui.presets
 
 import android.os.Bundle
 import android.view.*
+import android.widget.SeekBar
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -71,7 +72,7 @@ class EditMovementFragment : BleFragment() {
     private var editMovementValue
         get() = HandMovement(
                     TorqueStopModeDetail(if (binding.torqueSwitch.isChecked) TorqueStopThreshold.High else  TorqueStopThreshold.Low),
-                    TimeStopModeDetail(255u),
+                    TimeStopModeDetail(binding.timeStopSeekbar.progress.toUByte()),
                     MotorsActivated(
                         binding.turnLeftButton.isChecked || binding.turnRightButton.isChecked,
                         binding.finger1OpenButton.isChecked || binding.finger1CloseButton.isChecked,
@@ -88,6 +89,7 @@ class EditMovementFragment : BleFragment() {
                     )
                 )
         set(value) {
+            binding.timeStopSeekbar.progress = value.timeDetail.durationTimeUnitCount.toInt()
             binding.torqueSwitch.isChecked = value.torqueDetail.turn == TorqueStopThreshold.High
             binding.turnRightButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir1
             binding.turnLeftButton.isChecked = value.motorsActivated.turn && value.motorsDirection.turn == MotorDirection.Dir2
@@ -123,6 +125,16 @@ class EditMovementFragment : BleFragment() {
             binding.torqueValue.setText(if (checked) R.string.edit_movement_torque_high else R.string.edit_movement_torque_low)
             movement = editMovementValue
         }
+
+        binding.timeStopSeekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                binding.timeStopValue.text = getString(R.string.edit_movement_time_value, progress * MS_PER_TIME_UNIT)
+                movement = editMovementValue
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) { }
+            override fun onStopTrackingTouch(seekBar: SeekBar?) { }
+        })
 
         editMovementValue = movement
 

@@ -65,7 +65,7 @@ class MovementsAdapter(private val viewModel: PresetsViewModel, private val pres
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title = "Movement #${position + 1}"
         val mvmt = movements[position]
-        holder.timeDetail = mvmt.timeDetail.durationTimeUnitCount.toString()
+        holder.timeDetail = "${mvmt.timeDetail.durationMs} ms"
         holder.torqueDetail = if (mvmt.torqueDetail.finger1 == TorqueStopThreshold.Low) "Low" else "High"
         var motorDetail = ""
         if (mvmt.motorsActivated.turn)

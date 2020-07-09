@@ -11,31 +11,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="@string/edit_movement_torque_label"
-        app:layout_constraintBottom_toBottomOf="@+id/torque_switch"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/torque_switch" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/time_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/edit_movement_time_label"
-        app:layout_constraintBottom_toBottomOf="@+id/time_stop_seekbar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/time_stop_seekbar"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/torque_switch" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/torque_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:checked="false"
-        app:layout_constraintStart_toEndOf="@+id/torque_label"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/torque_label" />
 
     <TextView
         android:id="@+id/torque_value"
@@ -51,20 +49,22 @@
         android:id="@+id/time_stop_seekbar"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintStart_toEndOf="@+id/time_label"
-        app:layout_constraintTop_toBottomOf="@+id/torque_switch" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:max="255"
+        android:progress="25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_label" />
 
     <TextView
         android:id="@+id/time_stop_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/time_stop_seekbar"
-        app:layout_constraintStart_toEndOf="@+id/time_stop_seekbar"
-        app:layout_constraintTop_toTopOf="@+id/time_stop_seekbar"
+        app:layout_constraintEnd_toEndOf="@+id/time_stop_seekbar"
+        app:layout_constraintStart_toStartOf="@+id/time_stop_seekbar"
+        app:layout_constraintTop_toBottomOf="@+id/time_stop_seekbar"
         tools:text="150 ms" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/time_stop_seekbar"
         app:layout_constraintTop_toBottomOf="@+id/torque_label">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

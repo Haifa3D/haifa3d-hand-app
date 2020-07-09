@@ -95,6 +95,8 @@
     <string name="edit_movement_torque_label">Torque:</string>
     <string name="edit_movement_torque_high">High</string>
     <string name="edit_movement_torque_low">Low</string>
+    <string name="edit_movement_time_label">Time:</string>
+    <string name="edit_movement_time_value">%1$d ms</string>
     <string name="about_title">Haifa 3D</string>
     <string name="version_label">Version %1$s</string>
     <string name="developed_by_label">Developed by Georg&nbsp;Jung, Shunit&nbsp;Polinsky and Miki&nbsp;Mendelson-Mints</string>
