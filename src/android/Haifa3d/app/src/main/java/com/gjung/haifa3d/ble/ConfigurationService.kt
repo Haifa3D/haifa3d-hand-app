@@ -2,8 +2,10 @@ package com.gjung.haifa3d.ble
 
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothGattCharacteristic
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.gjung.haifa3d.R
 import com.gjung.haifa3d.Uuids
 import com.gjung.haifa3d.sendSuspend
 import java.util.*
@@ -28,7 +30,7 @@ interface IConfigField {
 }
 
 @ExperimentalUnsignedTypes
-class ConfigurationService(manager: BleManagerAccessor
+class ConfigurationService(manager: BleManagerAccessor, private val context: Context
 ) : GattHandler(manager), IConfigurationService {
     override val fields = mutableListOf<ConfigField>()
 
@@ -53,23 +55,23 @@ class ConfigurationService(manager: BleManagerAccessor
         for (motor in 0..4) {
             fields.add(ConfigField(
                 Uuids.ConfigurationLowTorqueValueCharacteristic(motor.toByte()),
-                "Low Torque Value Motor ${motor + 1}"))
+                context.getString(R.string.configuration_ltv, motor + 1)))
             fields.add(ConfigField(
                 Uuids.ConfigurationLowTorqueSlopeValueCharacteristic(motor.toByte()),
-                "Low Torque Slope Value Motor ${motor + 1}"))
+                context.getString(R.string.configuration_ltsv, motor + 1)))
             fields.add(ConfigField(
                 Uuids.ConfigurationHighTorqueValueCharacteristic(motor.toByte()),
-                "High Torque Value Motor ${motor + 1}"))
+                context.getString(R.string.configuration_htv, motor + 1)))
             fields.add(ConfigField(
                 Uuids.ConfigurationHighTorqueSlopeValueCharacteristic(motor.toByte()),
-                "High Torque Slope Value Motor ${motor + 1}"))
+                context.getString(R.string.configuration_htsv, motor + 1)))
         }
         fields.add(ConfigField(
             Uuids.ConfigurationTorqueMeasureStartMsCharacteristic,
-            "Torque Measure Start Time"))
+            context.getString(R.string.configuration_tmst)))
         fields.add(ConfigField(
             Uuids.ConfigurationWindowsWidthFilterCharacteristic,
-            "Window Width Filter"))
+            context.getString(R.string.configuration_wwf)))
     }
 
     override fun readAllValues() {

@@ -27,7 +27,7 @@ open class AppBleManager(context: Context) : ObservableBleManager(context) {
         val directExecuteService = DirectExecuteService(accessor); this.directExecuteService = directExecuteService
         val presetService = PresetService(accessor); this.presetService = presetService;
         val triggerService = TriggerService(accessor); this.triggerService = triggerService;
-        val configurationService = ConfigurationService(accessor); this.configurationService = configurationService;
+        val configurationService = ConfigurationService(accessor, context); this.configurationService = configurationService;
         return CompositeHandler(batteryService, directExecuteService, presetService, triggerService, configurationService)
     }
 

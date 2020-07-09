@@ -92,6 +92,13 @@
     <string name="action_save_hand_action">Save hand action</string>
     <string name="action_save_hand_movement">Save hand movement</string>
 
+    <string name="configuration_ltv">Low Torque Value Motor %1$d</string>
+    <string name="configuration_ltsv">Low Torque Slope Value Motor %1$d</string>
+    <string name="configuration_htv">High Torque Value Motor %1$d</string>
+    <string name="configuration_htsv">High Torque Slope Value Motor %1$d</string>
+    <string name="configuration_tmst">Torque Measure Start Time</string>
+    <string name="configuration_wwf">Window Width Filter</string>
+
     <string name="edit_movement_torque_label">Torque:</string>
     <string name="edit_movement_torque_high">High</string>
     <string name="edit_movement_torque_low">Low</string>
