@@ -109,7 +109,7 @@
     <string name="developed_by_label">Developed by Georg&nbsp;Jung, Shunit&nbsp;Polinsky and Miki&nbsp;Mendelson-Mints</string>
     <string name="view_oss_licenses_button_text">View License Information</string>
     <string name="view_github_project_button_text">GitHub Project</string>
-    <string name="github_url">https://github.com/georg-jung/technion-robotic-arm</string>
+    <string name="github_url">https://github.com/Haifa3D/haifa3d-hand-app</string>
     <string name="license_info" tools:ignore="TypographyOther">
         <![CDATA[
 The attached notices are provided for information only.\n
