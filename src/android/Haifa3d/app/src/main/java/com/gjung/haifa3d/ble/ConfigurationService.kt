@@ -98,7 +98,11 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
                 this@ConfigurationService.manager
                     .readCharacteristic(it)
                     .with { _, data ->
-                        value.postValue(data.getByte(0)!!.toUByte())
+                        try {
+                            value.postValue(data.getByte(0)!!.toUByte())
+                        } catch (t: Throwable) {
+                            // maybe the config data on the hand isn't initialized
+                        }
                     }
                     .enqueue()
             }
