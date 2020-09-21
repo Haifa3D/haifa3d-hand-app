@@ -83,18 +83,32 @@ This is a custom GATT service that is used to trigger presets saved using the pr
 This is a custom GATT service that is used to read and write configuration variables on the controller.
 
 * Service UUID: `e0198003-7544-42c1-0000-b24344b6aa70`
-* Motor Specific, `<MOTOR #>` is a number, i.e. for the first motor `0`, for the fifth motor `4`:
-  * Low Torque Value Characteristic UUID:        `e0198003-7544-42c1-00<MOTOR #>1-b24344b6aa70`
-    * i.e. `e0198003-7544-42c1-0011-b24344b6aa70` for motor `1`
-  * Low Torque Slope Value Characteristic UUID:  `e0198003-7544-42c1-00<MOTOR #>2-b24344b6aa70`
-  * High Torque Value Characteristic UUID:       `e0198003-7544-42c1-00<MOTOR #>3-b24344b6aa70`
-  * High Torque Slope Value Characteristic UUID: `e0198003-7544-42c1-00<MOTOR #>4-b24344b6aa70`
-* Torque Measure Start MS Characteristic UUID: `e0198003-7544-42c1-0101-b24344b6aa70`
-  * Start measuring the torque/current of the motors after `x` ms. This is needed because the need more current when the start moving.
-* Windows Width Filter Characteristic UUID:    `e0198003-7544-42c1-0102-b24344b6aa70`
-  * `int`, valid range: [1, 16]
-* What more values do we need?
-  * Maybe: BLE Device Name Characteristic UUID: `e0198003-7544-42c1-0103-b24344b6aa70`
+* Configuration Value Characteristic UUID: `e0198003-7544-42c1-00<ConfigId>-b24344b6aa70` where `<ConfigId>` is a two digit hex number such as `00`, `0a` or `12`.
+
+#### Configuration Values
+
+| Id | Name                    | Short | Description                                                                                                                                  |
+|----|-------------------------|-------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| 0  | Low Torque Value        | LTV   | VALUE x dV is the threshold for LOW torque actions. the higher the value, the higher the torque.                                             |
+| 1  | High Torque Value       | HTV   | VALUE x dV is the threshold for HIGH torque actions. the higher the value, the higher the torque.                                            |
+| 2  | Torque Measure Start    | TS    | start applying torque control after VALUE[msec] due to the motors high starting current.                                                     |
+| 3  | Window Width Filter     | WW    | VALUE[#of samples] is the window width for smoothing. the higher the value, the signal is smoother but the delay can increase.               |
+| 4  | Low Torque Slope Value  | LTS   | VALUE x dt[msec] is the time threshold an increasing torque is allowed for LOW torque actions. the higher the value, the higher the torque.  |
+| 5  | High Torque Slope Value | HTS   | VALUE x dt[msec] is the time threshold an increasing torque is allowed for HIGH torque actions. the higher the value, the higher the torque. |
+| 6  | Threshold Factor Motor0 | TF0   | all torque threshold values of motor 0 are multiplied by the factor VALUE[%]/100. the higher the value, the higher the torque.               |
+| 7  | Threshold Factor Motor1 | TF1   | all torque threshold values of motor 1 are multiplied by the factor VALUE[%]/100 . the higher the value, the higher the torque.              |
+| 8  | Threshold Factor Motor2 | TF2   | all torque threshold values of motor 2 are multiplied by the factor VALUE[%]/100 . the higher the value, the higher the torque.              |
+| 9  | Threshold Factor Motor3 | TF3   | all torque threshold values of motor 3 are multiplied by the factor VALUE[%]/100 . the higher the value, the higher the torque.              |
+| 10 | Threshold Factor Motor4 | TF4   | all torque threshold values of motor 4 are multiplied by the factor VALUE[%]/100 . the higher the value, the higher the torque.              |
+| 11 |                         |       | undefined                                                                                                                                    |
+| 12 |                         |       | undefined                                                                                                                                    |
+| 13 |                         |       | undefined                                                                                                                                    |
+| 14 |                         |       | undefined                                                                                                                                    |
+| 15 |                         |       | undefined                                                                                                                                    |
+| 16 |                         |       | undefined                                                                                                                                    |
+| 17 |                         |       | undefined                                                                                                                                    |
+| 18 | Threshold Value Unit    | DV    | the VALUE[measurement samples] is the value unit, dV, that multiplies the Threshold Value parameters.                                        |
+| 19 | Debugging               | DEB   | if VALUE is 1: when the hand board is connected to a computer the debugging values will appear on the COM.                                   |
 
 [Dummy ESP32 implementation](src/esp32/haifa3d/src/main.cpp)  
 [Android implementation](src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/ble/DirectExecuteService.kt)
