@@ -83,7 +83,7 @@ This is a custom GATT service that is used to trigger presets saved using the pr
 This is a custom GATT service that is used to read and write configuration variables on the controller.
 
 * Service UUID: `e0198003-7544-42c1-0000-b24344b6aa70`
-* Configuration Value Characteristic UUID: `e0198003-7544-42c1-00<ConfigId>-b24344b6aa70` where `<ConfigId>` is a two digit hex number such as `00`, `0a` or `12`.
+* Configuration Value Characteristic UUID: `e0198003-7544-42c1-10<ConfigId>-b24344b6aa70` where `<ConfigId>` is a two digit hex number such as `00`, `0a` or `12`.
 
 #### Configuration Values
 
