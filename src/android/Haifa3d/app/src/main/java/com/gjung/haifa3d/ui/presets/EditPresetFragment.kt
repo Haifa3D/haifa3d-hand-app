@@ -91,7 +91,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         hideKeyboard(requireActivity())
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),
-            TimeStopModeDetail(50u),
+            TimeStopModeDetail(20u),
             MotorsActivated(
                 turn = true,
                 finger1 = true
