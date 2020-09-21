@@ -110,5 +110,7 @@ This is a custom GATT service that is used to read and write configuration varia
 | 18 | Threshold Value Unit    | DV    | the VALUE[measurement samples] is the value unit, dV, that multiplies the Threshold Value parameters.                                        |
 | 19 | Debugging               | DEB   | if VALUE is 1: when the hand board is connected to a computer the debugging values will appear on the COM.                                   |
 
+So, for example, the uuid for the *Debugging* config value characteristic is `e0198003-7544-42c1-1013-b24344b6aa70` as `13` is the two digit hex representation of `19`.
+
 [Dummy ESP32 implementation](src/esp32/haifa3d/src/main.cpp)  
 [Android implementation](src/android/Haifa3d/app/src/main/java/com/gjung/haifa3d/ble/DirectExecuteService.kt)
