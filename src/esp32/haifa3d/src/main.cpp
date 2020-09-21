@@ -17,32 +17,19 @@
 #define TRIGGER_ON_WRITE_CHARACTERISTIC_UUID "e0198002-7544-42c1-0001-b24344b6aa70"
 
 #define HAND_CONFIG_SERVICE_UUID             "e0198003-7544-42c1-0000-b24344b6aa70"
-#define CONFIG_LTV_0_UUID                    "e0198003-7544-42c1-1001-b24344b6aa70"
-#define CONFIG_LTV_1_UUID                    "e0198003-7544-42c1-1011-b24344b6aa70"
-#define CONFIG_LTV_2_UUID                    "e0198003-7544-42c1-1021-b24344b6aa70"
-#define CONFIG_LTV_3_UUID                    "e0198003-7544-42c1-1031-b24344b6aa70"
-#define CONFIG_LTV_4_UUID                    "e0198003-7544-42c1-1041-b24344b6aa70"
-
-#define CONFIG_LTS_0_UUID                    "e0198003-7544-42c1-1002-b24344b6aa70"
-#define CONFIG_LTS_1_UUID                    "e0198003-7544-42c1-1012-b24344b6aa70"
-#define CONFIG_LTS_2_UUID                    "e0198003-7544-42c1-1022-b24344b6aa70"
-#define CONFIG_LTS_3_UUID                    "e0198003-7544-42c1-1032-b24344b6aa70"
-#define CONFIG_LTS_4_UUID                    "e0198003-7544-42c1-1042-b24344b6aa70"
-
-#define CONFIG_HTV_0_UUID                    "e0198003-7544-42c1-1003-b24344b6aa70"
-#define CONFIG_HTV_1_UUID                    "e0198003-7544-42c1-1013-b24344b6aa70"
-#define CONFIG_HTV_2_UUID                    "e0198003-7544-42c1-1023-b24344b6aa70"
-#define CONFIG_HTV_3_UUID                    "e0198003-7544-42c1-1033-b24344b6aa70"
-#define CONFIG_HTV_4_UUID                    "e0198003-7544-42c1-1043-b24344b6aa70"
-
-#define CONFIG_HTS_0_UUID                    "e0198003-7544-42c1-1004-b24344b6aa70"
-#define CONFIG_HTS_1_UUID                    "e0198003-7544-42c1-1014-b24344b6aa70"
-#define CONFIG_HTS_2_UUID                    "e0198003-7544-42c1-1024-b24344b6aa70"
-#define CONFIG_HTS_3_UUID                    "e0198003-7544-42c1-1034-b24344b6aa70"
-#define CONFIG_HTS_4_UUID                    "e0198003-7544-42c1-1044-b24344b6aa70"
-
-#define CONFIG_TORQUE_MEASURE_START_UUID     "e0198003-7544-42c1-0101-b24344b6aa70"
-#define CONFIG_WINDOW_WIDTH_FILTER_UUID      "e0198003-7544-42c1-0102-b24344b6aa70"
+#define CONFIG_LTV_UUID                      "e0198003-7544-42c1-1000-b24344b6aa70"
+#define CONFIG_HTV_UUID                      "e0198003-7544-42c1-1001-b24344b6aa70"
+#define CONFIG_TS_UUID                       "e0198003-7544-42c1-1002-b24344b6aa70"
+#define CONFIG_WW_UUID                       "e0198003-7544-42c1-1003-b24344b6aa70"
+#define CONFIG_LTS_UUID                      "e0198003-7544-42c1-1004-b24344b6aa70"
+#define CONFIG_HTS_UUID                      "e0198003-7544-42c1-1005-b24344b6aa70"
+#define CONFIG_TF0_UUID                      "e0198003-7544-42c1-1006-b24344b6aa70"
+#define CONFIG_TF1_UUID                      "e0198003-7544-42c1-1007-b24344b6aa70"
+#define CONFIG_TF2_UUID                      "e0198003-7544-42c1-1008-b24344b6aa70"
+#define CONFIG_TF3_UUID                      "e0198003-7544-42c1-1009-b24344b6aa70"
+#define CONFIG_TF4_UUID                      "e0198003-7544-42c1-100a-b24344b6aa70"
+#define CONFIG_DV_UUID                       "e0198003-7544-42c1-1012-b24344b6aa70"
+#define CONFIG_DEB_UUID                      "e0198003-7544-42c1-1013-b24344b6aa70"
 
 bool _BLEClientConnected = false;
 
@@ -82,29 +69,24 @@ const char * presetCharacteristicUuid(int presetNumber)
 
 const char * configCharacteristicUuid(int idx)
 {
-  const char *uuids[22];
-  uuids[0] = CONFIG_LTV_0_UUID;
-  uuids[1] = CONFIG_LTV_1_UUID;
-  uuids[2] = CONFIG_LTV_2_UUID;
-  uuids[3] = CONFIG_LTV_3_UUID;
-  uuids[4] = CONFIG_LTV_4_UUID;
-  uuids[5] = CONFIG_LTS_0_UUID;
-  uuids[6] = CONFIG_LTS_1_UUID;
-  uuids[7] = CONFIG_LTS_2_UUID;
-  uuids[8] = CONFIG_LTS_3_UUID;
-  uuids[9] = CONFIG_LTS_4_UUID;
-  uuids[10] = CONFIG_HTV_0_UUID;
-  uuids[11] = CONFIG_HTV_1_UUID;
-  uuids[12] = CONFIG_HTV_2_UUID;
-  uuids[13] = CONFIG_HTV_3_UUID;
-  uuids[14] = CONFIG_HTV_4_UUID;
-  uuids[15] = CONFIG_HTS_0_UUID;
-  uuids[16] = CONFIG_HTS_1_UUID;
-  uuids[17] = CONFIG_HTS_2_UUID;
-  uuids[18] = CONFIG_HTS_3_UUID;
-  uuids[19] = CONFIG_HTS_4_UUID;
-  uuids[20] = CONFIG_TORQUE_MEASURE_START_UUID;
-  uuids[21] = CONFIG_WINDOW_WIDTH_FILTER_UUID;
+  const char *uuids[20];
+
+  uuids[0] = CONFIG_LTV_UUID;
+  uuids[1] = CONFIG_HTV_UUID;
+  uuids[2] = CONFIG_TS_UUID;
+  uuids[3] = CONFIG_WW_UUID;
+  uuids[4] = CONFIG_LTS_UUID;
+  uuids[5] = CONFIG_HTS_UUID;
+  uuids[6] = CONFIG_TF0_UUID;
+  uuids[7] = CONFIG_TF1_UUID;
+  uuids[8] = CONFIG_TF2_UUID;
+  uuids[9] = CONFIG_TF3_UUID;
+  uuids[10] = CONFIG_TF4_UUID;
+  // config [11-17] not defined by protocol but we'll
+  // fill the array consequtively though; this might seem
+  // unintuitive but is needed and makes no difference
+  uuids[11] = CONFIG_DV_UUID;  // config id 18
+  uuids[12] = CONFIG_DEB_UUID; // config id 19
   return uuids[idx];
 }
 
@@ -215,6 +197,9 @@ class ConfigCallbacks : public BLECharacteristicCallbacks {
       dataPtr = pCharacteristic->getData();
       value = dataPtr[0];
       Serial.println();
+      // attention: the ids printed here do not correspond to the configIds from the docs
+      // the ids printed here are strictly consequtive but the ids from the docs are not
+      // consequtively defined
       Serial.printf("--- Config %i written. Set to: %i ---\n", idx, value);
     };
 
@@ -272,7 +257,7 @@ void InitBLE() {
 
   // the 32 is important because otherwise we dont have enough handles and just the first 6 characteristics will be visible
   BLEService *pConfigService = pServer->createService(BLEUUID(HAND_CONFIG_SERVICE_UUID), 96);
-  for (int i = 0; i < 22; i++) {
+  for (int i = 0; i < 13; i++) {
     BLECharacteristic *pConfigCharacteristic = pConfigService->createCharacteristic(
                                          configCharacteristicUuid(i),
                                          BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE

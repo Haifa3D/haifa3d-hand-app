@@ -52,26 +52,49 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
     }
 
     init {
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(0),
+            context.getString(R.string.configuration_ltv)))
+
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(1),
+            context.getString(R.string.configuration_htv)))
+
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(2),
+            context.getString(R.string.configuration_ts)))
+
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(3),
+            context.getString(R.string.configuration_ww)))
+
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(4),
+            context.getString(R.string.configuration_lts)))
+
+        fields.add(ConfigField(
+            Uuids.ConfigurationValueCharacteristic(5),
+            context.getString(R.string.configuration_hts)))
+
+        // config [6..10]
         for (motor in 0..4) {
             fields.add(ConfigField(
-                Uuids.ConfigurationLowTorqueValueCharacteristic(motor.toByte()),
-                context.getString(R.string.configuration_ltv, motor + 1)))
-            fields.add(ConfigField(
-                Uuids.ConfigurationLowTorqueSlopeValueCharacteristic(motor.toByte()),
-                context.getString(R.string.configuration_ltsv, motor + 1)))
-            fields.add(ConfigField(
-                Uuids.ConfigurationHighTorqueValueCharacteristic(motor.toByte()),
-                context.getString(R.string.configuration_htv, motor + 1)))
-            fields.add(ConfigField(
-                Uuids.ConfigurationHighTorqueSlopeValueCharacteristic(motor.toByte()),
-                context.getString(R.string.configuration_htsv, motor + 1)))
+                Uuids.ConfigurationValueCharacteristic((6 + motor).toByte()),
+                context.getString(R.string.configuration_tf, motor)))
         }
+
+        // config [11..16] undefined
+
+        // clarify config 17, time unit; would make UI misleading
+        // or requires better implementation on the app's side
+
         fields.add(ConfigField(
-            Uuids.ConfigurationTorqueMeasureStartMsCharacteristic,
-            context.getString(R.string.configuration_tmst)))
+            Uuids.ConfigurationValueCharacteristic(18),
+            context.getString(R.string.configuration_dv)))
+
         fields.add(ConfigField(
-            Uuids.ConfigurationWindowsWidthFilterCharacteristic,
-            context.getString(R.string.configuration_wwf)))
+            Uuids.ConfigurationValueCharacteristic(19),
+            context.getString(R.string.configuration_deb)))
     }
 
     override fun readAllValues() {
