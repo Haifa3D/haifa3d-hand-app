@@ -208,7 +208,7 @@ class TriggerCallbacks : public BLECharacteristicCallbacks {
 
 class ConfigCallbacks : public BLECharacteristicCallbacks {
     int idx = 0;
-    short value = 123;
+    short value = 0;
 
     void onWrite(BLECharacteristic *pCharacteristic) {
       unsigned char* dataPtr;
@@ -227,6 +227,7 @@ class ConfigCallbacks : public BLECharacteristicCallbacks {
   public:
     ConfigCallbacks(int id) {
       idx = id;
+      value = 100 + id;
     }
 };
 
