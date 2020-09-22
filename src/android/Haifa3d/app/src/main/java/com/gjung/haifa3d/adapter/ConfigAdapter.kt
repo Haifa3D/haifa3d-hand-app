@@ -1,6 +1,7 @@
 package com.gjung.haifa3d.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.ble.IConfigField
@@ -25,9 +26,13 @@ class ConfigAdapter(var fields: List<IConfigField>): RecyclerView.Adapter<Config
             get() = binding.configName.text.toString()
             set(value) { binding.configName.text = value }
 
-        var value: String
+        var content: String
             get() = binding.configSubtitle.text.toString()
             set(value) { binding.configSubtitle.text = value }
+
+        var canEdit: Boolean
+            get() = binding.editButton.visibility == View.VISIBLE
+            set(value) { binding.editButton.visibility = if (value) View.VISIBLE else View.GONE }
 
         init {
             binding.configContainer.setOnClickListener {
@@ -50,7 +55,8 @@ class ConfigAdapter(var fields: List<IConfigField>): RecyclerView.Adapter<Config
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val field = fields[position]
         holder.caption = field.caption
-        holder.value = field.value.value?.toString() ?: "-- ? --"
+        holder.content = field.content.value?.toString() ?: "-- ? --"
+        holder.canEdit = field.canEdit
     }
 
     override fun getItemId(position: Int): Long = position.toLong()

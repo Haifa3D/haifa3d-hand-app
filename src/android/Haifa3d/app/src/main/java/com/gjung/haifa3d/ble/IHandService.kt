@@ -3,6 +3,7 @@ package com.gjung.haifa3d.ble
 import android.bluetooth.BluetoothDevice
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.gjung.haifa3d.model.HandAction
 import com.gjung.haifa3d.model.decodeHandAction
 import no.nordicsemi.android.ble.livedata.state.ConnectionState
@@ -59,6 +60,7 @@ class RealHandService(private val bleManager: AppBleManager) : IHandService {
     }
 }
 
+@ExperimentalUnsignedTypes
 class MockHandService : IHandService {
     override val batteryService: IBatteryLevelService =
         object : IBatteryLevelService {
@@ -101,15 +103,43 @@ class MockHandService : IHandService {
             override val fields: List<IConfigField>
                 get() = listOf(
                     object : IConfigField {
+                        override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444443")
+                        override val caption: String = "Demo Read-Only Config"
+                        override val content: LiveData<String> = MutableLiveData("Some value")
+                        override val canEdit: Boolean
+                            get() = false
+                    },
+                    object : IByteConfigField {
                         override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444444")
-                        override val caption: String = "Demo can't be configured"
-                        override val value = MutableLiveData<UByte>()
+                        override val caption: String = "Demo Config Value"
+                        override val value = MutableLiveData(0.toUByte())
+                        override val content = Transformations.map(value) { it.toString() }
 
                         override suspend fun setValue(value: UByte) {
                             this.value.postValue(value)
                         }
 
                         override fun read() {
+                        }
+                    },
+                    object : IBooleanConfigField {
+                        override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444445")
+                        override val caption: String = "Debugging Mode"
+                        override val value = MutableLiveData(false)
+                        override val content = Transformations.map(value) { if (it) "Enabled" else "Disabled" }
+
+                        override suspend fun setValue(value: Boolean) {
+                            this.value.postValue(value)
+                        }
+
+                        override fun read() {
+                        }
+                    },
+                    object : ITriggerConfigField {
+                        override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444446")
+                        override val caption: String = "Demo Configuration Trigger"
+                        override val content = MutableLiveData("Click to trigger")
+                        override suspend fun trigger() {
                         }
                     }
                 )

@@ -102,6 +102,11 @@
     <string name="configuration_dv">Threshold Value Unit</string>
     <string name="configuration_deb">Debugging</string>
 
+    <string name="configuration_trigger_reset_presets">Reset Presets</string>
+    <string name="configuration_trigger_reset_config">Reset Configuration</string>
+    <string name="configuration_trigger_reset_presets_descr">Tap to reset presets to factory defaults</string>
+    <string name="configuration_trigger_reset_config_descr">Tap to reset configuration to factory defaults</string>
+
     <string name="edit_movement_torque_label">Torque:</string>
     <string name="edit_movement_torque_high">High</string>
     <string name="edit_movement_torque_low">Low</string>
@@ -168,4 +173,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
     <string name="preset_name_edit_hint">Preset name</string>
     <string name="config_value_invalid">Invalid input</string>
     <string name="config_value_changed">Config changed successful</string>
+    <string name="config_trigger_field_triggered">%1$s triggered</string>
+    <string name="config_trigger_field_question">Are you sure you want to continue with "%1$s"?</string>
+    <string name="config_value_true">Enabled</string>
+    <string name="config_value_false">Disabled</string>
+    <string name="config_bool_question">Should "%1$s" be enabled or disabled?</string>
 </resources>
