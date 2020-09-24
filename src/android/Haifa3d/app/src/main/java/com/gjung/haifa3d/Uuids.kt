@@ -19,9 +19,14 @@ object Uuids {
 
     val HandConfigurationService: UUID = UUID.fromString("e0198003-7544-42c1-0000-b24344b6aa70")
     fun ConfigurationValueCharacteristic(configId: Byte): UUID =
-        // currently we have 5 motors (#0 - #4). in theory we could support up to 8.
-        if (configId < 0 || configId > 20) //  || motor > 7)
+        if (configId < 0 || configId > 20)
             throw IllegalArgumentException("The configId has to be in [0, 19].")
         else
             UUID.fromString("e0198003-7544-42c1-10${String.format("%02x", configId)}-b24344b6aa70")
+
+    fun ConfigurationTriggerCharacteristic(configId: Byte): UUID =
+        if (configId < 0 || configId > 1)
+            throw IllegalArgumentException("The configId has to be in [0, 1].")
+        else
+            UUID.fromString("e0198003-7544-42c1-01${String.format("%02x", configId)}-b24344b6aa70")
 }

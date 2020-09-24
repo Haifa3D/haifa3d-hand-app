@@ -30,6 +30,8 @@
 #define CONFIG_TF4_UUID                      "e0198003-7544-42c1-100a-b24344b6aa70"
 #define CONFIG_DV_UUID                       "e0198003-7544-42c1-1012-b24344b6aa70"
 #define CONFIG_DEB_UUID                      "e0198003-7544-42c1-1013-b24344b6aa70"
+#define CONFIG_RST_PRESETS_UUID              "e0198003-7544-42c1-0100-b24344b6aa70"
+#define CONFIG_RST_CONFIG_UUID               "e0198003-7544-42c1-0101-b24344b6aa70"
 
 bool _BLEClientConnected = false;
 
@@ -87,6 +89,9 @@ const char * configCharacteristicUuid(int idx)
   // unintuitive but is needed and makes no difference
   uuids[11] = CONFIG_DV_UUID;  // config id 18
   uuids[12] = CONFIG_DEB_UUID; // config id 19
+
+  uuids[13] = CONFIG_RST_PRESETS_UUID;
+  uuids[14] = CONFIG_RST_CONFIG_UUID;
   return uuids[idx];
 }
 
@@ -257,7 +262,7 @@ void InitBLE() {
 
   // the 32 is important because otherwise we dont have enough handles and just the first 6 characteristics will be visible
   BLEService *pConfigService = pServer->createService(BLEUUID(HAND_CONFIG_SERVICE_UUID), 96);
-  for (int i = 0; i < 13; i++) {
+  for (int i = 0; i < 15; i++) {
     BLECharacteristic *pConfigCharacteristic = pConfigService->createCharacteristic(
                                          configCharacteristicUuid(i),
                                          BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE
