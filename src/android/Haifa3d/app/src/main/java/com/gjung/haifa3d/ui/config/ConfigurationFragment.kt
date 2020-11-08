@@ -20,10 +20,7 @@ import com.gjung.haifa3d.ble.*
 import com.gjung.haifa3d.databinding.FragmentConfigurationBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 @ExperimentalUnsignedTypes
 class ConfigurationFragment : BleFragment() {
@@ -147,6 +144,8 @@ class ConfigurationFragment : BleFragment() {
                     field.trigger()
                     withContext(Dispatchers.Main) {
                         showSnackbar(requireContext().getString(R.string.config_trigger_field_triggered, field.caption))
+                        delay(750)
+                        configService?.readAllValues()
                     }
                 }
             }

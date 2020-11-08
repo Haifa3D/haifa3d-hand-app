@@ -27,26 +27,28 @@ interface IConfigField {
     val canEdit: Boolean
 }
 
+interface IReadableConfigField : IConfigField {
+    fun read()
+}
+
 interface IBleConfigField: IConfigField {
     var characteristic: BluetoothGattCharacteristic?
 }
 
 @ExperimentalUnsignedTypes
-interface IByteConfigField: IConfigField {
+interface IByteConfigField: IReadableConfigField {
     override val canEdit: Boolean
         get() = true
     val value: LiveData<UByte>
     suspend fun setValue(value: UByte)
-    fun read()
 }
 
 @ExperimentalUnsignedTypes
-interface IBooleanConfigField: IConfigField {
+interface IBooleanConfigField: IReadableConfigField {
     override val canEdit: Boolean
         get() = true
     val value: LiveData<Boolean>
     suspend fun setValue(value: Boolean)
-    fun read()
 }
 
 interface ITriggerConfigField: IConfigField {
@@ -136,7 +138,7 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
     }
 
     override fun readAllValues() {
-        for (field in fields.filterIsInstance<IByteConfigField>()) {
+        for (field in fields.filterIsInstance<IReadableConfigField>()) {
             field.read()
         }
     }
