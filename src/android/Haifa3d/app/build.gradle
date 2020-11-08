@@ -18,6 +18,10 @@ android {
         versionName System.getenv('BUILD_BUILDNUMBER') ?: "0.1-noversioninfo"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // needed since Android Gradle Plugin 4.1.0
+        // see https://stackoverflow.com/a/64333972/1200847
+        buildConfigField 'String', 'VERSION_NAME', "\"${versionName}\""
     }
 
     buildTypes {
