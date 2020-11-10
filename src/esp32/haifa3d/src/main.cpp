@@ -211,7 +211,7 @@ class ConfigCallbacks : public BLECharacteristicCallbacks {
     void onRead(BLECharacteristic *pCharacteristic) {
       unsigned char val[1];
       val[0] = value;
-      pCharacteristic->setValue(val, 5);
+      pCharacteristic->setValue(val, 1);
     }
 
   public:
