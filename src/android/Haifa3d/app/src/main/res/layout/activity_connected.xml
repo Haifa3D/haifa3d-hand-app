@@ -9,7 +9,6 @@
     tools:openDrawer="start">
 
 
-
     <include
         layout="@layout/app_bar_connected"
         android:id="@+id/appbar"

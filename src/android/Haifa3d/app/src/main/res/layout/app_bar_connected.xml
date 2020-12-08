@@ -11,48 +11,18 @@
         android:orientation="vertical">
 
 
-        <com.google.android.material.appbar.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:id="@+id/app_bar"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            tools:context="net.simplifiedlearning.toolbarexample.MainActivity">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:dividerPadding="8dp"
-                android:orientation="horizontal"
-                android:showDividers="end">
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-
-
-
-                    <TextView
-                        android:id="@+id/toolbar_save"
-                        style="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/selectableItemBackground"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="0dp"
-                        android:text=":"
-                        android:textAllCaps="true" />
-
-                </LinearLayout>
-
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@color/primaryColor" />
+        </RelativeLayout>
 
         <fragment
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -73,8 +43,6 @@
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:menu="@menu/bottom_navigation_menu" />
-
-
 
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
