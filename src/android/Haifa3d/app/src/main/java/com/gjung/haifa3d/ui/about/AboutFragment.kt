@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.gjung.haifa3d.BuildConfig
@@ -37,8 +38,15 @@ class AboutFragment : Fragment() {
                 Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_url)))
             startActivity(browserIntent)
         }
+        setActivityTitle("About")
 
         return binding.root
     }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+    }
+
 
 }

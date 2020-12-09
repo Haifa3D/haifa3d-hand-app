@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.LiveControlManager
 
@@ -33,6 +34,7 @@ class LiveControlFragment : BleFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setActivityTitle("Live Control")
         // Inflate the layout for this fragment
         binding = FragmentLiveControlBinding.inflate(layoutInflater, container, false)
 
@@ -66,4 +68,10 @@ class LiveControlFragment : BleFragment() {
             true
         }
     }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+    }
+
 }

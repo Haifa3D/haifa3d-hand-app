@@ -61,6 +61,7 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
         setContentView(view)
 
         setSupportActionBar(binding.toolbar)
+        this.setTitle("Scanner")
 
         // Create view model containing utility methods for scanning
         scannerViewModel!!.scannerState.observe(

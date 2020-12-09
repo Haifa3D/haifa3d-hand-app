@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -65,6 +66,7 @@ class PresetsFragment : BleFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setActivityTitle("Presets")
         binding = FragmentPresetsBinding.inflate(layoutInflater, container, false)
 
         val rec = binding.recyclerViewPresets
@@ -136,5 +138,11 @@ class PresetsFragment : BleFragment() {
         Snackbar.make(binding.root, resId, Snackbar.LENGTH_LONG)
             .show()
     }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+    }
+
 
 }

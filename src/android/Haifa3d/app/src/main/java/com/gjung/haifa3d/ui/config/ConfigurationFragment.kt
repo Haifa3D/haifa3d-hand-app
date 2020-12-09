@@ -7,18 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toolbar
 import androidx.annotation.StringRes
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.BleFragment
-
+import androidx.appcompat.app.AppCompatActivity
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.ConfigAdapter
 import com.gjung.haifa3d.ble.*
 import com.gjung.haifa3d.databinding.FragmentConfigurationBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
 
@@ -51,8 +53,8 @@ class ConfigurationFragment : BleFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentConfigurationBinding.inflate(layoutInflater, container, false)
-
         val rec = binding.configRecyclerView
+        setActivityTitle("Config")
 
         adapter = ConfigAdapter(listOf())
         adapter.onItemEditClickListener = object : ConfigAdapter.OnItemClickListener {
@@ -80,6 +82,11 @@ class ConfigurationFragment : BleFragment() {
 
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
     }
 
     private fun onByteConfigFieldEditClick(field: IByteConfigField) {

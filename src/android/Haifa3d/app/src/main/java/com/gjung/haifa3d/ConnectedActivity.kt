@@ -30,6 +30,7 @@ class ConnectedActivity : BleActivity() {
         binding = ActivityConnectedBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appbar.toolbar)
+        this.setTitle("Connected")
         val navView: NavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
