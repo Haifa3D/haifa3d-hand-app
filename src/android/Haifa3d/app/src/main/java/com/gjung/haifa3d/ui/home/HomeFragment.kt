@@ -1,6 +1,10 @@
 package com.gjung.haifa3d.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,6 +73,14 @@ class HomeFragment : BleFragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         setActivityTitle("Home")
+        val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
+        mSpannableText.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            0,
+            mSpannableText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
 
         val rec = binding.recyclerViewPresets
 

@@ -1,28 +1,31 @@
 package com.gjung.haifa3d.ui.config
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toolbar
+import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.BleFragment
-import androidx.appcompat.app.AppCompatActivity
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.ConfigAdapter
 import com.gjung.haifa3d.ble.*
 import com.gjung.haifa3d.databinding.FragmentConfigurationBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.*
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.Spannable
+
 
 @ExperimentalUnsignedTypes
 class ConfigurationFragment : BleFragment() {
@@ -55,6 +58,15 @@ class ConfigurationFragment : BleFragment() {
         binding = FragmentConfigurationBinding.inflate(layoutInflater, container, false)
         val rec = binding.configRecyclerView
         setActivityTitle("Config")
+        val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
+        mSpannableText.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            0,
+            mSpannableText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
+
 
         adapter = ConfigAdapter(listOf())
         adapter.onItemEditClickListener = object : ConfigAdapter.OnItemClickListener {
@@ -88,6 +100,8 @@ class ConfigurationFragment : BleFragment() {
     {
         (activity as AppCompatActivity?)!!.supportActionBar?.title = title
     }
+
+
 
     private fun onByteConfigFieldEditClick(field: IByteConfigField) {
         val editText = EditText(requireContext())
