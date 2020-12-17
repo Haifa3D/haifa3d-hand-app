@@ -1,20 +1,33 @@
 package com.gjung.haifa3d
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
+import android.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gjung.haifa3d.databinding.ActivityConnectedBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.gjung.haifa3d.R
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.app_bar_connected.*
+import com.google.android.material.*
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
+
 
 class ConnectedActivity : BleActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityConnectedBinding
+
     private var isInFront = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,19 +35,35 @@ class ConnectedActivity : BleActivity() {
         binding = ActivityConnectedBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appbar.toolbar)
+        //this.setTitle("Connected")
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
+            appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_livecontrol, R.id.nav_presets, R.id.nav_about, R.id.nav_configuration
             ), binding.drawerLayout
         )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
-
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+        //binding.navView.setupWithNavController(navController)
         binding.disconnectButton.setOnClickListener { disconnect() }
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
+        bottomNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        bottomNavView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+                R.id.nav_about -> {
+            Toast.makeText(this@ConnectedActivity, item.title, Toast.LENGTH_SHORT).show()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_about)
+        }
+            R.id.disconnect_button -> {
+                Toast.makeText(this@ConnectedActivity, item.title, Toast.LENGTH_SHORT).show()
+                disconnect()
+            }
+        }
+        return true
     }
 
     private fun disconnect() {
@@ -43,7 +72,7 @@ class ConnectedActivity : BleActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.connected, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -69,10 +98,26 @@ class ConnectedActivity : BleActivity() {
         finish()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
+
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_home)
+                }
+                R.id.nav_livecontrol -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_livecontrol)
+                }
+                R.id.nav_presets -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_presets)
+                }
+                R.id.nav_configuration -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_configuration)
+                }
+
+            }
+            false
+        }
 
     override fun onResume() {
         super.onResume()

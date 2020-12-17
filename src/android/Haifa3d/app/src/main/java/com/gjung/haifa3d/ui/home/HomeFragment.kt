@@ -1,11 +1,16 @@
 package com.gjung.haifa3d.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -67,6 +72,15 @@ class HomeFragment : BleFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        setActivityTitle("Home")
+        val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
+        mSpannableText.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            0,
+            mSpannableText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
 
         val rec = binding.recyclerViewPresets
 
@@ -108,6 +122,11 @@ class HomeFragment : BleFragment() {
         rec.layoutManager = LinearLayoutManager(this.requireContext())
 
         return binding.root
+    }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
     }
 
     private fun showSnackbar(@StringRes resId: Int) {

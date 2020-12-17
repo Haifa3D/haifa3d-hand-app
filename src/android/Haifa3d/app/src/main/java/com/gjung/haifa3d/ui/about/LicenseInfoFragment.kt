@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 
 import com.gjung.haifa3d.R
 
@@ -18,7 +19,14 @@ class LicenseInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        setActivityTitle("License")
         return inflater.inflate(R.layout.fragment_license_info, container, false)
+    }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+
     }
 
 }

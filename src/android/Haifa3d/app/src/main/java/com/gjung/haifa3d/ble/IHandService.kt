@@ -40,10 +40,8 @@ class RealHandService(private val bleManager: AppBleManager) : IHandService {
         get() = bleManager.configurationService
     override val state: LiveData<ConnectionState>
         get() = bleManager.state
-
     override val isConnected: Boolean
         get() = bleManager.isConnected
-
     override val connectedAddress: String?
         get() = bleManager.bluetoothDevice?.address
 

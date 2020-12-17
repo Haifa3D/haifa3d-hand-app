@@ -4,22 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home"
-            android:title="@string/menu_home" />
-        <item
-            android:id="@+id/nav_livecontrol"
-            android:icon="@drawable/ic_settings_remote"
-            android:title="@string/menu_livecontrol" />
-        <item
-            android:id="@+id/nav_presets"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_presets" />
-        <item
-            android:id="@+id/nav_configuration"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/menu_configuration" />
+
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_hand_paper_regular"

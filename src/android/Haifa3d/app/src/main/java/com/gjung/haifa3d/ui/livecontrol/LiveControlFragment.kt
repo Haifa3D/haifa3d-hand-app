@@ -1,13 +1,18 @@
 package com.gjung.haifa3d.ui.livecontrol
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.LiveControlManager
 
@@ -33,6 +38,15 @@ class LiveControlFragment : BleFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setActivityTitle("Live Control")
+        val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
+        mSpannableText.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            0,
+            mSpannableText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
         // Inflate the layout for this fragment
         binding = FragmentLiveControlBinding.inflate(layoutInflater, container, false)
 
@@ -66,4 +80,10 @@ class LiveControlFragment : BleFragment() {
             true
         }
     }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+    }
+
 }

@@ -1,11 +1,16 @@
 package com.gjung.haifa3d.ui.presets
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -65,6 +70,15 @@ class PresetsFragment : BleFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setActivityTitle("Presets")
+        val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
+        mSpannableText.setSpan(
+            ForegroundColorSpan(Color.WHITE),
+            0,
+            mSpannableText.length,
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
+        )
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
         binding = FragmentPresetsBinding.inflate(layoutInflater, container, false)
 
         val rec = binding.recyclerViewPresets
@@ -136,5 +150,11 @@ class PresetsFragment : BleFragment() {
         Snackbar.make(binding.root, resId, Snackbar.LENGTH_LONG)
             .show()
     }
+
+    fun Fragment.setActivityTitle(title: String)
+    {
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = title
+    }
+
 
 }
