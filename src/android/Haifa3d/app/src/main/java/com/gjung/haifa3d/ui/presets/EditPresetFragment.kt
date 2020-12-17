@@ -1,8 +1,11 @@
 package com.gjung.haifa3d.ui.presets
 
+import android.app.Activity
+import android.widget.Toast
 import android.os.Bundle
 import android.os.UserManager
 import android.view.*
+import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -13,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.gjung.haifa3d.*
 
 import com.gjung.haifa3d.adapter.MovementsAdapter
@@ -22,7 +26,30 @@ import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
 import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.util.InjectorUtils
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.nav_header_connected.*
 import kotlinx.coroutines.*
+
+
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.gjung.haifa3d.databinding.ActivityConnectedBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.gjung.haifa3d.R
+import com.google.android.material.navigation.NavigationView
+
+
+
+
+
+val n = 10
 
 /**
  * A simple [Fragment] subclass.
@@ -73,9 +100,13 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
             }
             R.id.action_save_hand_action -> {
                 saveHandAction()
+
                 true
             }
+
             R.id.action_add_hand_movement -> {
+
+
                 addHandMovement()
                 true
             }
@@ -83,11 +114,25 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         }
     }
 
+
+
+
+
+
+
     private fun tryPreset() {
         directExecuteService?.executeAction(HandAction(movements))
     }
 
     private fun addHandMovement() {
+
+        if(movements.size >= n){
+            Toast.makeText(getActivity(), "Limited to 10 movements!", Toast.LENGTH_SHORT).show()
+
+
+            return
+        }
+
         hideKeyboard(requireActivity())
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),

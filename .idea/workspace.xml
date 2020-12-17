@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e20e5453-c974-47c6-b1da-8df95c997599" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="">
+          <activation />
+        </task>
+        <projects_view />
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1kW5gm8977haGfLsgSS1mKsbqRz" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="memory.settings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Haifa-3d" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="haifa3d-hand-app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="launch_deep_link" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="https://github.com/Haifa3D/haifa3d-hand-app.git" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e20e5453-c974-47c6-b1da-8df95c997599" name="Default Changelist" comment="" />
+      <created>1605803620596</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605803620596</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="577" y="146" key="#Unnamed" timestamp="1605804500501">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="577" y="146" key="#Unnamed/0.0.1792.1120@0.0.1792.1120" timestamp="1605804500501" />
+    <state x="669" y="434" key="#Updates" timestamp="1605803994816">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="669" y="434" key="#Updates/0.0.1792.1120@0.0.1792.1120" timestamp="1605803994816" />
+    <state x="577" y="146" key="#app" timestamp="1605805244456">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="577" y="146" key="#app/0.0.1792.1120@0.0.1792.1120" timestamp="1605805244456" />
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605805689421">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="360" y="222" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1605805689421" />
+    <state x="633" y="357" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1605805684655">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="633" y="357" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1605805684655" />
+    <state x="100" y="100" width="1592" height="920" key="AVDManager" timestamp="1605805246897">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="100" y="100" width="1592" height="920" key="AVDManager/0.0.1792.1120@0.0.1792.1120" timestamp="1605805246897" />
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom" timestamp="1605805748807">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="318" key="GridCell.Tab.0.bottom/0.0.1792.1120@0.0.1792.1120" timestamp="1605805748807" />
+    <state width="1750" height="318" key="GridCell.Tab.0.center" timestamp="1605805748806">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="318" key="GridCell.Tab.0.center/0.0.1792.1120@0.0.1792.1120" timestamp="1605805748806" />
+    <state width="1750" height="318" key="GridCell.Tab.0.left" timestamp="1605805748805">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="318" key="GridCell.Tab.0.left/0.0.1792.1120@0.0.1792.1120" timestamp="1605805748805" />
+    <state width="1750" height="318" key="GridCell.Tab.0.right" timestamp="1605805748806">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state width="1750" height="318" key="GridCell.Tab.0.right/0.0.1792.1120@0.0.1792.1120" timestamp="1605805748806" />
+    <state x="484" y="310" key="IDE.errors.dialog" timestamp="1605805727396">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="484" y="310" key="IDE.errors.dialog/0.0.1792.1120@0.0.1792.1120" timestamp="1605805727396" />
+    <state x="494" y="266" key="NewModule_or_Project.wizard" timestamp="1605806146680">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="494" y="266" key="NewModule_or_Project.wizard/0.0.1792.1120@0.0.1792.1120" timestamp="1605806146680" />
+    <state x="397" y="199" key="SettingsEditor" timestamp="1605804093410">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="397" y="199" key="SettingsEditor/0.0.1792.1120@0.0.1792.1120" timestamp="1605804093410" />
+    <state x="588" y="315" width="615" height="490" key="find.popup" timestamp="1605805069861">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="588" y="315" width="615" height="490" key="find.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1605805069861" />
+    <state x="561" y="265" key="run.anything.popup" timestamp="1605805195485">
+      <screen x="0" y="0" width="1792" height="1120" />
+    </state>
+    <state x="561" y="265" key="run.anything.popup/0.0.1792.1120@0.0.1792.1120" timestamp="1605805195485" />
+  </component>
+</project>
