@@ -97,39 +97,40 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             Uuids.ConfigurationValueCharacteristic(1),
             context.getString(R.string.configuration_htv)))
 
+
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(4),
+            context.getString(R.string.configuration_lts)))
+
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(5),
+            context.getString(R.string.configuration_hts)))
+
         fields.add(TriggerConfigField(
             Uuids.ConfigurationTriggerCharacteristic(1),
             context.getString(R.string.configuration_trigger_reset_config),
             context.getString(R.string.configuration_trigger_reset_config_descr)))
-
-        fields.add(HeaderConfigField(
-            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
-        fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(2),
-            context.getString(R.string.configuration_lts)))
-
-        fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(3),
-            context.getString(R.string.configuration_hts)))
 
         fields.add(TriggerConfigField(
             Uuids.ConfigurationTriggerCharacteristic(0),
             context.getString(R.string.configuration_trigger_reset_presets),
             context.getString(R.string.configuration_trigger_reset_presets_descr)))
 
+        fields.add(HeaderConfigField(
+            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
+
         fields.add(TriggerConfigField(
             Uuids.ConfigurationTriggerCharacteristic(1),
             context.getString(R.string.configuration_trigger_reset_config),
             context.getString(R.string.configuration_trigger_reset_config_descr)))
 
-        fields.add(HeaderConfigField(
-            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
+
         fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(6),
+            Uuids.ConfigurationValueCharacteristic(2),
             context.getString(R.string.configuration_ts)))
 
         fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(7),
+            Uuids.ConfigurationValueCharacteristic(3),
             context.getString(R.string.configuration_ww)))
 
 
