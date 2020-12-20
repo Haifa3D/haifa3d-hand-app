@@ -97,6 +97,13 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             Uuids.ConfigurationValueCharacteristic(1),
             context.getString(R.string.configuration_htv)))
 
+        fields.add(TriggerConfigField(
+            Uuids.ConfigurationTriggerCharacteristic(1),
+            context.getString(R.string.configuration_trigger_reset_config),
+            context.getString(R.string.configuration_trigger_reset_config_descr)))
+
+        fields.add(HeaderConfigField(
+            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
         fields.add(ByteConfigField(
             Uuids.ConfigurationValueCharacteristic(2),
             context.getString(R.string.configuration_lts)))
