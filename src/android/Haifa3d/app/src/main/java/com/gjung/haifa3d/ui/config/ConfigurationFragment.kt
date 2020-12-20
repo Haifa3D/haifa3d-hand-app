@@ -69,7 +69,7 @@ class ConfigurationFragment : BleFragment() {
 
 
         adapter = ConfigAdapter(listOf())
-        adapter.onItemEditClickListener = object : ConfigAdapter.OnItemClickListener {
+        adapter.onItemEditClickListener  = object : ConfigAdapter.OnItemClickListener {
             override fun onItemClick(field: IConfigField) {
                when (field) {
                    is IByteConfigField -> onByteConfigFieldEditClick(field)
