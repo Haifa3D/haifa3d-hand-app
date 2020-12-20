@@ -57,6 +57,12 @@ interface ITriggerConfigField: IConfigField {
     suspend fun trigger()
 }
 
+interface IHeaderConfigField: IConfigField {
+    override val canEdit: Boolean
+        get() = false
+    suspend fun trigger()
+}
+
 @ExperimentalUnsignedTypes
 class ConfigurationService(manager: BleManagerAccessor, private val context: Context
 ) : GattHandler(manager), IConfigurationService {
@@ -80,6 +86,9 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
     }
 
     init {
+        fields.add(HeaderConfigField(
+            Uuids.ConfigurationValueCharacteristic(14),context.getString(R.string.configuration_basic),""))
+
         fields.add(ByteConfigField(
             Uuids.ConfigurationValueCharacteristic(0),
             context.getString(R.string.configuration_ltv)))
@@ -90,28 +99,41 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
 
         fields.add(ByteConfigField(
             Uuids.ConfigurationValueCharacteristic(2),
-            context.getString(R.string.configuration_ts)))
-
-        fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(3),
-            context.getString(R.string.configuration_ww)))
-
-        fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(4),
             context.getString(R.string.configuration_lts)))
 
         fields.add(ByteConfigField(
-            Uuids.ConfigurationValueCharacteristic(5),
+            Uuids.ConfigurationValueCharacteristic(3),
             context.getString(R.string.configuration_hts)))
 
-        // config [6..10]
+        fields.add(TriggerConfigField(
+            Uuids.ConfigurationTriggerCharacteristic(0),
+            context.getString(R.string.configuration_trigger_reset_presets),
+            context.getString(R.string.configuration_trigger_reset_presets_descr)))
+
+        fields.add(TriggerConfigField(
+            Uuids.ConfigurationTriggerCharacteristic(1),
+            context.getString(R.string.configuration_trigger_reset_config),
+            context.getString(R.string.configuration_trigger_reset_config_descr)))
+
+        fields.add(HeaderConfigField(
+            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(6),
+            context.getString(R.string.configuration_ts)))
+
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(7),
+            context.getString(R.string.configuration_ww)))
+
+
+        // config [8..12]
         for (motor in 0..4) {
             fields.add(ByteConfigField(
-                Uuids.ConfigurationValueCharacteristic((6 + motor).toByte()),
+                Uuids.ConfigurationValueCharacteristic((8 + motor).toByte()),
                 context.getString(R.string.configuration_tf, motor)))
         }
 
-        // config [11..16] undefined
+        // config [13..16] undefined
 
         // clarify config 17, time unit; would make UI misleading
         // or requires better implementation on the app's side
@@ -126,15 +148,6 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             context.getString(R.string.config_value_true),
             context.getString(R.string.config_value_false)))
 
-        fields.add(TriggerConfigField(
-            Uuids.ConfigurationTriggerCharacteristic(0),
-            context.getString(R.string.configuration_trigger_reset_presets),
-            context.getString(R.string.configuration_trigger_reset_presets_descr)))
-
-        fields.add(TriggerConfigField(
-            Uuids.ConfigurationTriggerCharacteristic(1),
-            context.getString(R.string.configuration_trigger_reset_config),
-            context.getString(R.string.configuration_trigger_reset_config_descr)))
     }
 
     override fun readAllValues() {
@@ -220,4 +233,21 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
 
         override val content = MutableLiveData(description)
     }
+
+    inner class HeaderConfigField(
+        override val uuid: UUID,
+        override val caption: String,
+        description: String,
+        override var characteristic: BluetoothGattCharacteristic? = null
+    ) : IHeaderConfigField, IBleConfigField {
+        override suspend fun trigger() {
+            this@ConfigurationService.manager
+                .writeCharacteristic(characteristic!!, arrayOf<Byte>(1).toByteArray())
+                .sendSuspend()
+        }
+
+        override val content = MutableLiveData(description)
+    }
+
+
 }

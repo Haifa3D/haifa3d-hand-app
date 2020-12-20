@@ -101,6 +101,8 @@
     <string name="configuration_tf">Threshold Factor Motor %1$d</string>
     <string name="configuration_dv">Threshold Value Unit</string>
     <string name="configuration_deb">Debugging</string>
+    <string name="configuration_basic"><b><u> Basic Configuration</u>: </b> </string>
+    <string name="configuration_advanced"> <b><u> Advanced Configuration</u>: </b> </string>
 
     <string name="configuration_trigger_reset_presets">Reset Presets</string>
     <string name="configuration_trigger_reset_config">Reset Configuration</string>

@@ -67,7 +67,6 @@ class ConfigurationFragment : BleFragment() {
         )
         (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
 
-
         adapter = ConfigAdapter(listOf())
         adapter.onItemEditClickListener  = object : ConfigAdapter.OnItemClickListener {
             override fun onItemClick(field: IConfigField) {
@@ -78,10 +77,12 @@ class ConfigurationFragment : BleFragment() {
             }
         }
 
+
         adapter.onItemClickListener = object : ConfigAdapter.OnItemClickListener {
             override fun onItemClick(field: IConfigField) {
                 when (field) {
                     is ITriggerConfigField -> onTriggerConfigFieldClick(field)
+                    is IHeaderConfigField -> print(1)
                 }
             }
         }
@@ -100,7 +101,6 @@ class ConfigurationFragment : BleFragment() {
     {
         (activity as AppCompatActivity?)!!.supportActionBar?.title = title
     }
-
 
 
     private fun onByteConfigFieldEditClick(field: IByteConfigField) {
