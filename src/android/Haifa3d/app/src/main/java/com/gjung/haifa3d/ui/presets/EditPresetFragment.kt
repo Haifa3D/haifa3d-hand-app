@@ -3,12 +3,16 @@ package com.gjung.haifa3d.ui.presets
 import android.os.Bundle
 import android.os.UserManager
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -43,6 +47,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         }
     }
 
+
     private val movements
         get() = preset.value!!.handAction!!.Movements
 
@@ -60,34 +65,41 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
+    
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.edit_preset, menu)
+        super.onCreateOptionsMenu(menu,inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.nav_about -> {
+                return false
+            }
+            R.id.disconnect_button -> {
+                return false
+            }
             R.id.action_try_preset -> {
                 tryPreset()
-                true
+                return true
             }
             R.id.action_save_hand_action -> {
                 saveHandAction()
-                true
+                return true
             }
             R.id.action_add_hand_movement -> {
                 addHandMovement()
-                true
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun tryPreset() {
+     fun tryPreset() {
         directExecuteService?.executeAction(HandAction(movements))
     }
 
-    private fun addHandMovement() {
+     fun addHandMovement() {
         hideKeyboard(requireActivity())
         movements.add(HandMovement(
             TorqueStopModeDetail(TorqueStopThreshold.Low),
@@ -105,7 +117,7 @@ class EditPresetFragment : BleFragment(), MovementsAdapter.OnItemClickListener {
         presetsViewModel.presets.notifyObserver()
     }
 
-    private fun saveHandAction() {
+     fun saveHandAction() {
         hideKeyboard(requireActivity())
         GlobalScope.launch(Dispatchers.IO) {
             presetService!!.writePreset(args.presetId, HandAction(movements))

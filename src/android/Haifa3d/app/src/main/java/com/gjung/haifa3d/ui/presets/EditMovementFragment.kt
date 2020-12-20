@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gjung.haifa3d.BleFragment
-
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.ble.IDirectExecuteService
 import com.gjung.haifa3d.ble.IPresetService

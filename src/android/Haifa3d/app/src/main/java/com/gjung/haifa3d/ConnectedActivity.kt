@@ -21,6 +21,7 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_connected.*
 import com.google.android.material.*
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.gjung.haifa3d.ui.presets.EditPresetFragment
 
 
 class ConnectedActivity : BleActivity() {
@@ -41,10 +42,10 @@ class ConnectedActivity : BleActivity() {
             setOf(
             ), binding.drawerLayout
         )
-        //setupActionBarWithNavController(navController, appBarConfiguration)
-        //binding.navView.setupWithNavController(navController)
+        val navController = findNavController(R.id.nav_host_fragment)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.navView.setupWithNavController(navController)
         binding.disconnectButton.setOnClickListener { disconnect() }
-
         val bottomNavView: BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         bottomNavView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
@@ -57,13 +58,28 @@ class ConnectedActivity : BleActivity() {
                 R.id.nav_about -> {
             Toast.makeText(this@ConnectedActivity, item.title, Toast.LENGTH_SHORT).show()
             findNavController(R.id.nav_host_fragment).navigate(R.id.nav_about)
-        }
+                    return true
+
+                }
             R.id.disconnect_button -> {
                 Toast.makeText(this@ConnectedActivity, item.title, Toast.LENGTH_SHORT).show()
                 disconnect()
+                return true
+
             }
+            R.id.action_try_preset -> {
+                return false
+            }
+            R.id.action_save_hand_action -> {
+                return false
+            }
+            R.id.action_add_hand_movement -> {
+                return false
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
+
+        return false
     }
 
     private fun disconnect() {
