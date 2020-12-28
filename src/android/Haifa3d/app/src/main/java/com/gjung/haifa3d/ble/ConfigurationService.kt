@@ -57,10 +57,11 @@ interface ITriggerConfigField: IConfigField {
     suspend fun trigger()
 }
 
-interface IHeaderConfigField: IConfigField {
+interface IWindowWidthConfigField: IReadableConfigField {
     override val canEdit: Boolean
-        get() = false
-    suspend fun trigger()
+        get() = true
+    val value: LiveData<Int>
+    suspend fun setValue(value: Int)
 }
 
 @ExperimentalUnsignedTypes
@@ -86,8 +87,7 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
     }
 
     init {
-        fields.add(HeaderConfigField(
-            Uuids.ConfigurationValueCharacteristic(14),context.getString(R.string.configuration_basic),""))
+
 
         fields.add(ByteConfigField(
             Uuids.ConfigurationValueCharacteristic(0),
@@ -116,8 +116,7 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             context.getString(R.string.configuration_trigger_reset_presets),
             context.getString(R.string.configuration_trigger_reset_presets_descr)))
 
-        fields.add(HeaderConfigField(
-            Uuids.ConfigurationValueCharacteristic(13),context.getString(R.string.configuration_advanced),""))
+
 
         fields.add(TriggerConfigField(
             Uuids.ConfigurationTriggerCharacteristic(1),
@@ -129,7 +128,7 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             Uuids.ConfigurationValueCharacteristic(2),
             context.getString(R.string.configuration_ts)))
 
-        fields.add(ByteConfigField(
+        fields.add(WindowWidthConfigField(
             Uuids.ConfigurationValueCharacteristic(3),
             context.getString(R.string.configuration_ww)))
 
@@ -242,20 +241,34 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
         override val content = MutableLiveData(description)
     }
 
-    inner class HeaderConfigField(
+    inner class WindowWidthConfigField(
         override val uuid: UUID,
         override val caption: String,
-        description: String,
+        override val value: MutableLiveData<Int> = MutableLiveData<Int>(),
         override var characteristic: BluetoothGattCharacteristic? = null
-    ) : IHeaderConfigField, IBleConfigField {
-        override suspend fun trigger() {
+    ) : IWindowWidthConfigField, IBleConfigField {
+        override suspend fun setValue(value: Int) {
             this@ConfigurationService.manager
-                .writeCharacteristic(characteristic!!, arrayOf<Byte>(1).toByteArray())
+                .writeCharacteristic(characteristic!!, arrayOf(value.toByte()).toByteArray())
                 .sendSuspend()
         }
 
-        override val content = MutableLiveData(description)
-    }
+        override fun read() {
+            characteristic?.let {
+                this@ConfigurationService.manager
+                    .readCharacteristic(it)
+                    .with { _, data ->
+                        try {
+                            value.postValue(data.getByte(0)!!.toInt())
+                        } catch (t: Throwable) {
+                            // maybe the config data on the hand isn't initialized
+                        }
+                    }
+                    .enqueue()
+            }
+        }
 
+        override val content = Transformations.map(value) { it.toString() }
+    }
 
 }

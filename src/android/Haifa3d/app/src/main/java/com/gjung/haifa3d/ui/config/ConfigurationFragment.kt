@@ -73,6 +73,7 @@ class ConfigurationFragment : BleFragment() {
                when (field) {
                    is IByteConfigField -> onByteConfigFieldEditClick(field)
                    is IBooleanConfigField -> onBooleanConfigFieldEditClick(field)
+                   is IWindowWidthConfigField -> onWindowWidthFieldEditClick(field)
                }
             }
         }
@@ -82,7 +83,6 @@ class ConfigurationFragment : BleFragment() {
             override fun onItemClick(field: IConfigField) {
                 when (field) {
                     is ITriggerConfigField -> onTriggerConfigFieldClick(field)
-                    is IHeaderConfigField -> print(1)
                 }
             }
         }
@@ -112,6 +112,7 @@ class ConfigurationFragment : BleFragment() {
             .setView(editText)
             .setPositiveButton("Change") { _, _ ->
                 val value = editText.text.toString().toUByteOrNull()
+
                 if (value == null) {
                     showSnackbar(R.string.config_value_invalid)
                 } else {
@@ -175,6 +176,39 @@ class ConfigurationFragment : BleFragment() {
             .create()
             .show()
     }
+
+    private fun onWindowWidthFieldEditClick(field: IWindowWidthConfigField) {
+        val editText = EditText(requireContext())
+        editText.inputType = InputType.TYPE_CLASS_NUMBER
+        MaterialAlertDialogBuilder(this@ConfigurationFragment.requireContext())
+            .setTitle("Change configuration")
+            .setMessage(field.caption)
+            .setView(editText)
+            .setPositiveButton("Change") { _, _ ->
+                val value = editText.text.toString().toIntOrNull()
+
+                if (value == null) {
+                    showSnackbar(R.string.config_value_invalid)
+                }
+                else if( value < 1 || value >20){
+                    showSnackbar(R.string.config_value_invalid_range)
+                }
+                else {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        field.setValue(value)
+                        withContext(Dispatchers.Main) {
+                            field.read()
+                            showSnackbar(R.string.config_value_changed)
+                        }
+                    }
+                }
+            }
+            .setNeutralButton("Cancel") { _, _ ->
+            }
+            .create()
+            .show()
+    }
+
 
     private fun showSnackbar(@StringRes resId: Int) {
         Snackbar.make(binding.root, resId, Snackbar.LENGTH_LONG)

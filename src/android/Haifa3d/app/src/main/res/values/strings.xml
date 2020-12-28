@@ -174,6 +174,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n
     <string name="preset_name_label">Name:</string>
     <string name="preset_name_edit_hint">Preset name</string>
     <string name="config_value_invalid">Invalid input</string>
+    <string name="config_value_invalid_range">Invalid input - Insert value between 1-20</string>
     <string name="config_value_changed">Config changed successful</string>
     <string name="config_trigger_field_triggered">%1$s triggered</string>
     <string name="config_trigger_field_question">Are you sure you want to continue with "%1$s"?</string>
