@@ -102,6 +102,13 @@ class MockHandService : IHandService {
                 get() = listOf(
                     object : IConfigField {
                         override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444443")
+                        override val caption: String = "Demo Configuraions:"
+                        override val content: LiveData<String> = MutableLiveData("Some value")
+                        override val canEdit: Boolean
+                            get() = false
+                    },
+                    object : IConfigField {
+                        override val uuid: UUID = UUID.fromString("00000000-1111-2222-3333-444444444443")
                         override val caption: String = "Demo Read-Only Config"
                         override val content: LiveData<String> = MutableLiveData("Some value")
                         override val canEdit: Boolean
