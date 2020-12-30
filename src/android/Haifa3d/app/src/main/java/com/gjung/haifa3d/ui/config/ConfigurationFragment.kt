@@ -57,7 +57,7 @@ class ConfigurationFragment : BleFragment() {
     ): View? {
         binding = FragmentConfigurationBinding.inflate(layoutInflater, container, false)
         val rec = binding.configRecyclerView
-        setActivityTitle("Config")
+        setActivityTitle("Configuration")
         val mSpannableText = SpannableString( (activity as AppCompatActivity?)!!.supportActionBar?.title)
         mSpannableText.setSpan(
             ForegroundColorSpan(Color.WHITE),

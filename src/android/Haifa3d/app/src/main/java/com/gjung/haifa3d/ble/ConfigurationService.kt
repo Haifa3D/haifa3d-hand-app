@@ -51,13 +51,20 @@ interface IBooleanConfigField: IReadableConfigField {
     suspend fun setValue(value: Boolean)
 }
 
+interface IWindowWidthConfigField: IReadableConfigField {
+    override val canEdit: Boolean
+        get() = true
+    val value: LiveData<Int>
+    suspend fun setValue(value: Int)
+}
+
 interface ITriggerConfigField: IConfigField {
     override val canEdit: Boolean
         get() = false
     suspend fun trigger()
 }
 
-interface IWindowWidthConfigField: IReadableConfigField {
+interface IHeaderConfigField: IConfigField {
     override val canEdit: Boolean
         get() = true
     val value: LiveData<Int>
@@ -87,7 +94,10 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
     }
 
     init {
-
+        // i've added (asaf) 2 new fields for "basic"/"adavnced" configurations using config ids: 14/15 which are unused
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(14),
+            context.getString(R.string.configuration_basic)))
 
         fields.add(ByteConfigField(
             Uuids.ConfigurationValueCharacteristic(0),
@@ -117,11 +127,9 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             context.getString(R.string.configuration_trigger_reset_presets_descr)))
 
 
-
-        fields.add(TriggerConfigField(
-            Uuids.ConfigurationTriggerCharacteristic(1),
-            context.getString(R.string.configuration_trigger_reset_config),
-            context.getString(R.string.configuration_trigger_reset_config_descr)))
+        fields.add(ByteConfigField(
+            Uuids.ConfigurationValueCharacteristic(15),
+            context.getString(R.string.configuration_advanced)))
 
 
         fields.add(ByteConfigField(
@@ -133,10 +141,10 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
             context.getString(R.string.configuration_ww)))
 
 
-        // config [8..12]
+        // config [6..10]
         for (motor in 0..4) {
             fields.add(ByteConfigField(
-                Uuids.ConfigurationValueCharacteristic((8 + motor).toByte()),
+                Uuids.ConfigurationValueCharacteristic((6 + motor).toByte()),
                 context.getString(R.string.configuration_tf, motor)))
         }
 
@@ -270,5 +278,7 @@ class ConfigurationService(manager: BleManagerAccessor, private val context: Con
 
         override val content = Transformations.map(value) { it.toString() }
     }
+
+
 
 }
