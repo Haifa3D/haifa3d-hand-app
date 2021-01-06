@@ -8,11 +8,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/item_padding_top"
+    android:paddingTop="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/item_padding_bottom"
     android:focusable="true"
     android:clickable="true"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@color/white"
     tools:ignore="ContentDescription">
 
     <com.google.android.material.textview.MaterialTextView
