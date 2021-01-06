@@ -47,7 +47,7 @@ class PresetsFragment : BleFragment() {
 
     override fun onServiceConnected() {
         presetService = bleService!!.manager.presetService
-        triggerService  = bleService!!.manager.triggerService
+        triggerService = bleService!!.manager.triggerService
 
         val presets = presetsViewModel.presets.value!!
         presets.clear()

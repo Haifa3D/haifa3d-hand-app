@@ -58,6 +58,7 @@
     <string name="menu_configuration">Configuration</string>
     <string name="menu_license_info">License Info</string>
     <string name="menu_disconnect">Disconnect</string>
+    <string name="menu_voice_control">Voice Control</string>
 
     <string name="demo_button">Demo</string>
 

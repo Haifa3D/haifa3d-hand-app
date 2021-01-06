@@ -50,7 +50,6 @@ class ConnectedActivity : BleActivity() {
         bottomNavView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         bottomNavView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -65,7 +64,6 @@ class ConnectedActivity : BleActivity() {
                 Toast.makeText(this@ConnectedActivity, item.title, Toast.LENGTH_SHORT).show()
                 disconnect()
                 return true
-
             }
             R.id.action_try_preset -> {
                 return false
@@ -130,6 +128,11 @@ class ConnectedActivity : BleActivity() {
                 R.id.nav_configuration -> {
                     findNavController(R.id.nav_host_fragment).navigate(R.id.nav_configuration)
                 }
+
+                R.id.nav_voice_control -> {
+                    findNavController(R.id.nav_voice_control).navigate(R.id.nav_voice_control)
+                }
+
 
             }
             false

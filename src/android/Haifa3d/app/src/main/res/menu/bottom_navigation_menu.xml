@@ -12,12 +12,16 @@
         android:icon="@drawable/ic_settings_remote"
         android:title="@string/menu_livecontrol" />
     <item
+        android:id="@+id/nav_configuration"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/menu_configuration" />
+    <item
         android:id="@+id/nav_presets"
         android:icon="@drawable/ic_menu_slideshow"
         android:title="@string/menu_presets" />
     <item
-        android:id="@+id/nav_configuration"
+        android:id="@+id/nav_voice_control"
         android:icon="@drawable/ic_settings"
-        android:title="@string/menu_configuration" />
+        android:title="@string/menu_voice_control" />
 
 </menu>
