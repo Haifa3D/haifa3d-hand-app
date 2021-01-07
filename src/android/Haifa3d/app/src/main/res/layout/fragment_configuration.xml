@@ -4,8 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
     tools:context=".ui.config.ConfigurationFragment">
+
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="72dp"
+        android:background="@color/cardview_dark_background"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints"></LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/config_recycler_view"
