@@ -1,5 +1,4 @@
 package com.gjung.haifa3d.ui.speaktoaction
-
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -18,15 +17,15 @@ import com.gjung.haifa3d.LiveControlManager
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.PresetsAdapter
 import com.gjung.haifa3d.ble.IPresetService
-
 import com.gjung.haifa3d.databinding.FragmentVoiceControlBinding
 import com.gjung.haifa3d.model.MotorDirection
 
 class SpeakToActionFragment :BleFragment() {
 
     private lateinit var binding: FragmentVoiceControlBinding
-    private lateinit var adapter: PresetsAdapter
     private var presetsService: IPresetService? = null
+    private lateinit var adapter: PresetsAdapter
+
 
     override fun onServiceConnected() {
         TODO("Not yet implemented")

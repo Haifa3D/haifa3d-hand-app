@@ -72,5 +72,5 @@
         android:id="@+id/nav_voice_control"
         android:name="com.gjung.haifa3d.ui.speaktoaction.SpeakToActionFragment"
         android:label="@string/menu_voice_control"
-        tools:layout="@layout/fragment_live_control" />
+        tools:layout="@layout/fragment_voice_control" />
 </navigation>
