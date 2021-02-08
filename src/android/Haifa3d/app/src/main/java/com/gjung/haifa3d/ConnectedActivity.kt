@@ -130,7 +130,7 @@ class ConnectedActivity : BleActivity() {
                 }
 
                 R.id.nav_voice_control -> {
-                    findNavController(R.id.nav_voice_control).navigate(R.id.nav_voice_control)
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_voice_control)
                 }
 
 

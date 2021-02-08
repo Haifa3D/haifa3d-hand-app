@@ -12,6 +12,11 @@
         tools:layout="@layout/fragment_home">
     </fragment>
     <fragment
+        android:id="@+id/nav_voice_control"
+        android:name="com.gjung.haifa3d.ui.speaktoaction.SpeakToActionFragment"
+        android:label="@string/menu_voice_control"
+        tools:layout="@layout/fragment_speak_to_action" />
+    <fragment
         android:id="@+id/nav_livecontrol"
         android:name="com.gjung.haifa3d.ui.livecontrol.LiveControlFragment"
         android:label="@string/menu_livecontrol"
@@ -68,9 +73,5 @@
         android:name="com.gjung.haifa3d.ui.config.ConfigurationFragment"
         android:label="@string/menu_configuration"
         tools:layout="@layout/fragment_configuration" />
-    <fragment
-        android:id="@+id/nav_voice_control"
-        android:name="com.gjung.haifa3d.ui.speaktoaction.SpeakToActionFragment"
-        android:label="@string/menu_voice_control"
-        tools:layout="@layout/fragment_voice_control" />
+
 </navigation>
