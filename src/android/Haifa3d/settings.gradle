@@ -1,2 +1,3 @@
+include ':Haifa3D-BLE-API'
 rootProject.name='Haifa3d'
 include ':app'

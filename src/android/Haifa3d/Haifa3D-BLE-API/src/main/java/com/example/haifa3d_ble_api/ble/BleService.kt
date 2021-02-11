@@ -1,12 +1,11 @@
-package com.gjung.haifa3d.ble
+package com.example.haifa3d_ble_api.ble
 
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
-import com.gjung.haifa3d.R
-import com.gjung.haifa3d.notification.createBatteryLevelNotificationChannel
+import com.example.haifa3d_ble_api.notification.createBatteryLevelNotificationChannel
 
 const val BATTERY_LOW_NOTIFICATION_ID = 1000
 
@@ -64,9 +63,8 @@ class BleService : NotificationService() {
             id = BATTERY_LOW_NOTIFICATION_ID
             batteryLowNotificationId = id
             val b = prepareNotificationBuilder(notificationManager.createBatteryLevelNotificationChannel(this))
-            val msg = getString(R.string.notification_battery_low_content, notification.percentage)
-            val tit = getText(R.string.notification_battery_low_title)
-
+            val msg = "Less than " + notification.percentage.toString() +  " % remaining"
+            val tit = "Low battery"
             b.setContentTitle(tit)
             b.setContentText(msg)
             b.setTicker(msg)
