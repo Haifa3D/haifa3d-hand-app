@@ -1,34 +1,24 @@
 package com.gjung.haifa3d
 
 import android.content.Intent
-import android.graphics.Color
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.PopupMenu
 import android.widget.Toast
-import android.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gjung.haifa3d.databinding.ActivityConnectedBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.gjung.haifa3d.R
-import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.app_bar_connected.*
-import com.google.android.material.*
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.gjung.haifa3d.ui.presets.EditPresetFragment
 
 
 class ConnectedActivity : BleActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityConnectedBinding
-
     private var isInFront = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +41,7 @@ class ConnectedActivity : BleActivity() {
         bottomNavView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
