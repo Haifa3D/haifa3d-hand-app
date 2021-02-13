@@ -9,7 +9,7 @@ import com.example.haifa3d_ble_api.notification.createBatteryLevelNotificationCh
 
 const val BATTERY_LOW_NOTIFICATION_ID = 1000
 
-class BleService : NotificationService() {
+class BleService() : NotificationService() {
     lateinit var manager: IHandService
 
     // Binder given to clients

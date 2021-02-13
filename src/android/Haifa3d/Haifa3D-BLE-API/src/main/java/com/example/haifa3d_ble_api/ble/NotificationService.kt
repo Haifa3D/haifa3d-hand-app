@@ -13,7 +13,7 @@ import com.example.haifa3d_ble_api.R
 import com.example.haifa3d_ble_api.notification.createForegroundServiceNotificationChannel
 
 
-abstract class NotificationService : LifecycleService() {
+abstract class NotificationService() : LifecycleService() {
     protected lateinit var notificationManager: NotificationManager
     val notificationId: Int by lazy {
         hashCode()
@@ -68,7 +68,7 @@ abstract class NotificationService : LifecycleService() {
             prepareNotificationBuilder(builder: NotificationCompat.Builder = newNotificationBuilder()): NotificationCompat.Builder {
         val contentIntent = PendingIntent.getActivity(
             this, 0,
-            Intent(this, MainActivity::class.java), 0
+            Intent(), 0
         )
 
         // Set the info for the views that show in the notification panel.

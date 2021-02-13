@@ -27,6 +27,7 @@ import android.text.style.ForegroundColorSpan
 import android.text.Spannable
 
 
+
 @ExperimentalUnsignedTypes
 class ConfigurationFragment : BleFragment() {
 

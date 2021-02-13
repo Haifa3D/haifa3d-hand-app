@@ -1,10 +1,10 @@
 package com.gjung.haifa3d
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity: BleActivity() {
+
+
     override fun onServiceConnected() {
         lateinit var intent: Intent
         if (bleService!!.manager.isConnected) {
@@ -12,6 +12,7 @@ class MainActivity: BleActivity() {
         } else {
             intent = Intent(this, ScannerActivity::class.java)
         }
+
         startActivity(intent)
         finish()
     }
