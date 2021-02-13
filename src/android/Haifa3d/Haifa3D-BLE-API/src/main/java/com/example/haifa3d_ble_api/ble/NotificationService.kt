@@ -8,9 +8,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
+import com.example.haifa3d_ble_api.R
 
-import com.gjung.haifa3d.MainActivity
-import com.gjung.haifa3d.R
 import com.example.haifa3d_ble_api.notification.createForegroundServiceNotificationChannel
 
 
@@ -65,7 +64,8 @@ abstract class NotificationService : LifecycleService() {
     fun prepareNotificationBuilder(channel: NotificationChannel): NotificationCompat.Builder =
         prepareNotificationBuilder(newNotificationBuilder(channel))
 
-    fun prepareNotificationBuilder(builder: NotificationCompat.Builder = newNotificationBuilder()): NotificationCompat.Builder {
+    fun
+            prepareNotificationBuilder(builder: NotificationCompat.Builder = newNotificationBuilder()): NotificationCompat.Builder {
         val contentIntent = PendingIntent.getActivity(
             this, 0,
             Intent(this, MainActivity::class.java), 0
@@ -74,7 +74,7 @@ abstract class NotificationService : LifecycleService() {
         // Set the info for the views that show in the notification panel.
         return builder
             .setOnlyAlertOnce(true)
-            .setSmallIcon(R.drawable.ic_hand_paper_regular) // the status icon
+            .setSmallIcon(R.drawable.ic_baseline_sports_handball_24) // the status icon
             .setWhen(System.currentTimeMillis()) // the time stamp
             .setContentIntent(contentIntent) // The intent to send when the entry is clicked
     }
@@ -86,7 +86,7 @@ abstract class NotificationService : LifecycleService() {
         serviceIntent.action = StopServiceAction
         val closeIntent = PendingIntent.getService(applicationContext, 0, serviceIntent, 0)
 
-        val text = getText(R.string.notification_ble_title)
+        val text = "Haifa3D"
         return b
             .setTicker(text) // the status text
             .setContentTitle(text) // the label of the entry

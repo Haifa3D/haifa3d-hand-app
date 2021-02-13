@@ -3,7 +3,7 @@ package com.example.haifa3d_ble_api
 import com.example.haifa3d_ble_api.ble.IPresetService
 import com.example.haifa3d_ble_api.ble.ITriggerService
 import com.example.haifa3d_ble_api.ble.IBatteryLevelService
-
+import com.example.haifa3d_ble_api.model.HandAction
 
 
 class BleAPICommands {
@@ -13,13 +13,21 @@ class BleAPICommands {
 
     fun Hand_activation_by_preset(preset_number: Int){
 
+        //TODO: check if preset_number validations in trigger function are sufficient
+        triggerService?.trigger(preset_number)
     }
 
-    fun Extract_preset_anotations(){
-
+    suspend fun Extract_preset_anotations(): MutableList<HandAction?>{
+        val presets_list = mutableListOf<HandAction?>()
+        //TODO: check presets range and check "?" deal
+        for (i in 0..11) {
+            presets_list.add(presetService?.readPreset(i))
+        }
+        return presets_list
     }
 
     fun Extract_battery_status(){
+
 
     }
 
