@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -17,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.ConfigAdapter
-import com.gjung.haifa3d.ble.*
+import com.example.haifa3d_ble_api.ble.*
 import com.gjung.haifa3d.databinding.FragmentConfigurationBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
