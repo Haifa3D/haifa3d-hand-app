@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.haifa3d_ble_api.ble.BleService
 import com.gjung.haifa3d.databinding.ActivityConnectedBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
@@ -142,5 +143,9 @@ class ConnectedActivity : BleActivity() {
     override fun onPause() {
         isInFront = false
         super.onPause()
+    }
+
+    override fun get_ble_service(): BleService?{
+        return bleService
     }
 }

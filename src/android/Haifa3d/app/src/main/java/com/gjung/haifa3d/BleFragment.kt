@@ -10,16 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.gjung.haifa3d.ble.BleService
+import com.example.haifa3d_ble_api.ble.BleService
 
 abstract class BleFragment : Fragment() {
     protected var bleService: BleService? = null
-
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as BleService.LocalBinder
-            bleService = binder.getService()
+            //val binder = service as BleService.LocalBinder
+            //bleService = binder.getService()
+            bleService = (activity as ConnectedActivity).get_ble_service()
             onServiceConnected()
+
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {

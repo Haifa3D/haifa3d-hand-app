@@ -30,7 +30,7 @@ class SpeakToActionFragment :BleFragment() {
     private var presetsService: IPresetService? = null
     private lateinit var adapter: PresetsAdapter
     private var REQUEST_CODE_SPEECH_INPUT = 100
-    private lateinit var API_obj: BleAPICommands
+    private var API_obj: BleAPICommands = BleAPICommands()
 
     override fun onServiceConnected() {
         presetsService = null
@@ -58,7 +58,6 @@ class SpeakToActionFragment :BleFragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
         // Inflate the layout for this fragment
         binding.voiceBtn.setOnClickListener{speak()}
-
         return binding.root
     }
 
@@ -86,9 +85,6 @@ class SpeakToActionFragment :BleFragment() {
             //Toast.makeText(this@Conne, e.message, Toast.LENGTH_SHORT).show()
         }
 
-        //this.API_obj.Hand_activation_by_preset()
-        //this.API_obj.Extract_battery_status()
-        //this.API_obj.Extract_preset_anotations()
     }
 
      override  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -103,7 +99,7 @@ class SpeakToActionFragment :BleFragment() {
 
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
-                            this.API_obj.Extract_battery_status()
+                            //this.API_obj.Extract_battery_status()
                         }
 
                         if(list[0]=="extract" && list[1]=="preset" && list[2]=="annotations"){

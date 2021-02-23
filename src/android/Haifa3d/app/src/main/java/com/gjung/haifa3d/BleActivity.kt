@@ -8,16 +8,19 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.gjung.haifa3d.ble.BleService
+import com.example.haifa3d_ble_api.BleAPICommands
+import com.example.haifa3d_ble_api.ble.BleService
+
 
 
 abstract class BleActivity : AppCompatActivity() {
     protected var bleService: BleService? = null
+    protected var API_obj: BleAPICommands = BleAPICommands()
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as BleService.LocalBinder
-            bleService = binder.getService()
+            //val binder = service as BleService.LocalBinder
+            bleService = API_obj.Get_ble_service()
             onServiceConnected()
         }
 
@@ -30,6 +33,8 @@ abstract class BleActivity : AppCompatActivity() {
 
     abstract fun onServiceConnected()
     abstract fun onServiceDisconnected()
+
+    abstract fun get_ble_service(): BleService?
 
     override fun onStart() {
         super.onStart()

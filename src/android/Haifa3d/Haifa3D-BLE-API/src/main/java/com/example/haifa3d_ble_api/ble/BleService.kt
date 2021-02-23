@@ -16,8 +16,8 @@ class BleService() : NotificationService() {
     private val binder = LocalBinder()
     private var isObserving = false
     private var batteryLowNotificationId: Int? = null
-    private lateinit var bleManager: AppBleManager
-    private lateinit var realHandService: RealHandService
+    lateinit var bleManager: AppBleManager
+    lateinit var realHandService: RealHandService
 
     /**
      * Class used for the client Binder.  Because we know this service always

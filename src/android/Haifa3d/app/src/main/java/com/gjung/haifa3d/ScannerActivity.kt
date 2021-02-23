@@ -40,6 +40,7 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.gjung.haifa3d.Uuids.HandDirectExecuteService
 import com.gjung.haifa3d.adapter.DevicesAdapter
 import com.gjung.haifa3d.adapter.DiscoveredBluetoothDevice
+import com.example.haifa3d_ble_api.ble.BleService
 import com.gjung.haifa3d.databinding.ActivityScannerBinding
 import com.gjung.haifa3d.util.Utils
 import com.gjung.haifa3d.viewmodel.ScannerStateLiveData
@@ -175,7 +176,7 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
             .show()
         if (bleService!!.manager.state.value?.state != ConnectionState.State.DISCONNECTED)
             return
-        bleService!!.manager.connect(device.device)
+
     }
 
     override fun onRequestPermissionsResult(
@@ -271,5 +272,9 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
 
     companion object {
         private const val REQUEST_ACCESS_FINE_LOCATION = 1022 // random number
+    }
+
+    override fun get_ble_service(): BleService?{
+        return bleService
     }
 }
