@@ -12,7 +12,6 @@ import com.example.haifa3d_ble_api.BleAPICommands
 import com.example.haifa3d_ble_api.ble.BleService
 
 
-
 abstract class BleActivity : AppCompatActivity() {
     protected var bleService: BleService? = null
     protected var API_obj: BleAPICommands = BleAPICommands()

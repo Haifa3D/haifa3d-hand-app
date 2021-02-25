@@ -11,26 +11,38 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.haifa3d_ble_api.ble.BleService
+import com.example.haifa3d_ble_api.BleAPICommands
+import com.example.haifa3d_ble_api.BleAPICommands.BleListener
+import com.gjung.haifa3d.ble.RealHandService
 
 abstract class BleFragment : Fragment() {
     protected var bleService: BleService? = null
-    private val connection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            //val binder = service as BleService.LocalBinder
-            //bleService = binder.getService()
-            bleService = (activity as ConnectedActivity).get_ble_service()
-            onServiceConnected()
+    lateinit var callback: BleListener
+    protected lateinit var callback_object: Blezibi
+    protected var Api_obj: BleAPICommands = BleAPICommands()
+    private lateinit var connection: ServiceConnection
 
-        }
 
-        override fun onServiceDisconnected(name: ComponentName?) {
-            bleService = null
-            onServiceDisconnected()
-        }
+    init {
+        callback_object = Blezibi()
+        connection = Api_obj.bind(callback)
     }
 
-    abstract fun onServiceConnected()
-    abstract fun onServiceDisconnected()
+
+    //abstract fun onServiceConnected()
+    //abstract fun onServiceDisconnected()
+
+
+    class Blezibi(): BleListener {
+        override fun onServiceConnected(bleService: BleService) {
+            //val binder = service as BleService.LocalBinder
+            //bleService = binder.getService()
+        }
+
+        override fun onServiceDisconnected() {
+            //bleService = null
+        }
+    }
 
     override fun onStart() {
         super.onStart()

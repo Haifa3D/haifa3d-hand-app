@@ -22,7 +22,31 @@ class BleAPICommands() {
     private var presetService: IPresetService? = null
     private var triggerService: ITriggerService? = null
     private var battery_service: IBatteryLevelService? = null
-    private var bleService: BleService = BleService()
+    private var bleService: BleService? = null
+
+
+    interface BleListener { // THINK ABOUT MOVE INTERFACE DECLERATION TO LIBRARY
+        fun onServiceConnected(bleService: BleService)
+        fun onServiceDisconnected()
+    }
+
+
+    fun bind(callback:BleListener): ServiceConnection{
+         val connection = object : ServiceConnection {
+            override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+                val binder = service as BleService.LocalBinder
+                bleService = binder.getService()
+                callback.onServiceConnected(bleService)
+
+            }
+
+            override fun onServiceDisconnected(name: ComponentName?) {
+                bleService = null
+                callback.onServiceDisconnected()
+            }
+        }
+    }
+
 
     fun connect(device: BluetoothDevice){
 
