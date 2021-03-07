@@ -25,13 +25,13 @@ class BleAPICommands() {
     private var bleService: BleService? = null
 
 
-    interface BleListener { // THINK ABOUT MOVE INTERFACE DECLERATION TO LIBRARY
+    interface IBleListener { // THINK ABOUT MOVING INTERFACE DECLERATION TO LIBRARY
         fun onServiceConnected(bleService: BleService)
         fun onServiceDisconnected()
     }
 
-
-    fun bind(callback:BleListener): ServiceConnection{
+    // here we bind to the android service and return an instance of ServiceConnection // do we need to pass an interface object that implements onSerivce methods
+    fun bind(callback:IBleListener): ServiceConnection{
          val connection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 val binder = service as BleService.LocalBinder
@@ -47,7 +47,7 @@ class BleAPICommands() {
         }
     }
 
-
+    //here we connect the service(after binding) with a specific device
     fun connect(device: BluetoothDevice){
 
         bleService.manager.connect(device)
@@ -58,6 +58,12 @@ class BleAPICommands() {
         presetService = bleService!!.manager.presetService
         triggerService = bleService!!.manager.triggerService
         battery_service = bleService!!.manager.batteryService
+    }
+
+    // is it the right way to get an instance of BleService
+    fun get_bleService_instance(): BleService
+    {
+
     }
 
     fun disconnect(){
