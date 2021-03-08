@@ -176,6 +176,7 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
             .show()
         if (bleService!!.manager.state.value?.state != ConnectionState.State.DISCONNECTED)
             return
+        Api_obj.connect(device.device)
 
     }
 
@@ -274,7 +275,4 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
         private const val REQUEST_ACCESS_FINE_LOCATION = 1022 // random number
     }
 
-    override fun get_ble_service(): BleService?{
-        return bleService
-    }
 }

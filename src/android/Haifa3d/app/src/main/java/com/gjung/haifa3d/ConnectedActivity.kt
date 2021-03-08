@@ -145,7 +145,5 @@ class ConnectedActivity : BleActivity() {
         super.onPause()
     }
 
-    override fun get_ble_service(): BleService?{
-        return bleService
-    }
+
 }

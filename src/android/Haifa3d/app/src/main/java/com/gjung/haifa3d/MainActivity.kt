@@ -22,7 +22,5 @@ class MainActivity: BleActivity() {
         finish()
     }
 
-    override fun get_ble_service(): BleService?{
-        return bleService
-    }
+
 }

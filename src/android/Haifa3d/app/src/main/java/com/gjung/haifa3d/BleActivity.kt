@@ -12,44 +12,38 @@ import com.example.haifa3d_ble_api.BleAPICommands
 import com.example.haifa3d_ble_api.ble.BleService
 
 
-abstract class BleActivity : AppCompatActivity() {
+abstract class BleActivity : AppCompatActivity(), BleAPICommands.IBleListener {
     protected var bleService: BleService? = null
-    protected var API_obj: BleAPICommands = BleAPICommands()
+    protected var Api_obj: BleAPICommands = BleAPICommands()
 
-    private val connection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            //val binder = service as BleService.LocalBinder
-            bleService = API_obj.Get_ble_service()
-            onServiceConnected()
-        }
+    override fun onConnected(bleService: BleService) {
+        this.bleService = bleService
+    }
 
-        override fun onServiceDisconnected(name: ComponentName?) {
-            bleService = null
-            onServiceDisconnected()
-            finish()
-        }
+    override fun onDisconnected() {
+        bleService = null
     }
 
     abstract fun onServiceConnected()
     abstract fun onServiceDisconnected()
 
-    abstract fun get_ble_service(): BleService?
 
     override fun onStart() {
         super.onStart()
 
         // this line makes it a started service so that it continues to be alive
         // when the app is closed
-        startService(Intent(this, BleService::class.java))
-
-        Intent(this, BleService::class.java).also { intent ->
-            bindService(intent, connection, Context.BIND_IMPORTANT)
-        }
+        //startService(Intent(this, BleService::class.java))
+        Api_obj.bind(this,this)
+        //Intent(this, BleService::class.java).also { intent ->
+        //    bindService(intent, connection, Context.BIND_IMPORTANT)
+        //}
     }
 
     override fun onStop() {
-        unbindService(connection)
-        bleService = null
+        Api_obj.unbind(this)
+        //unbindService(connection)
+        //bleService = null
         super.onStop()
     }
 }

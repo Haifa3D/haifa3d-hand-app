@@ -15,44 +15,34 @@ import com.example.haifa3d_ble_api.BleAPICommands
 import com.example.haifa3d_ble_api.BleAPICommands.IBleListener
 import com.gjung.haifa3d.ble.RealHandService
 
-abstract class BleFragment : Fragment() {
+abstract class BleFragment : Fragment(),IBleListener{
     protected var bleService: BleService? = null
-    lateinit var callback: BleListener
-    protected lateinit var callback_object: BleListener
     protected var Api_obj: BleAPICommands = BleAPICommands()
-    private lateinit var connection: ServiceConnection
 
-    init {
-        callback_object = BleListener()
-        connection = Api_obj.bind(callback)
+    override fun onConnected(bleService: BleService) {
+        this.bleService = bleService
     }
 
+    override fun onDisconnected() {
+        bleService = null
+    }
 
     abstract fun onServiceConnected()
     abstract fun onServiceDisconnected()
 
 
-    class BleListener(): IBleListener {
-        override fun onServiceConnected(bleService: BleService) {
-            //val binder = service as BleService.LocalBinder
-            //bleService = binder.getService()
-        }
-
-        override fun onServiceDisconnected() {
-            //bleService = null
-        }
-    }
-
     override fun onStart() {
         super.onStart()
-        Intent(requireContext(), BleService::class.java).also { intent ->
-            requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
-        }
+        Api_obj.bind(this,requireContext())
+        //Intent(requireContext(), BleService::class.java).also { intent ->
+        //    requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
+        //}
     }
 
     override fun onStop() {
-        requireContext().unbindService(connection)
-        bleService = null
+        Api_obj.unbind(requireContext())
+        //requireContext().unbindService(connection)
+        //bleService = null
         super.onStop()
     }
 }
