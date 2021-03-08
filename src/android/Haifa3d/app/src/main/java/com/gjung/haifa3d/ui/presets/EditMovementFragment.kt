@@ -9,10 +9,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.R
-import com.gjung.haifa3d.ble.IDirectExecuteService
-import com.gjung.haifa3d.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.IDirectExecuteService
+//import com.gjung.haifa3d.ble.IDirectExecuteService
+//import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditMovementBinding
-import com.gjung.haifa3d.model.*
+import com.example.haifa3d_ble_api.model.*
+//import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.setNavigationResult
 import kotlinx.coroutines.Dispatchers

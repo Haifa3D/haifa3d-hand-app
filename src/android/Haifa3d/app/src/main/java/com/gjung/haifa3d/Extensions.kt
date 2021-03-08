@@ -7,7 +7,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-import com.gjung.haifa3d.model.HandAction
+//import com.gjung.haifa3d.model.HandAction
+import com.example.haifa3d_ble_api.model.HandAction
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.Request
 import no.nordicsemi.android.ble.WriteRequest

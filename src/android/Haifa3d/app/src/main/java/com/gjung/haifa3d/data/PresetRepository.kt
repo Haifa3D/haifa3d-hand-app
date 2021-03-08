@@ -1,6 +1,7 @@
 package com.gjung.haifa3d.data
 
-import com.gjung.haifa3d.model.HandAction
+import com.example.haifa3d_ble_api.model.HandAction
+//import com.gjung.haifa3d.model.HandAction
 
 class PresetRepository private constructor(private val presetDao: PresetDao, private val deviceDao: HandDeviceDao) {
     fun getHandDevicePresets(handDeviceAddress: String) = presetDao.getHandDevicePresets(handDeviceAddress)

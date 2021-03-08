@@ -34,7 +34,8 @@ abstract class BleActivity : AppCompatActivity(), BleAPICommands.IBleListener {
         // this line makes it a started service so that it continues to be alive
         // when the app is closed
         //startService(Intent(this, BleService::class.java))
-        Api_obj.bind(this,this)
+        var intent: Intent = Intent(this, BleService::class.java)
+        Api_obj.bind(this,this,intent)
         //Intent(this, BleService::class.java).also { intent ->
         //    bindService(intent, connection, Context.BIND_IMPORTANT)
         //}

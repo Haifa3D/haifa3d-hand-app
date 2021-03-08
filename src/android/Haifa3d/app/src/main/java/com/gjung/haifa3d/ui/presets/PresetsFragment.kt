@@ -21,11 +21,15 @@ import com.gjung.haifa3d.BleFragment
 
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.IPresetService
-import com.gjung.haifa3d.ble.ITriggerService
+import com.example.haifa3d_ble_api.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.ITriggerService
+//import com.gjung.haifa3d.ble.IPresetService
+//import com.gjung.haifa3d.ble.ITriggerService
 import com.gjung.haifa3d.databinding.FragmentPresetsBinding
-import com.gjung.haifa3d.model.HandAction
-import com.gjung.haifa3d.model.Preset
+import com.example.haifa3d_ble_api.model.HandAction
+import com.example.haifa3d_ble_api.model.Preset
+//import com.gjung.haifa3d.model.HandAction
+//import com.gjung.haifa3d.model.Preset
 import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.util.InjectorUtils
 import com.google.android.material.snackbar.Snackbar

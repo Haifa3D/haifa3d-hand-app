@@ -1,8 +1,10 @@
 package com.gjung.haifa3d
 
 import android.os.Handler
-import com.gjung.haifa3d.ble.IDirectExecuteService
-import com.gjung.haifa3d.model.*
+import com.example.haifa3d_ble_api.ble.IDirectExecuteService
+import com.example.haifa3d_ble_api.model.*
+//import com.gjung.haifa3d.ble.IDirectExecuteService
+//import com.gjung.haifa3d.model.*
 
 class LiveControlManager(private val service: IDirectExecuteService, private val handler: Handler) {
     var turnDirection: MotorDirection? = null

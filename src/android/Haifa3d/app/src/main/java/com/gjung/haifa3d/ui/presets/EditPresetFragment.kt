@@ -22,10 +22,13 @@ import com.gjung.haifa3d.*
 
 import com.gjung.haifa3d.adapter.MovementsAdapter
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.IDirectExecuteService
-import com.gjung.haifa3d.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.IDirectExecuteService
+import com.example.haifa3d_ble_api.model.*
+//import com.gjung.haifa3d.ble.IDirectExecuteService
+//import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
-import com.gjung.haifa3d.model.*
+//import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.util.InjectorUtils
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.nav_header_connected.*

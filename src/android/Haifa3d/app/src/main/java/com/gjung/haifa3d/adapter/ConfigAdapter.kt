@@ -5,7 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.gjung.haifa3d.ble.IConfigField
+//import com.gjung.haifa3d.ble.IConfigField
+import com.example.haifa3d_ble_api.ble.IConfigField
 import com.gjung.haifa3d.databinding.ConfigItemBinding
 import com.gjung.haifa3d.R
 import kotlinx.android.synthetic.main.config_item_header.view.*

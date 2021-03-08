@@ -16,7 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.IPresetService
+//import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentSpeakToActionBinding
 import kotlinx.android.synthetic.main.fragment_speak_to_action.*
 import java.lang.Exception
@@ -34,12 +35,10 @@ class SpeakToActionFragment :BleFragment() {
 
     override fun onServiceConnected() {
         presetsService = null
-        //TODO: change this
     }
 
     override fun onServiceDisconnected() {
         presetsService = null
-        //TODO: change this
     }
 
     override fun onCreateView(

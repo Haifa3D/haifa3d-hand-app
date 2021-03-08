@@ -22,10 +22,13 @@ import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.HomeAdapter
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.gjung.haifa3d.ble.IPresetService
-import com.gjung.haifa3d.ble.ITriggerService
+import com.example.haifa3d_ble_api.ble.IPresetService
+import com.example.haifa3d_ble_api.ble.ITriggerService
+//import com.gjung.haifa3d.ble.IPresetService
+//import com.gjung.haifa3d.ble.ITriggerService
 import com.gjung.haifa3d.databinding.FragmentHomeBinding
-import com.gjung.haifa3d.model.*
+import com.example.haifa3d_ble_api.model.*
+//import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.ui.presets.PresetsViewModel
 import com.gjung.haifa3d.util.InjectorUtils

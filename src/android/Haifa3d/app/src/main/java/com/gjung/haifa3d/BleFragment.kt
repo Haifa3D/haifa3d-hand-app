@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.haifa3d_ble_api.ble.BleService
 import com.example.haifa3d_ble_api.BleAPICommands
 import com.example.haifa3d_ble_api.BleAPICommands.IBleListener
-import com.gjung.haifa3d.ble.RealHandService
+import com.example.haifa3d_ble_api.ble.RealHandService
 
 abstract class BleFragment : Fragment(),IBleListener{
     protected var bleService: BleService? = null
@@ -33,7 +33,9 @@ abstract class BleFragment : Fragment(),IBleListener{
 
     override fun onStart() {
         super.onStart()
-        Api_obj.bind(this,requireContext())
+        var intent: Intent = Intent(requireContext(), BleService::class.java)
+
+        Api_obj.bind(this,requireContext(),intent)
         //Intent(requireContext(), BleService::class.java).also { intent ->
         //    requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
         //}
