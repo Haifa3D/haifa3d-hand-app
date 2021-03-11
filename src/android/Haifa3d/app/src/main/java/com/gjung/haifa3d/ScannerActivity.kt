@@ -176,7 +176,7 @@ class ScannerActivity : BleActivity(), DevicesAdapter.OnItemClickListener {
             .show()
         if (bleService!!.manager.state.value?.state != ConnectionState.State.DISCONNECTED)
             return
-        Api_obj.connect(device.device)
+        apiObject.connect(device.device)
 
     }
 

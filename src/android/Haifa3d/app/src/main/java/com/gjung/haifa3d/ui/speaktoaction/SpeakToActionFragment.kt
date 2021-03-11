@@ -16,29 +16,32 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.example.haifa3d_ble_api.ble.IPresetService
 //import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentSpeakToActionBinding
 import kotlinx.android.synthetic.main.fragment_speak_to_action.*
 import java.lang.Exception
 import java.util.*
 import com.example.haifa3d_ble_api.BleAPICommands
+import com.example.haifa3d_ble_api.ble.*
 
 
 class SpeakToActionFragment :BleFragment() {
 
     private lateinit var binding: FragmentSpeakToActionBinding
     private var presetsService: IPresetService? = null
+    private var triggerService: ITriggerService? = null
     private lateinit var adapter: PresetsAdapter
     private var REQUEST_CODE_SPEECH_INPUT = 100
-    private var API_obj: BleAPICommands = BleAPICommands()
+
 
     override fun onServiceConnected() {
-        presetsService = null
+        presetsService = bleService!!.manager.presetService
+        triggerService = bleService!!.manager.triggerService
     }
 
     override fun onServiceDisconnected() {
         presetsService = null
+        triggerService = null
     }
 
     override fun onCreateView(
@@ -91,10 +94,11 @@ class SpeakToActionFragment :BleFragment() {
         when(requestCode){
             REQUEST_CODE_SPEECH_INPUT->{
                 if(resultCode == Activity.RESULT_OK && null != data){
+
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val list = result[0].split(" ")
                     textView2.text = result[0]
-                    this.API_obj.Hand_activation_by_preset(2)
+                    this.apiObject.Hand_activation_by_preset(2)
 
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
@@ -107,7 +111,7 @@ class SpeakToActionFragment :BleFragment() {
                         if(list[0]=="activate" && list[1]=="preset" && list[2]=="number"){
                             if(list[3] != null){
                                 var convertedNum = convertNumToint(list[3])
-                                this.API_obj.Hand_activation_by_preset(convertedNum)
+                                this.apiObject.Hand_activation_by_preset(convertedNum)
                             }
 
                         }

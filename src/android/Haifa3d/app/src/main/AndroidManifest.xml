@@ -44,7 +44,7 @@
         </activity>
 
         <service
-            android:name=".ble.BleService"
+            android:name="com.example.haifa3d_ble_api.ble.BleService"
             android:enabled="true"></service>
 
     </application>

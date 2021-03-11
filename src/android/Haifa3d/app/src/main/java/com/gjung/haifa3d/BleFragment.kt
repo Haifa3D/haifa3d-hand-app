@@ -17,14 +17,17 @@ import com.example.haifa3d_ble_api.ble.RealHandService
 
 abstract class BleFragment : Fragment(),IBleListener{
     protected var bleService: BleService? = null
-    protected var Api_obj: BleAPICommands = BleAPICommands()
+    protected var apiObject = BleAPICommands()
 
     override fun onConnected(bleService: BleService) {
         this.bleService = bleService
+        onServiceConnected()
+
     }
 
     override fun onDisconnected() {
         bleService = null
+        onServiceDisconnected()
     }
 
     abstract fun onServiceConnected()
@@ -34,17 +37,16 @@ abstract class BleFragment : Fragment(),IBleListener{
     override fun onStart() {
         super.onStart()
         var intent: Intent = Intent(requireContext(), BleService::class.java)
-
-        Api_obj.bind(this,requireContext(),intent)
+        intent.setType("fragment")
+        apiObject.bind(this,requireContext(),intent)
         //Intent(requireContext(), BleService::class.java).also { intent ->
         //    requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
         //}
     }
 
     override fun onStop() {
-        Api_obj.unbind(requireContext())
-        //requireContext().unbindService(connection)
-        //bleService = null
+        apiObject.unbind(requireContext())
+
         super.onStop()
     }
 }

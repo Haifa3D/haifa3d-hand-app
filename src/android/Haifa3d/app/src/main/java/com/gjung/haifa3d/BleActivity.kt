@@ -14,35 +14,41 @@ import com.example.haifa3d_ble_api.ble.BleService
 
 abstract class BleActivity : AppCompatActivity(), BleAPICommands.IBleListener {
     protected var bleService: BleService? = null
-    protected var Api_obj: BleAPICommands = BleAPICommands()
+    protected var apiObject = BleAPICommands()
 
     override fun onConnected(bleService: BleService) {
         this.bleService = bleService
+        onServiceConnected()
     }
 
     override fun onDisconnected() {
         bleService = null
+        onServiceDisconnected()
     }
 
     abstract fun onServiceConnected()
     abstract fun onServiceDisconnected()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        apiObject.bind(this,this,Intent(this, BleService::class.java))
+
+    }
 
     override fun onStart() {
         super.onStart()
+        //Api_obj.bind(this,this,Intent(this, BleService::class.java))
 
         // this line makes it a started service so that it continues to be alive
         // when the app is closed
-        //startService(Intent(this, BleService::class.java))
-        var intent: Intent = Intent(this, BleService::class.java)
-        Api_obj.bind(this,this,intent)
+        //startService()
         //Intent(this, BleService::class.java).also { intent ->
-        //    bindService(intent, connection, Context.BIND_IMPORTANT)
-        //}
+       //     bindService(intent, c, Context.BIND_IMPORTANT)
+       // }
     }
 
     override fun onStop() {
-        Api_obj.unbind(this)
+        apiObject.unbind(this)
         //unbindService(connection)
         //bleService = null
         super.onStop()
