@@ -33,15 +33,14 @@ class SpeakToActionFragment :BleFragment() {
     private lateinit var adapter: PresetsAdapter
     private var REQUEST_CODE_SPEECH_INPUT = 100
 
-
     override fun onServiceConnected() {
-        presetsService = bleService!!.manager.presetService
-        triggerService = bleService!!.manager.triggerService
+        //presetsService = bleService!!.manager.presetService
+        //triggerService = bleService!!.manager.triggerService
     }
 
     override fun onServiceDisconnected() {
-        presetsService = null
-        triggerService = null
+        //presetsService = null
+        //triggerService = null
     }
 
     override fun onCreateView(
@@ -98,7 +97,7 @@ class SpeakToActionFragment :BleFragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val list = result[0].split(" ")
                     textView2.text = result[0]
-                    this.apiObject.Hand_activation_by_preset(2)
+                   // this.apiObject.Hand_activation_by_preset(2)
 
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){

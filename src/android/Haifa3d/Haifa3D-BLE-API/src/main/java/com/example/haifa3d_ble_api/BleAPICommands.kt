@@ -61,10 +61,8 @@ class BleAPICommands() {
 
     fun unbind(context: Context){
         context.unbindService(connection)
-
     }
 
-    //here we connect the service(after binding) with a specific device
     fun connect(device: BluetoothDevice){
 
         bleService?.manager?.connect(device)
@@ -72,11 +70,6 @@ class BleAPICommands() {
             bleService?.bleManager?.log(Log.VERBOSE, " couldn't connect to BT device")
         }
 
-        presetService = bleService!!.manager.presetService
-        triggerService = bleService!!.manager.triggerService
-        batteryService = bleService!!.manager.batteryService
-        configurationService = bleService!!.manager.configurationService
-        directExecuteService = bleService!!.manager.directExecuteService
     }
 
     fun disconnect(){
@@ -85,7 +78,7 @@ class BleAPICommands() {
 
 
     fun Hand_activation_by_preset(preset_number: Int){
-
+        triggerService = bleService!!.manager.triggerService
         try {
             triggerService?.trigger(preset_number)
         }
