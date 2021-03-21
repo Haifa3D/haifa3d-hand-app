@@ -21,13 +21,13 @@ abstract class BleFragment : Fragment(),IBleListener{
 
     override fun onConnected(bleService: BleService) {
         this.bleService = bleService
-        //onServiceConnected()
+        onServiceConnected()
 
     }
 
     override fun onDisconnected() {
         bleService = null
-        //onServiceDisconnected()
+        onServiceDisconnected()
     }
 
     abstract fun onServiceConnected()

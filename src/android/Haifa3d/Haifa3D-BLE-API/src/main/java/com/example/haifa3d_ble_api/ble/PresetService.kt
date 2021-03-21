@@ -14,9 +14,9 @@ import no.nordicsemi.android.ble.data.Data
 
 const val HandSupportedNumberOfPresets = 12
 
+
 interface IPresetService {
     suspend fun writePreset(presetNumber: Int, action: HandAction)
-
     suspend fun readPreset(presetNumber: Int): HandAction?
 }
 

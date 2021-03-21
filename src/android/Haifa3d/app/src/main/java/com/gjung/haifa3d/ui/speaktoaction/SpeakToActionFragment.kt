@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.adapter.PresetsAdapter
 //import com.gjung.haifa3d.ble.IPresetService
@@ -88,7 +89,7 @@ class SpeakToActionFragment :BleFragment() {
 
     }
 
-     override  fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when(requestCode){
             REQUEST_CODE_SPEECH_INPUT->{
@@ -97,15 +98,16 @@ class SpeakToActionFragment :BleFragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val list = result[0].split(" ")
                     textView2.text = result[0]
-                   // this.apiObject.Hand_activation_by_preset(2)
-
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
-                            //this.API_obj.Extract_battery_status()
+                            val currentPercentage: LiveData<BatteryNotification?>? = this.apiObject.Extract_battery_status()
+                            val batteryData: BatteryNotification? = currentPercentage?.value
+                            textView2.text = "Battery level is: " + batteryData?.get_precentage() + " %"
                         }
-
                         if(list[0]=="extract" && list[1]=="preset" && list[2]=="annotations"){
-                           // this.API_obj.Extract_preset_anotations()
+                            //val presets_list = this.apiObject.Extract_presets()
+
+
                         }
                         if(list[0]=="activate" && list[1]=="preset" && list[2]=="number"){
                             if(list[3] != null){
