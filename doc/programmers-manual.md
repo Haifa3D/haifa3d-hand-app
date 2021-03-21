@@ -64,9 +64,9 @@ Following the description of the use and importance of the BLE communication in 
 
 ### BLE API flow
 
-* bind(callback:BleListener)-BleListner is interface that include 2 functions:
+* bind(callback:BleListener)-BleListner is interface that include 2 functions and need to implemended by the user:
    1. onServiceConnected(bleService: BleService)
-   1. onServiceDisconnected() that need to be implemented
+   1. onServiceDisconnected()
 * connect(device: BluetoothDevice)
 * disconnect()
  
