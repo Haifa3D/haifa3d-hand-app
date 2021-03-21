@@ -57,3 +57,30 @@ Before the connection is established there is essentially a device discovery scr
 ## Further information
 
 Currently, the app does not need any database to store information. Everything the user sets up is directly stored on the hand controller or does not need to be stored in the first place. This app uses Firebase to collect telemetry and information about crashes using crashlytics. The app is minified using proguard as part of the release/deploy process. Deployment is done via AAB instead of APK to benefit from the new packaging format's advantages.
+
+## BLE API
+
+Following the description of the use and importance of the BLE communication in apps in general, and in our app in particular (as described in the app code), we have developed a BLE library. This library enables the use of this service, as well as other services which are available in the app, so that in the future, apps which include further optionality would be able to interface with the prosthesis.
+
+### BLE API flow
+
+*bind(callback:BleListener)-BleListner is interface that include 2 functions:
+   1.onServiceConnected(bleService: BleService)
+   2.onServiceDisconnected() that need to be implemented
+*connect(device: BluetoothDevice)
+*disconnect()
+ 
+ ### BLE API services
+ 
+ *connected
+   *Extract_preset_anotations()
+     return list of hand actions, every action is list of movments.
+   *Hand_activation_by_preset(preset_number: Int)
+     this function get int (0-11).
+     activating that preset.
+   *Extract_battery_status()
+     this funtcions return the battary percentage (int)
+   
+   
+  
+
