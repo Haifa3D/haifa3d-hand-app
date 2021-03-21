@@ -1,8 +1,8 @@
 package com.gjung.haifa3d
 
 import android.os.Handler
-import com.example.haifa3d_ble_api.ble.IDirectExecuteService
-import com.example.haifa3d_ble_api.model.*
+import com.haifa3D.haifa3d_ble_api.ble.IDirectExecuteService
+import com.haifa3D.haifa3d_ble_api.model.*
 //import com.gjung.haifa3d.ble.IDirectExecuteService
 //import com.gjung.haifa3d.model.*
 

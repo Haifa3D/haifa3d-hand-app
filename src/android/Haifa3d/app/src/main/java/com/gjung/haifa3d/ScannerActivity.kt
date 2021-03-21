@@ -40,7 +40,6 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.gjung.haifa3d.Uuids.HandDirectExecuteService
 import com.gjung.haifa3d.adapter.DevicesAdapter
 import com.gjung.haifa3d.adapter.DiscoveredBluetoothDevice
-import com.example.haifa3d_ble_api.ble.BleService
 import com.gjung.haifa3d.databinding.ActivityScannerBinding
 import com.gjung.haifa3d.util.Utils
 import com.gjung.haifa3d.viewmodel.ScannerStateLiveData

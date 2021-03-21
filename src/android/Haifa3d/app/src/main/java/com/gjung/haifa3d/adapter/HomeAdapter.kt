@@ -1,12 +1,10 @@
 package com.gjung.haifa3d.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.databinding.HomeItemBinding
-import com.gjung.haifa3d.databinding.PresetItemBinding
-import com.example.haifa3d_ble_api.model.Preset
+import com.haifa3D.haifa3d_ble_api.model.Preset
 //import com.gjung.haifa3d.model.Preset
 
 class HomeAdapter(

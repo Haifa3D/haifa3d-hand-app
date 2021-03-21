@@ -1,15 +1,10 @@
 package com.gjung.haifa3d
 
-import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.os.Bundle
-import android.os.IBinder
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.haifa3d_ble_api.BleAPICommands
-import com.example.haifa3d_ble_api.ble.BleService
+import com.haifa3D.haifa3d_ble_api.BleAPICommands
+import com.haifa3D.haifa3d_ble_api.ble.BleService
 
 
 abstract class BleActivity : AppCompatActivity(), BleAPICommands.IBleListener {

@@ -1,12 +1,12 @@
-package com.gjung.haifa3d
+package com.haifa3D.haifa3d_ble_api
 
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-//import com.gjung.haifa3d.model.HandAction
 import no.nordicsemi.android.ble.ReadRequest
 import no.nordicsemi.android.ble.WriteRequest
 import no.nordicsemi.android.ble.callback.DataReceivedCallback

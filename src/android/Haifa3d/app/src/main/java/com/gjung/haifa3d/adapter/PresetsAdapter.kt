@@ -3,13 +3,10 @@ package com.gjung.haifa3d.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.gjung.haifa3d.databinding.PresetItemBinding
-import com.example.haifa3d_ble_api.model.Preset
+import com.haifa3D.haifa3d_ble_api.model.Preset
 //import com.gjung.haifa3d.model.Preset
-import com.gjung.haifa3d.ui.presets.PresetsViewModel
 
 class PresetsAdapter(var presets: List<Preset>, var presetNames: Map<Preset, String>, var starredPresets: Collection<Preset>): RecyclerView.Adapter<PresetsAdapter.ViewHolder>() {
     var onItemClickListener: OnItemClickListener? = null

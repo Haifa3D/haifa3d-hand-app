@@ -1,7 +1,6 @@
 package com.gjung.haifa3d
 
 import android.content.Intent
-import com.example.haifa3d_ble_api.ble.BleService
 
 class MainActivity: BleActivity() {
 

@@ -2,12 +2,10 @@ package com.gjung.haifa3d.ui.presets
 
 import androidx.lifecycle.*
 import com.gjung.haifa3d.data.PresetRepository
-import com.example.haifa3d_ble_api.model.HandAction
-import com.example.haifa3d_ble_api.model.Preset
+import com.haifa3D.haifa3d_ble_api.model.HandAction
+import com.haifa3D.haifa3d_ble_api.model.Preset
 //import com.gjung.haifa3d.model.HandAction
 //import com.gjung.haifa3d.model.Preset
-import com.gjung.haifa3d.notifyObserver
-import kotlinx.coroutines.launch
 
 class PresetsViewModel internal constructor(
     private val presetRepository: PresetRepository

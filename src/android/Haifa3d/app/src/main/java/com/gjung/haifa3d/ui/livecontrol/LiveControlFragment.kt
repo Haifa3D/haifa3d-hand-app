@@ -16,9 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.LiveControlManager
 
-import com.gjung.haifa3d.R
 import com.gjung.haifa3d.databinding.FragmentLiveControlBinding
-import com.example.haifa3d_ble_api.model.MotorDirection
+import com.haifa3D.haifa3d_ble_api.model.MotorDirection
 //import com.gjung.haifa3d.model.MotorDirection
 
 class LiveControlFragment : BleFragment() {

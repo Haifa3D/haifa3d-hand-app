@@ -7,7 +7,7 @@ import com.gjung.haifa3d.databinding.MovementItemBinding
 //import com.gjung.haifa3d.model.HandMovement
 //import com.gjung.haifa3d.model.MotorDirection
 //import com.gjung.haifa3d.model.TorqueStopThreshold
-import com.example.haifa3d_ble_api.model.*
+import com.haifa3D.haifa3d_ble_api.model.*
 import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.ui.presets.PresetsViewModel
 

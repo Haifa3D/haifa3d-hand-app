@@ -1,17 +1,11 @@
 package com.gjung.haifa3d.ui.presets
 
-import android.app.Activity
 import android.widget.Toast
 import android.os.Bundle
-import android.os.UserManager
 import android.view.*
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.navigation.fragment.findNavController
@@ -21,36 +15,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.*
 
 import com.gjung.haifa3d.adapter.MovementsAdapter
-import com.gjung.haifa3d.adapter.PresetsAdapter
-import com.example.haifa3d_ble_api.ble.IPresetService
-import com.example.haifa3d_ble_api.ble.IDirectExecuteService
-import com.example.haifa3d_ble_api.model.*
+import com.haifa3D.haifa3d_ble_api.ble.IPresetService
+import com.haifa3D.haifa3d_ble_api.ble.IDirectExecuteService
+import com.haifa3D.haifa3d_ble_api.model.*
 //import com.gjung.haifa3d.ble.IDirectExecuteService
 //import com.gjung.haifa3d.ble.IPresetService
 import com.gjung.haifa3d.databinding.FragmentEditPresetBinding
 //import com.gjung.haifa3d.model.*
 import com.gjung.haifa3d.util.InjectorUtils
-import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.nav_header_connected.*
 import kotlinx.coroutines.*
 
 
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.gjung.haifa3d.databinding.ActivityConnectedBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gjung.haifa3d.R
-import com.google.android.material.navigation.NavigationView
-
-
-
 
 
 val n = 10

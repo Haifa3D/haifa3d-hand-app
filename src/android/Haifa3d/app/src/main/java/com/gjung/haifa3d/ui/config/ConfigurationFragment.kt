@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.R
 import com.gjung.haifa3d.adapter.ConfigAdapter
-import com.example.haifa3d_ble_api.ble.*
+import com.haifa3D.haifa3d_ble_api.ble.*
 import com.gjung.haifa3d.databinding.FragmentConfigurationBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
