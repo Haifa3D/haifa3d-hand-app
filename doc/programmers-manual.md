@@ -64,21 +64,21 @@ Following the description of the use and importance of the BLE communication in 
 
 ### BLE API flow
 
-*bind(callback:BleListener)-BleListner is interface that include 2 functions:
+* bind(callback:BleListener)-BleListner is interface that include 2 functions:
    1. onServiceConnected(bleService: BleService)
    1. onServiceDisconnected() that need to be implemented
-*connect(device: BluetoothDevice)
-*disconnect()
+* connect(device: BluetoothDevice)
+* disconnect()
  
  ### BLE API services
  
-*connected
-  *Extract_preset_anotations()
+* connected
+  * Extract_preset_anotations()
      return list of hand actions, every action is list of movments.
-  *Hand_activation_by_preset(preset_number: Int)
+  * Hand_activation_by_preset(preset_number: Int)
      this function get int (0-11).
      activating that preset.
-  *Extract_battery_status()
+  * Extract_battery_status()
      this funtcions return the battary percentage (int)
    
    
