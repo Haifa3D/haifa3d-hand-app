@@ -78,7 +78,7 @@ Following the description of the use and importance of the BLE communication in 
   * Extract_preset_anotations()
     * returns a list of hand actions, every action is list of movments.
   * Hand_activation_by_preset(preset_number: Int)
-    * this function get int (0-11).
+    * this function gets an int in the following range (0-11).
     * activating matching preset.
   * Extract_battery_status()
     * this funtcion returns the battery percentage (int)
