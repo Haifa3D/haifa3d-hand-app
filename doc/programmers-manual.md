@@ -60,26 +60,28 @@ Currently, the app does not need any database to store information. Everything t
 
 ## BLE API
 
-Following the description of the use and importance of the BLE communication in apps in general, and in our app in particular (as described in the app code), we have developed a BLE library. This library enables the use of this service, as well as other services which are available in the app, so that in the future, apps which include further optionality would be able to interface with the prosthesis.
+Following the description of the use and importance of the BLE communication in apps in general, and in our app in particular (as described in the app code), we have developed a BLE library.This library enables the use of this service, as well as other services which are available in the app, so that in the future, apps which include further optionality would be able to interface with the prosthesis.
 
 ### BLE API flow
 
-* bind(callback:BleListener)-BleListner is interface that include 2 functions and need to implemended by the user:
+* bind(callback:BleListener,context: Context, intent: Intent):
+- BleListner: an interface that includes 2 functions that needs to be implemended by the user
    1. onServiceConnected(bleService: BleService)
-   1. onServiceDisconnected()
+   2. onServiceDisconnected()
 * connect(device: BluetoothDevice)
 * disconnect()
+* unbind(context: Context)
  
  ### BLE API services
  
-* connected
+* after calling to bind() and connect(), the user can acsses to the following functions:
   * Extract_preset_anotations()
-    * return list of hand actions, every action is list of movments.
+    * returns a list of hand actions, every action is list of movments.
   * Hand_activation_by_preset(preset_number: Int)
     * this function get int (0-11).
-    * activating that preset.
+    * activating matching preset.
   * Extract_battery_status()
-    * this funtcions return the battary percentage (int)
+    * this funtcion returns the battery percentage (int)
    
    
   
