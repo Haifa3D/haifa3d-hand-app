@@ -10,19 +10,18 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import com.gjung.haifa3d.BleFragment
 import com.gjung.haifa3d.adapter.PresetsAdapter
 import com.gjung.haifa3d.databinding.FragmentSpeakToActionBinding
-import kotlinx.android.synthetic.main.fragment_speak_to_action.*
-import java.lang.Exception
-import java.util.*
-import com.haifa3D.haifa3d_ble_api.ble.*
+import com.haifa3D.haifa3d_ble_api.ble.IPresetService
+import com.haifa3D.haifa3d_ble_api.ble.ITriggerService
 import com.haifa3D.haifa3d_ble_api.model.HandAction
-import kotlinx.coroutines.runBlocking
+import kotlinx.android.synthetic.main.fragment_speak_to_action.*
+import java.util.*
 
 
 class SpeakToActionFragment :BleFragment() {
@@ -59,6 +58,10 @@ class SpeakToActionFragment :BleFragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
         // Inflate the layout for this fragment
         binding.voiceBtn.setOnClickListener{speak()}
+        val htext = TextView(requireContext())
+        htext.setText("Test akabulbul")
+        //htext.setId("instructions text")
+        htext.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
         return binding.root
     }
 
@@ -98,7 +101,7 @@ class SpeakToActionFragment :BleFragment() {
                     val list = result[0].split(" ")
                     textView2.text = result[0]
                     val presets_list: MutableList<HandAction?> = apiObject.Extract_presets()
-                    textView2.text = "hi"
+                    //textView2.text = "hi"
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
                             val currentPercentage: Int = this.apiObject.Extract_battery_status()

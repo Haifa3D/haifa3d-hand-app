@@ -11,8 +11,15 @@ tools:context=".ui.speaktoaction.SpeakToActionFragment">
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="30dp"
-        tools:layout_editor_absoluteX="-85dp"
-        tools:layout_editor_absoluteY="259dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-42dp">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="357dp"
+            android:layout_height="469dp"
+            android:layout_weight="1"
+            android:text="TextView" />
 
         <ImageView
             android:id="@+id/voiceBtn"
@@ -30,7 +37,6 @@ tools:context=".ui.speaktoaction.SpeakToActionFragment">
             android:layout_height="wrap_content"
             android:text="Press mic button to input voice"
             android:textSize="20sp" />
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
