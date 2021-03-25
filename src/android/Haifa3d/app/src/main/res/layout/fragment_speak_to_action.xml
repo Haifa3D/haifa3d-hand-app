@@ -14,13 +14,6 @@ tools:context=".ui.speaktoaction.SpeakToActionFragment">
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="-42dp">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="357dp"
-            android:layout_height="469dp"
-            android:layout_weight="1"
-            android:text="TextView" />
-
         <ImageView
             android:id="@+id/voiceBtn"
             android:layout_width="100dp"
