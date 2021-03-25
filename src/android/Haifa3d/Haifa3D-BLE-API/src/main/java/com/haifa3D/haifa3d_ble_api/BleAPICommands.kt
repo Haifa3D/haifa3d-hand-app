@@ -25,8 +25,14 @@ class BleAPICommands() {
         fun onConnected(bleService: BleService)
         fun onDisconnected()
     }
-
-    // here we bind to the android service and return an instance of ServiceConnection // do we need to pass an interface object that implements onSerivce methods
+    /**
+     * return an instance of ServiceConnection.
+     * @param callback
+     * @param context
+     * @param intent1
+     * this method bind the android service and return an instance of ServiceConnection.
+     * @return ServiceConnection.
+     */
     fun bind(callback:IBleListener, context: Context, intent1: Intent){
          connection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -47,6 +53,10 @@ class BleAPICommands() {
 
     }
 
+    /**
+     * This method unbind the android service.
+     * @param context.
+     */
     fun unbind(context: Context){
         context.unbindService(connection)
     }
@@ -63,7 +73,12 @@ class BleAPICommands() {
         bleService?.manager?.disconnect()
     }
 
+    /**
+     * This function activate immediately one preset from the presets list.
+     * (preset[preset_number].
+     * @param preset_number: the preset integer (0..11).
 
+     */
     fun Hand_activation_by_preset(preset_number: Int){
         triggerService = bleService!!.manager.triggerService
         try {
