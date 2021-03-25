@@ -58,10 +58,6 @@ class SpeakToActionFragment :BleFragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.title = mSpannableText
         // Inflate the layout for this fragment
         binding.voiceBtn.setOnClickListener{speak()}
-        val htext = TextView(requireContext())
-        htext.setText("Test akabulbul")
-        //htext.setId("instructions text")
-        htext.setLayoutParams(ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
         return binding.root
     }
 
@@ -100,14 +96,14 @@ class SpeakToActionFragment :BleFragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val list = result[0].split(" ")
                     textView2.text = result[0]
-                    val presets_list: MutableList<HandAction?> = apiObject.Extract_presets()
+                    //val presets_list: MutableList<HandAction?> = apiObject.Extract_presets()
                     //textView2.text = "hi"
                     if (list.size>=3){
                         if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
                             val currentPercentage: Int = this.apiObject.Extract_battery_status()
                             textView2.text = "Battery level is: " + currentPercentage + " %"
                         }
-                        if(list[0]=="extract" && list[1]=="NIV" && list[2]=="annotations"){
+                        if(list[0]=="extract" && list[1]=="preset" && list[2]=="annotations"){
 
 
                         }

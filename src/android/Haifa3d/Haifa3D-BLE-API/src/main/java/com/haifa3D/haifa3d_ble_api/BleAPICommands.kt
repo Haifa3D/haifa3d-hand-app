@@ -27,7 +27,7 @@ class BleAPICommands() {
     }
 
     // here we bind to the android service and return an instance of ServiceConnection // do we need to pass an interface object that implements onSerivce methods
-    fun bind(callback:IBleListener, context: Context, intent1: Intent){
+    fun bind(callback:IBleListener, context: Context, intent: Intent){
          connection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
                 val binder = service as BleService.LocalBinder
@@ -40,7 +40,7 @@ class BleAPICommands() {
                 callback.onDisconnected()
             }
         }
-        context.startService(intent1)
+        context.startService(intent)
         Intent(context, BleService::class.java).also { intent ->
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
         }
