@@ -75,8 +75,8 @@ Following the description of the use and importance of the BLE communication in 
  ### BLE API services
  
 * after calling to bind() and connect(), the user can acsses to the following functions:
-  * Extract_preset_anotations()
-    * returns a list of hand actions, every action is list of movments.
+  * suspend Extract_preset(preset_number: Int)
+    * returns a single preset (represneted by an HandAction object), which contains a list of HandMovmente objects.
   * Hand_activation_by_preset(preset_number: Int)
     * this function gets an int in the following range (0-11).
     * activating matching preset.
