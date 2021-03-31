@@ -45,3 +45,6 @@ Builds from `release/*` branches are signed using the Play Store upload certific
 ## Legal
 
 Google Play and the Google Play logo are trademarks of Google LLC.
+
+## Donation:
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=GGFJLZDB9GWXE)
