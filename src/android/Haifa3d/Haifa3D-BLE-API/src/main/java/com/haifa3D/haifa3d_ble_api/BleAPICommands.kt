@@ -13,6 +13,16 @@ import com.haifa3D.haifa3d_ble_api.ble.*
 import com.haifa3D.haifa3d_ble_api.model.HandAction
 import kotlinx.coroutines.*
 
+/**
+ *
+ * This class represents an instance of the BLE library.
+ * @author asaf azar
+ * @author niv levi
+ * @property bleService - an instance of the BleService which all other services will be derived from it
+ * @property triggerService - an instance of the BLE triggerService which is used to trigger a specific preset
+ * @property batteryService - an instance of the BLE batteryService which is used to handle all battery related actions
+ * @property presetService - an instance of the BLE presetsSerivce which is used to read/write presets to the controller
+ */
 class BleAPICommands() {
     private var presetService: IPresetService? = null
     private var triggerService: ITriggerService? = null
@@ -21,12 +31,20 @@ class BleAPICommands() {
     private var presetsList = mutableListOf<HandAction?>()
     private lateinit var connection: ServiceConnection
 
+    /**
+     *This interface should be implemented by the user which intends to use the library functions
+     */
     interface IBleListener {
         fun onConnected(bleService: BleService)
         fun onDisconnected()
     }
 
-    // here we bind to the android service and return an instance of ServiceConnection // do we need to pass an interface object that implements onSerivce methods
+    /**
+     * this function is used to bind the BLE service to the user's IBleListener object
+     * @param callback:IBleListener - an object which implements the interface above
+     * @param context: Context - the context in which the service will run
+     * @param intent: Intent - an intent which is used to to communicate with the background BLE Service.
+     */
     fun bind(callback:IBleListener, context: Context, intent: Intent){
          connection = object : ServiceConnection {
             override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -40,6 +58,7 @@ class BleAPICommands() {
                 callback.onDisconnected()
             }
         }
+
         context.startService(intent)
         Intent(context, BleService::class.java).also { intent ->
             context.bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
@@ -47,10 +66,18 @@ class BleAPICommands() {
 
     }
 
+    /**
+     * this function is used to unbind the BLE service once the user is done interacting with the service
+     * @param context: Context - the context in which the service will run
+     */
     fun unbind(context: Context){
         context.unbindService(connection)
     }
 
+    /**
+     * this function is used to connect the BLE service to a specific Bluetooth device
+     * @param device: BluetoothDevice - the Bluetooth device (hand controller) which the service will interact with
+     */
     fun connect(device: BluetoothDevice){
         bleService?.manager?.connect(device)
         if(bleService?.manager?.isConnected == false){
@@ -59,11 +86,17 @@ class BleAPICommands() {
 
     }
 
+    /**
+     * this function is used to terminate the connection between the BLE service and the Bluetooth device (hand controller)
+     */
     fun disconnect(){
         bleService?.manager?.disconnect()
     }
 
-
+    /**
+     * this function is used to trigger a specific preset by preset_number. please note that the controller can store up to 12 presets
+     * @param preset_number: Int - an integer between 0 - 11
+     */
     fun Hand_activation_by_preset(preset_number: Int){
         triggerService = bleService!!.manager.triggerService
         try {
@@ -75,26 +108,29 @@ class BleAPICommands() {
 
     }
 
-    fun Extract_presets(): MutableList<HandAction?> {
+    /**
+     * this function is used to extract a specific preset from the controller
+     * @param preset_number: Int - an integer between 0 - 11
+     * @return HandAction - an object which contains a list of HandMovement(describe a single hand movement) objects
+     */
+    suspend fun Extract_preset(preset_number: Int):HandAction? {
         presetService = bleService!!.manager.presetService
+        var returendPreset: HandAction? = null
+        try{
+            returendPreset = presetService?.readPreset(preset_number)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                //for (i in 0..11) {
-
-                this@BleAPICommands.presetsList.add(presetService?.readPreset(0))
-                    //presetsViewModel.presets.notifyObserver()
-                    //triggerService?.trigger(preset.id)
-                //}
-            } catch (ex: Throwable) {
-                println("No such preset")
-            }
         }
-        return this@BleAPICommands.presetsList
+        catch (e: Exception)
+        {
+            print("execption was thrown")
+        }
+        return returendPreset
     }
 
-
-
+    /**
+     * this function is used to extract the battery level
+     * @return Int - an Integer between 1 -  100 which the describe hte battery level in percentage
+     */
     fun Extract_battery_status():Int{
         batteryService = bleService!!.manager.batteryService
         val currentPercentage = batteryService?.currentPercentage

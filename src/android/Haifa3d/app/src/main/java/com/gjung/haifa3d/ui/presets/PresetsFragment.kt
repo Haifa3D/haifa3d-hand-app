@@ -32,6 +32,7 @@ import com.haifa3D.haifa3d_ble_api.model.Preset
 import com.gjung.haifa3d.notifyObserver
 import com.gjung.haifa3d.util.InjectorUtils
 import com.google.android.material.snackbar.Snackbar
+import com.haifa3D.haifa3d_ble_api.BleAPICommands
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ class PresetsFragment : BleFragment() {
     private lateinit var binding: FragmentPresetsBinding
     private var presetService: IPresetService? = null
     private var triggerService: ITriggerService? = null
+    private var apiObjectInstance: BleAPICommands? = null
     private lateinit var adapter: PresetsAdapter
     private val presetsViewModel: PresetsViewModel by activityViewModels {
         InjectorUtils.providePresetsViewModelFactory(requireContext())
@@ -52,6 +54,7 @@ class PresetsFragment : BleFragment() {
     override fun onServiceConnected() {
         presetService = bleService!!.manager.presetService
         triggerService = bleService!!.manager.triggerService
+        apiObjectInstance = this.apiObject
 
         val presets = presetsViewModel.presets.value!!
         presets.clear()
@@ -93,7 +96,8 @@ class PresetsFragment : BleFragment() {
                 if (preset.handAction == null) {
                     GlobalScope.launch(Dispatchers.Main) {
                         try {
-                            preset.handAction = presetService?.readPreset(preset.id)
+                            preset.handAction = apiObjectInstance?.Extract_preset(preset.id)
+                            //preset.handAction = presetService?.readPreset(preset.id)
                             presetsViewModel.presets.notifyObserver()
                             triggerService?.trigger(preset.id)
                         } catch(ex: Throwable) {
@@ -111,7 +115,7 @@ class PresetsFragment : BleFragment() {
                 GlobalScope.launch(Dispatchers.Main) {
                     // ensure preset is loaded or use empty if not set
                     try {
-                        preset.handAction = presetService?.readPreset(preset.id)
+                        preset.handAction = apiObjectInstance?.Extract_preset(preset.id)
                     } catch(ex: Throwable) {
                         preset.handAction = HandAction.Empty
                     }
@@ -138,7 +142,7 @@ class PresetsFragment : BleFragment() {
 
         presetsViewModel.starredPresets.observe(viewLifecycleOwner, Observer {
             adapter.starredPresets = presetsViewModel.starredPresets.value!!
-            adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged() 
         })
 
         rec.adapter = adapter

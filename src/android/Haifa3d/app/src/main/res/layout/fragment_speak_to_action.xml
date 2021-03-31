@@ -12,7 +12,7 @@ tools:context=".ui.speaktoaction.SpeakToActionFragment">
         android:orientation="horizontal"
         android:padding="30dp"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-42dp">
+        tools:layout_editor_absoluteY="46dp">
 
         <ImageView
             android:id="@+id/voiceBtn"
@@ -27,9 +27,10 @@ tools:context=".ui.speaktoaction.SpeakToActionFragment">
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Press mic button to input voice"
+            android:layout_height="336dp"
+            android:text="Press mic button to input voice \n \n \n There are 2 available commands:\n1.Activate preset number $ \n \n 2. Extract battery status"
             android:textSize="20sp" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

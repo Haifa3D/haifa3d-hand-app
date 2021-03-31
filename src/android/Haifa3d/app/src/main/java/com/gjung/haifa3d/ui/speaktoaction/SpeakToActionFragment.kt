@@ -33,13 +33,11 @@ class SpeakToActionFragment :BleFragment() {
     private var REQUEST_CODE_SPEECH_INPUT = 100
 
     override fun onServiceConnected() {
-        //presetsService = bleService!!.manager.presetService
-        //triggerService = bleService!!.manager.triggerService
+
     }
 
     override fun onServiceDisconnected() {
-        //presetsService = null
-        //triggerService = null
+
     }
 
     override fun onCreateView(
@@ -96,18 +94,12 @@ class SpeakToActionFragment :BleFragment() {
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
                     val list = result[0].split(" ")
                     textView2.text = result[0]
-                    //val presets_list: MutableList<HandAction?> = apiObject.Extract_presets()
-                    //textView2.text = "hi"
                     if (list.size>=3){
-                        if(list[0]=="extract" && list[1]=="battery" && list[2]=="status"){
+                        if((list[0]=="extract" || list[0]=="Extract") && list[1]=="battery" && list[2]=="status"){
                             val currentPercentage: Int = this.apiObject.Extract_battery_status()
                             textView2.text = "Battery level is: " + currentPercentage + " %"
                         }
-                        if(list[0]=="extract" && list[1]=="preset" && list[2]=="annotations"){
-
-
-                        }
-                        if(list[0]=="activate" && list[1]=="preset" && list[2]=="number"){
+                        if((list[0]=="activate" || list[0]=="Activate")  && list[1]=="preset" && list[2]=="number"){
                             if(list[3] != null){
                                 var convertedNum = convertNumToint(list[3])
                                 this.apiObject.Hand_activation_by_preset(convertedNum)
@@ -139,7 +131,18 @@ class SpeakToActionFragment :BleFragment() {
             "nine" -> res = 9
             "ten" -> res = 10
             "eleven" -> res = 11
-            "twelve" -> res = 12
+            "0" -> res = 0
+            "1" -> res = 1
+            "2" -> res = 2
+            "3" -> res = 3
+            "4" -> res = 4
+            "5" -> res = 5
+            "6" -> res = 6
+            "7" -> res = 7
+            "8" -> res = 8
+            "9" -> res = 9
+            "10" -> res = 10
+            "11" -> res = 11
         }
 
             return res

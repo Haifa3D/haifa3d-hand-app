@@ -30,9 +30,7 @@ abstract class BleFragment : Fragment(),IBleListener{
         var intent: Intent = Intent(requireContext(), BleService::class.java)
         intent.setType("fragment")
         apiObject.bind(this,requireContext(),intent)
-        //Intent(requireContext(), BleService::class.java).also { intent ->
-        //    requireContext().bindService(intent, connection, Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT)
-        //}
+
     }
 
     override fun onStop() {
