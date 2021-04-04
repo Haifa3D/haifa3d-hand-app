@@ -20,6 +20,12 @@ The scope of this project begins with the defintion of the BTLE based protocol a
 
 See the [programmer's manual](/doc/programmers-manual.md) for an introduction to the project from a technical & code point of view.
 
+## BLE-API
+This repository tracks the development of an Android BLE library that enables programers to use of BLE service, as well as other services which are available in the 
+Haifa 3D app.
+
+See the [programmer's BLE-API manual](/doc/programmers-manual-BLE-API.md) for an intoduction to the BLE-API library
+
 ## Releasing
 
 In `vA.B.C`, increasing A means a breaking change or (as this is a user facing app and not a lib) any big reqork etc.. Increasing B means new features. Increasing C means fixes. Public releases have versions like `vA.B.C`, while beta releases etc. follow the `vA.B.C-beta`-scheme.  See [SemVer 2](https://semver.org/) and [NBGV](https://github.com/dotnet/Nerdbank.GitVersioning) for details.
