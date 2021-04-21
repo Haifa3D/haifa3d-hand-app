@@ -1,9 +1,52 @@
-
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+}
+apply plugin: 'maven-publish' // Apply this plugin at the top of your library build.gradle
+
+def githubProperties = new Properties()
+githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
+
+def getVersionName = { ->
+    return "1.0" // Replace with version Name
+}
+
+def getArtificatId = { ->
+    return "haifa3d-ble-api" // Replace with library name ID
+}
+
+publishing {
+    publications {
+        bar(MavenPublication) {
+            groupId "com.haifa3D.haifa3d_ble_api"
+            artifactId getArtificatId()
+            version getVersionName()
+            artifact("$buildDir/outputs/aar/${getArtificatId()}-release.aar")
+        }
+
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            /** Configure path of your package repository on Github
+             ** Replace GITHUB_USERID with your/organisation Github userID
+             ** and REPOSITORY with the repository name on GitHub
+             */
+            url = uri("https://maven.pkg.github.com/asafazar92/" +
+                    "haifa3d-hand-app/src/android/Haifa3d")
+            credentials {
+                /** Create github.properties in root project folder file with
+                 ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                 ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+    }
 }
 
 android {
@@ -57,8 +100,6 @@ android {
         implementation 'androidx.navigation:navigation-ui-ktx:2.3.0'
 
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
-
 
     }
 }
