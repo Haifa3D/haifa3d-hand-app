@@ -36,8 +36,8 @@ publishing {
              ** Replace GITHUB_USERID with your/organisation Github userID
              ** and REPOSITORY with the repository name on GitHub
              */
-            url = uri("https://maven.pkg.github.com/asafazar92/" +
-                    "haifa3d-hand-app/src/android/Haifa3d")
+            url = uri("https://maven.pkg.github.com/Haifa3D/" +
+                    "haifa3d-hand-app/Haifa3d")
             credentials {
                 /** Create github.properties in root project folder file with
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
