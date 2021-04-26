@@ -18,7 +18,13 @@ This repository tracks the development of an Android app that enables users of H
 
 The scope of this project begins with the defintion of the BTLE based protocol and includes the deployment of a fully functional Android application to the Play Store that is usable by the end users.
 
-See the [programmer's manual](/doc/programmers-manual.md) for an introduction to the project from a technical & code point of view.
+See the [programmer's app manual](/doc/programmers-manual.md) for an introduction to the project from a technical & code point of view.
+
+## BLE-API
+This repository tracks the development of an Android BLE library that enables programers to use of BLE service, as well as other services which are available in the 
+Haifa 3D app.
+
+See the [programmer's BLE-API manual](/doc/programmers-manual-BLE-API.md) for an intoduction to the BLE-API library
 
 ## Releasing
 
@@ -45,3 +51,6 @@ Builds from `release/*` branches are signed using the Play Store upload certific
 ## Legal
 
 Google Play and the Google Play logo are trademarks of Google LLC.
+
+## Donation:
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?hosted_button_id=GGFJLZDB9GWXE)

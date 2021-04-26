@@ -57,3 +57,6 @@ Before the connection is established there is essentially a device discovery scr
 ## Further information
 
 Currently, the app does not need any database to store information. Everything the user sets up is directly stored on the hand controller or does not need to be stored in the first place. This app uses Firebase to collect telemetry and information about crashes using crashlytics. The app is minified using proguard as part of the release/deploy process. Deployment is done via AAB instead of APK to benefit from the new packaging format's advantages.
+
+  
+
