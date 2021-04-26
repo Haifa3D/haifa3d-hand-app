@@ -1,8 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties"))) //Set env variable GPR_USER & GPR_API_KEY if not adding a properties file
-
 buildscript {
     ext.kotlin_version = '1.4.10'
     repositories {
@@ -30,11 +27,6 @@ allprojects {
         jcenter()
         maven {
             url = "https://maven.pkg.github.com/Haifa3D/haifa3d-hand-app"
-            credentials{
-                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
-                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
-            }
-
         }
 
     }
