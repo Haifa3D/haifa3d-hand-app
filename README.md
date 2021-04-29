@@ -25,6 +25,7 @@ This repository tracks the development of an Android BLE library that enables pr
 Haifa 3D app.
 
 See the [installation BLE-API](/doc/installation-BLE-API.md) for BLE-API installation requirements.
+
 See the [programmer's BLE-API manual](/doc/programmers-manual-BLE-API.md) for an intoduction to the BLE-API library
 
 ## Releasing
