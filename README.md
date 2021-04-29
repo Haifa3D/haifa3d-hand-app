@@ -24,6 +24,7 @@ See the [programmer's app manual](/doc/programmers-manual.md) for an introductio
 This repository tracks the development of an Android BLE library that enables programers to use of BLE service, as well as other services which are available in the 
 Haifa 3D app.
 
+See the [installation BLE-API](/doc/installation-BLE-API.md) for BLE-API installation requirements.
 See the [programmer's BLE-API manual](/doc/programmers-manual-BLE-API.md) for an intoduction to the BLE-API library
 
 ## Releasing
